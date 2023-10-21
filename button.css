@@ -1,0 +1,9 @@
+.buttonclass{
+    color: rgb(113, 23, 53);
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    background-color: rgb(53, 185, 141);
+    width: 300px;
+    height: 100px;
+    border-color: blue;
+    border-style: dotted;
+}
