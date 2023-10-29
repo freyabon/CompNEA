@@ -1,0 +1,25 @@
+.logo{
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.logoImg,.divLogin,.formLogin{
+    display: block;
+    position: relative;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.divLoginWrapper{
+    width: 100%;
+    display: block;
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btnLogin{
+    width: 170px;
+}
