@@ -8,3 +8,10 @@ $('#btnSubmit').on('click', function(){
     console.log(username);
     console.log(password);
 })
+
+$('#btnTogLogin').on('click', function(){
+    console.log('login');
+    $('#divLogin').toggle();
+})
+
+btnTogLogin
