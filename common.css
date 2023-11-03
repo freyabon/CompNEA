@@ -4,7 +4,7 @@
     width: 100%;
 }
 
-.logoImg,.divLogin,.formLogin{
+.logoImg,.divLogin,.formLogin,.sbtnTogLogin{
     display: block;
     position: relative;
     width: 40%;
