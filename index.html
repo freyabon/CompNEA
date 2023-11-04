@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <link rel="stylesheet" href="common.css">
         <title>Login Page</title>
@@ -13,21 +14,26 @@
             <img id="imgLogo" src="images/logo.png" class="logoImg">
         </div>
 
-        <div class="divLogin">
-            <div class="divLoginWrapper">
-              <button id="btnTogLogin" class="sbtnTogLogin"></button>
-              <button id="btnTogRegister" class="sbtnTogRegister"></button>
-              <form id="frmLogin" class="formLogin" action="Dashboard.html" method="POST">
-                <div class="formLogin">
-                    <input id="inpUser" type="text" class="login__input" placeholder="User name / Email">
-                    <input id="inpPass" type="password" class="login__input" placeholder="Password">
-                    <!--<input id="btnSubmit" class="btnLogin" type=button onClick="parent.location='Dashboard.html'" value='Submit details'>-->
-                    <input id="btnSubmit" class="btnLogin" type="submit" type=button value='click here'>
-                </div>
-                		
-              </form>
-            </div>
+        <div id="divToggle" class="toggle">
+            <div class="inner"><button type="submit" class="sbtnTogLogin">Sign In</button></div>
+            <div class="inner"><button type="submit" class="sbtnTogRegister">Register</button></div>
         </div>
+
+        <div id="blockSignIn" class="w3-card-4">
+            <div class="w3-container w3-green">
+              <h2>Sign In</h2>
+            </div>
+            <form class="w3-container" action="Dashboard.html">
+              <p>      
+              <label class="w3-text-green"><b>Username/Email</b></label>
+              <input id="inpUser" class="w3-input w3-border w3-sand" name="first" type="text"></p>
+              <p>      
+              <label class="w3-text-green"><b>Password</b></label>
+              <input id="inpPass" class="w3-input w3-border w3-sand" name="last" type="password"></p>
+              <p>
+              <button id="btnSubmit" class="w3-btn w3-green">Register</button></p>
+            </form>
+          </div>
         
         <script src="loginpage.js"></script>
     </body>

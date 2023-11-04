@@ -9,9 +9,14 @@ $('#btnSubmit').on('click', function(){
     console.log(password);
 })
 
-$('#btnTogLogin').on('click', function(){
-    console.log('login');
-    $('#divLogin').toggle();
-})
+$(document).ready(function(){
+    $("#toggleSignIn").click(function(){
+      $("#blockSignIn").toggle();
+      console.log('Clicked');
+    });
+    $("#toggleRegister").click(function(){
+        $(".w3-card-4").toggle();
+        console.log('Clicked');
+      });
+  });
 
-btnTogLogin
