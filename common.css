@@ -1,3 +1,39 @@
+.passError{
+    display: none;
+    color: #f00;
+}
+
+.dash{
+    display: block;
+    position: relative;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btnSearch, .btnSaved, .btnRegion{
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 9px #999;
+    }
+
+    .btnSearch:hover, .btnSaved:hover, .btnRegion:hover {background-color: #3e8e41}
+
+    .btnSearch:active, .btnSaved:active, .btnRegion:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
+    }
+
 .logo{
     display: block;
     position: relative;
@@ -24,7 +60,7 @@
     display: inline-block;
 }
 
-.sbtnTogLogin{
+.sbtnTogLogin, .sbtnTogRegister{
     display: inline-block;
     padding: 10px 20px;
     font-size: 16px;
@@ -39,36 +75,13 @@
     box-shadow: 0 9px #999;
   }
   
-  .sbtnTogLogin:hover {background-color: #3e8e41}
+  .sbtnTogLogin:hover, .sbtnTogRegister:hover {background-color: #3e8e41}
   
-  .sbtnTogLogin:active {
+  .sbtnTogLogin:active, .sbtnTogRegister:active {
     background-color: #3e8e41;
     box-shadow: 0 2px #666;
     transform: translateY(4px);
   }
-
-.sbtnTogRegister{
-    display: inline-block;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    }
-
-    .sbtnTogRegister:hover {background-color: #3e8e41}
-
-    .sbtnTogRegister:active {
-    background-color: #3e8e41;
-    box-shadow: 0 2px #666;
-    transform: translateY(4px);
-    }
 
 .logoImg{
     display: block;

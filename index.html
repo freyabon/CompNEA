@@ -6,7 +6,7 @@
         <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
         <link rel="stylesheet" href="common.css">
-        <title>Login Page</title>
+        <title>Sign In/Register</title>
         
     </head>
     <body>
@@ -15,8 +15,8 @@
         </div>
 
         <div id="divToggle" class="toggle">
-            <div class="inner"><button type="submit" class="sbtnTogLogin">Sign In</button></div>
-            <div class="inner"><button type="submit" class="sbtnTogRegister">Register</button></div>
+            <div class="inner"><button id="toggleSignIn" type="submit" class="sbtnTogLogin">Sign In</button></div>
+            <div class="inner"><button id="toggleRegister" type="submit" class="sbtnTogRegister">Register</button></div>
         </div>
 
         <div id="blockSignIn" class="w3-card-4">
@@ -31,9 +31,34 @@
               <label class="w3-text-green"><b>Password</b></label>
               <input id="inpPass" class="w3-input w3-border w3-sand" name="last" type="password"></p>
               <p>
-              <button id="btnSubmit" class="w3-btn w3-green">Register</button></p>
+              <button id="btnSubmit" class="w3-btn w3-green">Sign In</button></p>
             </form>
-          </div>
+        </div>
+
+        <div id="blockRegister" class="w3-card-4">
+            <div class="w3-container w3-teal">
+              <h2>Register</h2>
+            </div>
+            <form class="w3-container" action="Dashboard.html">
+              <p>      
+                <label class="w3-text-teal"><b>Username/Email</b></label>
+                <input id="regUser" class="w3-input w3-border w3-sand" name="first" type="text">
+              </p>
+              <p>      
+                <label class="w3-text-teal"><b>Password</b></label>
+                <input id="regPass" class="w3-input w3-border w3-sand" name="last" type="password">
+              </p>
+              <p>      
+                <label class="w3-text-teal"><b>Re-enter password</b></label>
+                <input id="regPass2" class="w3-input w3-border w3-sand" name="last" type="password">
+              </p>
+              <p>
+                <button id="btnRegister" class="w3-btn w3-teal">Register</button>
+                <span id="spPassError" class="passError">Passwords do not match. Please try again.</span>
+              </p>
+              
+            </form>
+        </div>
         
         <script src="loginpage.js"></script>
     </body>

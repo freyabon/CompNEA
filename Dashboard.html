@@ -1,13 +1,25 @@
 <!DOCTYPE html>
-<head>
-    <link rel="stylesheet" href="dashboard.css">
-    <title>Dashboard</title>
-</head>
-<body>
-    <p><span class="fancy">dashboard</span></p>
-    <form onsubmit="event.preventDefault();" role="search">
-        <label for="search">Search for stuff</label>
-        <input id="search" type="search" placeholder="Search..." autofocus required />
-        <button type="submit">Go</button>    
-      </form>
-</body>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="common.css">
+        <title>Dashboard</title>
+        
+    </head>
+    <body>
+        <div id="divLogo" class="logo">
+            <img id="imgLogo" src="images/logo.png" class="logoImg">
+        </div>
+
+        <div id="divDashboard" class="dash">
+            <div class="inner"><button id="dashSearch" type="submit" class="btnSearch">Search for a ticker</button></div>
+            <div class="inner"><button id="dashSaved" type="submit" class="btnSaved">Saved tickers</button></div>
+            <div class="inner"><button id="dashRegion" type="submit" class="btnRegion">View a region</button></div>
+        </div>
+
+        <script src="loginpage.js"></script>
+    </body>
+</html>
