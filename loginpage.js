@@ -1,11 +1,6 @@
 console.log('Loaded');
 
 $(document).ready(function(){
-    const usernames = [];
-    const passwords = [];
-    var password;
-    var password2;
-
 
     $("#blockRegister").hide();
 
