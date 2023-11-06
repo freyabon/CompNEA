@@ -3,6 +3,28 @@
     color: #f00;
 }
 
+.icon-bar {
+    width: 90px;
+    background-color: #555;
+}
+  
+.icon-bar a {
+    display: block;
+    text-align: center;
+    padding: 16px;
+    transition: all 0.3s ease; 
+    color: white; 
+    font-size: 36px;
+}
+  
+.icon-bar a:hover {
+    background-color: #000; 
+}
+  
+.active {
+    background-color: #04AA6D; 
+}
+
 .dash{
     display: block;
     position: relative;
@@ -13,6 +35,9 @@
 
 .btnSearch, .btnSaved, .btnRegion{
     display: inline-block;
+    margin-top: 90px;
+    min-width: 200px;
+    height: 100px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
