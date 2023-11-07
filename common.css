@@ -1,3 +1,40 @@
+.topnav {
+    width: 100%;
+    position: relative;
+    display: block;
+    overflow: hidden;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.topnav .search-container {
+    float: right;
+    position: inherit;
+    margin-left: auto;
+    margin-right: auto;
+}
+  
+.topnav input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: #3e8e41;
+}
+  
+.topnav .search-container button {
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #4CAF50;
+    font-size: 17px;
+    border: #000;
+    cursor: pointer;
+}
+  
+.topnav .search-container button:hover {
+    background:#04AA6D;
+}
+
 .passError{
     display: none;
     color: #f00;
