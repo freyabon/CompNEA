@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "nyjXgzXPQMhr6XBAgpPo5xMb7K4frOqv02EeseYSf0g=",
+  "Hash": "AKalQT8mFcbTIwfPshs0FB/IuJA7sVq82/wcisrlYOU=",
   "Source": "sustainableStockApp",
   "BasePath": "_content/sustainableStockApp",
   "Mode": "Default",
@@ -51,6 +51,23 @@
       "OriginalItemSpec": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\obj\\Debug\\net6.0\\scopedcss\\projectbundle\\sustainableStockApp.bundle.scp.css"
     },
     {
+      "Identity": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\css\\common.css",
+      "SourceId": "sustainableStockApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\",
+      "BasePath": "_content/sustainableStockApp",
+      "RelativePath": "css/common.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\common.css"
+    },
+    {
       "Identity": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\css\\site.css",
       "SourceId": "sustainableStockApp",
       "SourceType": "Discovered",
@@ -83,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\js\\loginpage.js",
+      "SourceId": "sustainableStockApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\",
+      "BasePath": "_content/sustainableStockApp",
+      "RelativePath": "js/loginpage.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\js\\loginpage.js"
     },
     {
       "Identity": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\js\\site.js",

@@ -5,12 +5,20 @@
       "PackagePath": "staticwebassets\\sustainableStockApp.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\css\\common.css",
+      "PackagePath": "staticwebassets\\css\\common.css"
+    },
+    {
       "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\css\\site.css",
       "PackagePath": "staticwebassets\\css\\site.css"
     },
     {
       "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\favicon.ico",
       "PackagePath": "staticwebassets\\favicon.ico"
+    },
+    {
+      "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\js\\loginpage.js",
+      "PackagePath": "staticwebassets\\js\\loginpage.js"
     },
     {
       "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\js\\site.js",
