@@ -1,1 +1,0 @@
-C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockAzureApp\obj\Release\net6.0\browser-wasm\PubTmp\Out\web.config
