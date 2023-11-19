@@ -1,0 +1,37 @@
+﻿@{
+    var userId = Context.Session.GetString("UserId");
+    if (string.IsNullOrEmpty(userId))
+    {
+        // Redirects to login page if user not authenticated
+        <script>
+            window.location.href = '/Home/Login';
+        </script>
+    }
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="common.css">
+    <title>Dashboard</title>
+
+</head>
+<body>
+    <div id="divLogo" class="logo">
+        <img id="imgLogo" src="images/logo.png" class="logoImg">
+    </div>
+
+    <div id="divDashboard" class="dash">
+        <div class="inner"><a href="ticker_info.html"><button id="dashSearch" type="submit" class="btnSearch"><i class="fa fa-search"></i>Search for a ticker</button></a></div>
+        <div class="inner"><a href="saved_tickers.html"><button id="dashSaved" type="submit" class="btnSaved"><i class="fa fa-heart" aria-hidden="true"></i>Saved tickers</button></a></div>
+        <div class="inner"><a href="view_region.html"><button id="dashRegion" type="submit" class="btnRegion"><i class="fa fa-globe"></i>View a region</button></a></div>
+    </div>
+
+    <script src="loginpage.js"></script>
+</body>
+</html>
