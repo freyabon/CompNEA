@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "AKalQT8mFcbTIwfPshs0FB/IuJA7sVq82/wcisrlYOU=",
+  "Hash": "XGPFuvPUDkeq/h4ipMABOqb/mjGV2hCHIPwQlAxYooI=",
   "Source": "sustainableStockApp",
   "BasePath": "_content/sustainableStockApp",
   "Mode": "Default",
@@ -100,6 +100,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\favicon.ico"
+    },
+    {
+      "Identity": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\images\\logo.png",
+      "SourceId": "sustainableStockApp",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\",
+      "BasePath": "_content/sustainableStockApp",
+      "RelativePath": "images/logo.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\images\\logo.png"
     },
     {
       "Identity": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\js\\loginpage.js",

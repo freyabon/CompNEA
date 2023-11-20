@@ -18,13 +18,13 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="~/css/common.css" asp-append-version="true" />
     <title>Dashboard</title>
 
 </head>
 <body>
     <div id="divLogo" class="logo">
-        <img id="imgLogo" src="images/logo.png" class="logoImg">
+        <img id="imgLogo" src="~/images/logo.png" alt="Logo" class="logoImg">
     </div>
 
     <div id="divDashboard" class="dash">
@@ -33,6 +33,6 @@
         <div class="inner"><a href="view_region.html"><button id="dashRegion" type="submit" class="btnRegion"><i class="fa fa-globe"></i>View a region</button></a></div>
     </div>
 
-    <script src="loginpage.js"></script>
+    <script src="~/js/loginpage.js" asp-append-version="true"></script>
 </body>
 </html>

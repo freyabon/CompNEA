@@ -17,6 +17,10 @@
       "PackagePath": "staticwebassets\\favicon.ico"
     },
     {
+      "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\images\\logo.png",
+      "PackagePath": "staticwebassets\\images\\logo.png"
+    },
+    {
       "Id": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\wwwroot\\js\\loginpage.js",
       "PackagePath": "staticwebassets\\js\\loginpage.js"
     },

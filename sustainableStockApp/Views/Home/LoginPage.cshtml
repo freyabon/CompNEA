@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null; // Disables layout for this page
+    Layout = null;
 }
 
 <!DOCTYPE html>
@@ -9,13 +9,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="common.css">
+    <link rel="stylesheet" href="~/css/common.css" asp-append-version="true" />
     <title>Sign In/Register</title>
 
 </head>
 <body>
     <div id="divLogo" class="logo">
-        <img id="imgLogo" src="images/logo.png" class="logoImg">
+        <img id="imgLogo" src="~/images/logo.png" alt="Logo" class="logoImg">
     </div>
 
     <div id="divToggle" class="toggle">
@@ -67,7 +67,7 @@
         </form>
     </div>
 
-    <script src="loginpage.js"></script>
+    <script src="~/js/loginpage.js" asp-append-version="true"></script>
 </body>
 </html>
 
