@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "BYJh0lF8r/s6TJ6fFyKBmJoQacu2JofYT5yVqfMzWJ0Ho5ATnDm8UxS3Hqkq07vlhan+VTN/cvkA81tU8YPBwg==",
+  "dgSpecHash": "rOVrUJ4kSy3AlhYQBe1sel5hMHiMV+rEbNQEklUXtyCy/6OhZZWYiJHIiBDG+Mk0loGgwcbPrQ6LnL3b0Bo65g==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\sustainableStockApp.csproj",
+  "projectFilePath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Freya\\.nuget\\packages\\azure.core\\1.25.0\\azure.core.1.25.0.nupkg.sha512",
     "C:\\Users\\Freya\\.nuget\\packages\\azure.identity\\1.7.0\\azure.identity.1.7.0.nupkg.sha512",

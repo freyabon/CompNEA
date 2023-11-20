@@ -782,20 +782,6 @@
         "runtime": {
           "lib/netstandard2.0/YahooFinanceApi.dll": {}
         }
-      },
-      "getStocksClass/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "Microsoft.Data.SqlClient": "5.1.2",
-          "YahooFinanceApi": "2.3.0"
-        },
-        "compile": {
-          "bin/placeholder/getStocksClass.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/getStocksClass.dll": {}
-        }
       }
     }
   },
@@ -2182,18 +2168,12 @@
         "yahoofinanceapi.2.3.0.nupkg.sha512",
         "yahoofinanceapi.nuspec"
       ]
-    },
-    "getStocksClass/1.0.0": {
-      "type": "project",
-      "path": "../StockData/getStocksClass.csproj",
-      "msbuildProject": "../StockData/getStocksClass.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
       "Microsoft.Data.SqlClient >= 5.1.2",
-      "YahooFinanceApi >= 2.3.0",
-      "getStocksClass >= 1.0.0"
+      "YahooFinanceApi >= 2.3.0"
     ]
   },
   "packageFolders": {
@@ -2203,11 +2183,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\sustainableStockApp.csproj",
-      "projectName": "sustainableStockApp",
-      "projectPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\sustainableStockApp.csproj",
+      "projectUniqueName": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj",
+      "projectName": "getStocksClass",
+      "projectPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj",
       "packagesPath": "C:\\Users\\Freya\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\sustainableStockApp\\obj\\",
+      "outputPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -2227,11 +2207,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj": {
-              "projectPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {
@@ -2265,9 +2241,6 @@
         "assetTargetFallback": true,
         "warn": true,
         "frameworkReferences": {
-          "Microsoft.AspNetCore.App": {
-            "privateAssets": "none"
-          },
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
