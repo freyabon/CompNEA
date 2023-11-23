@@ -15,5 +15,10 @@ namespace sustainableStockApp.Controllers
             HttpContext.Session.Remove("UserId");
             return RedirectToAction("Login", "Home");
         }
+
+        public IActionResult Search()
+        {
+            return RedirectToAction("Search", "Home");
+        }
     }
 }

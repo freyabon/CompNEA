@@ -21,12 +21,7 @@ namespace sustainableStockApp.Controllers
             return View();
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult Privacy()
+        public IActionResult Search()
         {
             return View();
         }

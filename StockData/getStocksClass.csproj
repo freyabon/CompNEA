@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
     <PackageReference Include="YahooFinanceApi" Version="2.3.0" />
   </ItemGroup>
 

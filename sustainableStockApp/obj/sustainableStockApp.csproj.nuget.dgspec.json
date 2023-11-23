@@ -48,6 +48,26 @@
               "target": "Package",
               "version": "[5.1.2, )"
             },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            },
+            "System.Threading.Tasks": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Threading.Tasks.Extensions": {
+              "target": "Package",
+              "version": "[4.5.4, )"
+            },
             "YahooFinanceApi": {
               "target": "Package",
               "version": "[2.3.0, )"
@@ -120,6 +140,26 @@
             "Microsoft.Data.SqlClient": {
               "target": "Package",
               "version": "[5.1.2, )"
+            },
+            "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "Microsoft.Extensions.Logging": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            },
+            "System.Data.SqlClient": {
+              "target": "Package",
+              "version": "[4.8.5, )"
+            },
+            "System.Threading.Tasks": {
+              "target": "Package",
+              "version": "[4.3.0, )"
+            },
+            "System.Threading.Tasks.Extensions": {
+              "target": "Package",
+              "version": "[4.5.4, )"
             },
             "YahooFinanceApi": {
               "target": "Package",

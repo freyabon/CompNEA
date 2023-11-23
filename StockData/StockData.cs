@@ -6,11 +6,19 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using YahooFinanceApi;
+using Microsoft.Extensions.Logging;
 
 namespace stockAPI
 {
     public class StockData
     {
+        private readonly ILogger<StockData> _logger;
+
+        public StockData(ILogger<StockData> logger)
+        {
+            _logger = logger;
+        }
+
         private const string ConnectionString = "Server=tcp:sustainablestocks.database.windows.net,1433;Initial Catalog=TickerInfo;Persist Security Info=False;User ID=CloudSAceb07454;Password=Ozymandias1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
         public async Task<dynamic> GetStockData(string symbol, DateTime startDate, DateTime endDate)
@@ -24,16 +32,16 @@ namespace stockAPI
 
                 for (int i = 0; i < historicData.Count; i++)
                 {
-                    Console.WriteLine($"{companyName} Closing price on: " +
-                                      $"{historicData[i].DateTime.Day}/{historicData[i].DateTime.Month}/" +
-                                      $"{historicData[i].DateTime.Year}: ${Math.Round(historicData[i].Close, 2)}");
+                    _logger.LogInformation($"{companyName} Closing price on: " +
+                                           $"{historicData[i].DateTime.Day}/{historicData[i].DateTime.Month}/" +
+                                           $"{historicData[i].DateTime.Year}: ${Math.Round(historicData[i].Close, 2)}");
                 }
 
                 return historicData;
             }
-            catch
+            catch (Exception ex)
             {
-                Console.WriteLine("Failed to get symbol: " + symbol);
+                _logger.LogError($"Failed to get symbol: {symbol}. Error: {ex.Message}");
                 return null;
             }
         }
@@ -60,7 +68,7 @@ namespace stockAPI
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Failed to store data in the database: {ex.Message}");
+                _logger.LogError($"Failed to store data in the database: {ex.Message}");
             }
         }
     }

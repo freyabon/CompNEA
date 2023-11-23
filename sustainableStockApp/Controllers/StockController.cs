@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using stockAPI;
+using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace sustainableStockApp.Controllers
 {

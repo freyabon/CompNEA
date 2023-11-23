@@ -1,5 +1,6 @@
 ﻿@{
-    ViewData["Title"] = "Dashboard";
+    //ViewData["Title"] = "Dashboard";
+    Layout = null;
     var userId = Context.Session.GetString("UserId");
     if (string.IsNullOrEmpty(userId))
     {
@@ -28,9 +29,13 @@
     </div>
 
     <div id="divDashboard" class="dash">
-        <div class="inner"><a href="ticker_info.html"><button id="dashSearch" type="submit" class="btnSearch"><i class="fa fa-search"></i>Search for a ticker</button></a></div>
-        <div class="inner"><a href="saved_tickers.html"><button id="dashSaved" type="submit" class="btnSaved"><i class="fa fa-heart" aria-hidden="true"></i>Saved tickers</button></a></div>
-        <div class="inner"><a href="view_region.html"><button id="dashRegion" type="submit" class="btnRegion"><i class="fa fa-globe"></i>View a region</button></a></div>
+        <form asp-controller="User" asp-action="Search" method="post">
+            <div class="inner">
+                <button id="dashSearch" type="submit" class="btnSearch"><i class="fa fa-search"></i> Search for a ticker</button>
+            </div>
+        </form>
+        <div class="inner"><a href="saved_tickers.html"><button id="dashSaved" type="submit" class="btnSaved" asp-controller="User" asp-action="Search"><i class="fa fa-heart" aria-hidden="true"></i>Saved tickers</button></a></div>
+        <div class="inner"><a href="view_region.html"><button id="dashRegion" type="submit" class="btnRegion" asp-controller="User" asp-action="Search"><i class="fa fa-globe"></i>View a region</button></a></div>
     </div>
 
     <script src="~/js/loginpage.js" asp-append-version="true"></script>
