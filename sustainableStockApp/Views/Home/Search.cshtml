@@ -1,7 +1,50 @@
-﻿@{
+﻿@using sustainableStockApp.Controllers
+@model QueryModel
+
+@{
     ViewData["Title"] = "Search";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Search for ticker</h1>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/css/common.css" asp-append-version="true" />
+    <title>Search for ticker</title>
+
+</head>
+<body>
+
+    <h1 class="w3-text-green">Search for ticker</h1>
+    
+    <div>
+        <form asp-controller="Query" asp-action="Search" method="post">
+            <p>
+                <label class="w3-text-green"><b>Ticker Symbol</b></label>
+                <input class="w3-input w3-border w3-sand" asp-for="symbol" type="text">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>Start Date</b></label>
+                <input class="w3-input w3-border w3-sand" asp-for="startDate" type="date">
+            </p>
+            <p>
+                <label class="w3-text-green"><b>End Date</b></label>
+                <input class="w3-input w3-border w3-sand" asp-for="endDate" type="date">
+            </p>
+            <p>
+                <button class="w3-btn w3-green" type="submit">Search</button>
+            </p>
+        </form>
+
+
+    </div>
+
+    
+
+    <script src="~/js/loginpage.js" asp-append-version="true"></script>
+</body>
+</html>

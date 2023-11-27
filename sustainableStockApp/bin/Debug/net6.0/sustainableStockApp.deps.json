@@ -11,6 +11,7 @@
           "Microsoft.Data.SqlClient": "5.1.2",
           "Microsoft.Extensions.DependencyInjection": "8.0.0",
           "Microsoft.Extensions.Logging": "8.0.0",
+          "QueryDataClass": "1.0.0",
           "System.Data.SqlClient": "4.8.5",
           "System.Threading.Tasks": "4.3.0",
           "System.Threading.Tasks.Extensions": "4.5.4",
@@ -614,6 +615,16 @@
         "runtime": {
           "getStocksClass.dll": {}
         }
+      },
+      "QueryDataClass/1.0.0": {
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "System.Data.SqlClient": "4.8.5",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "runtime": {
+          "QueryDataClass.dll": {}
+        }
       }
     }
   },
@@ -1030,6 +1041,11 @@
       "hashPath": "yahoofinanceapi.2.3.0.nupkg.sha512"
     },
     "getStocksClass/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "QueryDataClass/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

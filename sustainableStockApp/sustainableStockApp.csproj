@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\QueryDataClass\QueryDataClass.csproj" />
     <ProjectReference Include="..\StockData\getStocksClass.csproj" />
   </ItemGroup>
 

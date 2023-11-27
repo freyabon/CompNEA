@@ -1018,6 +1018,21 @@
         "runtime": {
           "bin/placeholder/getStocksClass.dll": {}
         }
+      },
+      "QueryDataClass/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "dependencies": {
+          "Microsoft.Extensions.Logging": "8.0.0",
+          "System.Data.SqlClient": "4.8.5",
+          "System.Threading.Tasks.Extensions": "4.5.4"
+        },
+        "compile": {
+          "bin/placeholder/QueryDataClass.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/QueryDataClass.dll": {}
+        }
       }
     }
   },
@@ -2919,6 +2934,11 @@
       "type": "project",
       "path": "../StockData/getStocksClass.csproj",
       "msbuildProject": "../StockData/getStocksClass.csproj"
+    },
+    "QueryDataClass/1.0.0": {
+      "type": "project",
+      "path": "../QueryDataClass/QueryDataClass.csproj",
+      "msbuildProject": "../QueryDataClass/QueryDataClass.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -2926,6 +2946,7 @@
       "Microsoft.Data.SqlClient >= 5.1.2",
       "Microsoft.Extensions.DependencyInjection >= 8.0.0",
       "Microsoft.Extensions.Logging >= 8.0.0",
+      "QueryDataClass >= 1.0.0",
       "System.Data.SqlClient >= 4.8.5",
       "System.Threading.Tasks >= 4.3.0",
       "System.Threading.Tasks.Extensions >= 4.5.4",
@@ -2965,6 +2986,9 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
+            "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\QueryDataClass\\QueryDataClass.csproj": {
+              "projectPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\QueryDataClass\\QueryDataClass.csproj"
+            },
             "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj": {
               "projectPath": "C:\\Users\\Freya\\OneDrive\\Documents\\CRGS\\Computing\\Programming Project\\CompNEA\\StockData\\getStocksClass.csproj"
             }

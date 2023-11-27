@@ -1,0 +1,12 @@
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\bin\Debug\net6.0\QueryDataClass.deps.json
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\bin\Debug\net6.0\QueryDataClass.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\bin\Debug\net6.0\QueryDataClass.pdb
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.csproj.AssemblyReference.cache
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.AssemblyInfoInputs.cache
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.AssemblyInfo.cs
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.csproj.CoreCompileInputs.cache
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\refint\QueryDataClass.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.pdb
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\ref\QueryDataClass.dll
