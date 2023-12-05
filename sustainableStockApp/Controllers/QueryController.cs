@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using QueryDataClass;
+using stockAPI;
 using System.ComponentModel.DataAnnotations;
 
 namespace sustainableStockApp.Controllers
@@ -22,14 +23,19 @@ namespace sustainableStockApp.Controllers
         public string Symbol { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public IEnumerable<dynamic> QueriedData { get; set; }
+        public IEnumerable<StockData> QueriedData { get; set; }
     }
 
     public class CombinedViewModel
     {
         public QueryModel QueryModel { get; set; }
         public SearchViewModel SearchViewModel { get; set; }
+        public IEnumerable<StockData> QueriedData { get; set; }
+        public string? symbol { get; set; }
+        public DateTime startDate { get; set; }
+        public DateTime endDate { get; set; }
     }
+
 
     public class QueryController : Controller
     {
@@ -54,16 +60,30 @@ namespace sustainableStockApp.Controllers
             {
                 return View("Error");
             }
+
             try
             {
                 var data = await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
 
-                var viewModel = new SearchViewModel
+                if (data == null)
                 {
-                    Symbol = model.symbol,
-                    StartDate = model.startDate,
-                    EndDate = model.endDate,
-                    QueriedData = data
+                    return View("Error");
+                }
+
+                var viewModel = new CombinedViewModel
+                {
+                    QueryModel = model,
+                    SearchViewModel = new SearchViewModel
+                    {
+                        Symbol = model.symbol,
+                        StartDate = model.startDate,
+                        EndDate = model.endDate,
+                        QueriedData = data
+                    },
+                    QueriedData = data,
+                    symbol = model.symbol,
+                    startDate = model.startDate,
+                    endDate = model.endDate
                 };
 
                 return View(viewModel);
@@ -74,6 +94,7 @@ namespace sustainableStockApp.Controllers
                 return View("Error");
             }
         }
+
 
     }
 }
