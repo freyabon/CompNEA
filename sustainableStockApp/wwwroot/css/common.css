@@ -69,11 +69,26 @@
     margin-top: 10px;
 }
 
-.btnSearch, .btnSaved, .btnRegion {
-    display: inline-block;
-    margin-top: 90px;
-    min-width: 200px;
-    height: 100px;
+#divDashboard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    height: 100vh;
+}
+
+.inner {
+    margin: 10px;
+    text-align: center;
+}
+
+.btnSearch,
+.btnSaved,
+.btnRegion {
+    width: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -85,17 +100,30 @@
     border: none;
     border-radius: 15px;
     box-shadow: 0 9px #999;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
 }
 
-    .btnSearch:hover, .btnSaved:hover, .btnRegion:hover {
-        background-color: #3e8e41
+    .btnSearch:hover,
+    .btnSaved:hover,
+    .btnRegion:hover {
+        background-color: #3e8e41;
     }
 
-    .btnSearch:active, .btnSaved:active, .btnRegion:active {
+    .btnSearch:active,
+    .btnSaved:active,
+    .btnRegion:active {
         background-color: #3e8e41;
         box-shadow: 0 2px #666;
         transform: translateY(4px);
     }
+
+    .btnSearch i,
+    .btnSaved i,
+    .btnRegion i {
+        margin-top: 5px;
+        font-size: 30px;
+    }
+
 
 .logo {
     display: block;

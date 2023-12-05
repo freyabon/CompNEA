@@ -17,7 +17,19 @@ namespace sustainableStockApp.Controllers
         public DateTime endDate { get; set; }
     }
 
+    public class SearchViewModel
+    {
+        public string Symbol { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
+        public IEnumerable<dynamic> QueriedData { get; set; }
+    }
 
+    public class CombinedViewModel
+    {
+        public QueryModel QueryModel { get; set; }
+        public SearchViewModel SearchViewModel { get; set; }
+    }
 
     public class QueryController : Controller
     {
@@ -44,8 +56,17 @@ namespace sustainableStockApp.Controllers
             }
             try
             {
-                await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
-                return RedirectToAction("Dashboard", "Home");
+                var data = await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
+
+                var viewModel = new SearchViewModel
+                {
+                    Symbol = model.symbol,
+                    StartDate = model.startDate,
+                    EndDate = model.endDate,
+                    QueriedData = data
+                };
+
+                return View(viewModel);
             }
             catch (Exception ex)
             {

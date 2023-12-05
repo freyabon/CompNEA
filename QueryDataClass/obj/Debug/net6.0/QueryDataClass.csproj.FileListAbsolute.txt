@@ -10,3 +10,6 @@ C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\Que
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\refint\QueryDataClass.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.pdb
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\ref\QueryDataClass.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\bin\Debug\net6.0\getStocksClass.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\bin\Debug\net6.0\getStocksClass.pdb
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\QueryDataClass\obj\Debug\net6.0\QueryDataClass.csproj.CopyComplete

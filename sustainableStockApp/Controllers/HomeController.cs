@@ -25,6 +25,10 @@ namespace sustainableStockApp.Controllers
         {
             return View();
         }
+        public IActionResult Regions()
+        {
+            return View();
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

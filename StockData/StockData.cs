@@ -18,6 +18,13 @@ namespace stockAPI
         {
             _logger = logger;
         }
+        public StockData()
+        {
+
+        }
+        public string Dates { get; set; }
+        public int Closes { get; set; }
+
 
         private const string ConnectionString = "Server=tcp:sustainablestocks.database.windows.net,1433;Initial Catalog=TickerInfo;Persist Security Info=False;User ID=CloudSAceb07454;Password=Ozymandias1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -56,11 +63,15 @@ namespace stockAPI
 
                     foreach (var quote in data)
                     {
-                        string insertQuery = $"INSERT INTO historicalDataTest (Dates, Symbol, Closes) " +
-                                             $"VALUES ('{quote.DateTime}', '{symbol}', {Convert.ToInt32(Math.Round(quote.Close, 2))})";
+                        string insertQuery = "INSERT INTO historicalDataTest (Dates, Symbol, Closes) " +
+                                             "VALUES (@dates, @symbol, @closes)";
 
                         using (SqlCommand cmd = new SqlCommand(insertQuery, connection))
                         {
+                            cmd.Parameters.AddWithValue("@dates", quote.DateTime);
+                            cmd.Parameters.AddWithValue("@symbol", symbol);
+                            cmd.Parameters.AddWithValue("@closes", Math.Round(quote.Close, 2));
+
                             await cmd.ExecuteNonQueryAsync();
                         }
                     }

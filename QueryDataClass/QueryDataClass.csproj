@@ -12,4 +12,8 @@
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StockData\getStocksClass.csproj" />
+  </ItemGroup>
+
 </Project>
