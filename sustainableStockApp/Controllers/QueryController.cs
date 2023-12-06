@@ -64,30 +64,32 @@ namespace sustainableStockApp.Controllers
             try
             {
                 var data = await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
-
-                if (data == null)
-                {
-                    return View("Error");
-                }
-
-                var viewModel = new CombinedViewModel
-                {
-                    QueryModel = model,
-                    SearchViewModel = new SearchViewModel
-                    {
-                        Symbol = model.symbol,
-                        StartDate = model.startDate,
-                        EndDate = model.endDate,
-                        QueriedData = data
-                    },
-                    QueriedData = data,
-                    symbol = model.symbol,
-                    startDate = model.startDate,
-                    endDate = model.endDate
-                };
-
-                return View(viewModel);
+                return RedirectToAction("Dashboard", "Home");
             }
+
+            /*if (data == null)
+            {
+                return View("Error");
+            }
+
+            var viewModel = new CombinedViewModel
+            {
+                QueryModel = model,
+                SearchViewModel = new SearchViewModel
+                {
+                    Symbol = model.symbol,
+                    StartDate = model.startDate,
+                    EndDate = model.endDate,
+                    QueriedData = data
+                },
+                QueriedData = data,
+                symbol = model.symbol,
+                startDate = model.startDate,
+                endDate = model.endDate
+            };
+
+            return View(viewModel);
+        }*/
             catch (Exception ex)
             {
                 _logger.LogError($"Error during search: {ex.Message}");
