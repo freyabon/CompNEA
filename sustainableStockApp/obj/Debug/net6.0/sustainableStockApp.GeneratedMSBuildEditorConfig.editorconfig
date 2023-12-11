@@ -16,6 +16,10 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp
 build_property._RazorSourceGeneratorDebug = 
 
+[C:/Users/Freya/OneDrive/Documents/CRGS/Computing/Programming Project/CompNEA/sustainableStockApp/Views/Employees/Add.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbG95ZWVzXEFkZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Freya/OneDrive/Documents/CRGS/Computing/Programming Project/CompNEA/sustainableStockApp/Views/Home/Dashboard.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxEYXNoYm9hcmQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
@@ -30,10 +34,6 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Freya/OneDrive/Documents/CRGS/Computing/Programming Project/CompNEA/sustainableStockApp/Views/Home/Search.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxTZWFyY2guY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Freya/OneDrive/Documents/CRGS/Computing/Programming Project/CompNEA/sustainableStockApp/Views/Home/Test.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxUZXN0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Freya/OneDrive/Documents/CRGS/Computing/Programming Project/CompNEA/sustainableStockApp/Views/Shared/Error.cshtml]

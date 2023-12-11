@@ -48,10 +48,10 @@ namespace sustainableStockApp.Controllers
         {
             var dataResult = await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
 
-            List<string> dates = dataResult.Item1;
-            List<int> closes = dataResult.Item2;
+            //List<string> dates = dataResult.Item1;
+            //List<int> closes = dataResult.Item2;
 
-            for (int i = 0; i < dates.Count; i++)
+            /*for (int i = 0; i < dates.Count; i++)
             {
                 QueryModel dataToSave = new QueryModel
                 {
@@ -61,7 +61,7 @@ namespace sustainableStockApp.Controllers
                 };
 
                 context.QueriedData.Add(dataToSave);
-            }
+            }*/
 
             context.SaveChanges();
 

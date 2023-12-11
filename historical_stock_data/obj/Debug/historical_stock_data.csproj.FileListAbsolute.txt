@@ -84,3 +84,5 @@ C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\his
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\historical_stock_data\bin\Debug\ru\Microsoft.Data.SqlClient.resources.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\historical_stock_data\bin\Debug\zh-Hans\Microsoft.Data.SqlClient.resources.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\historical_stock_data\bin\Debug\zh-Hant\Microsoft.Data.SqlClient.resources.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\historical_stock_data\bin\Debug\System.IO.FileSystem.AccessControl.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\historical_stock_data\bin\Debug\System.IO.FileSystem.AccessControl.xml

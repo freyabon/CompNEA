@@ -88,3 +88,10 @@ C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sus
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\EntityFramework.SqlServer.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\EntityFramework.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\System.CodeDom.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\Humanizer.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\WebMatrix.Data.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Design.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.SqlServer.dll
