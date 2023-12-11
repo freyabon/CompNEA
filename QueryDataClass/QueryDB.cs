@@ -18,6 +18,11 @@ namespace QueryDataClass
         {
             _logger = logger;
         }
+        public class StockDataResult
+        {
+            public List<string> Dates { get; set; }
+            public List<int> Closes { get; set; }
+        }
 
         private const string ConnectionString = "Server=tcp:sustainablestocks.database.windows.net,1433;Initial Catalog=TickerInfo;Persist Security Info=False;User ID=CloudSAceb07454;Password=Ozymandias1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
 
@@ -42,20 +47,17 @@ namespace QueryDataClass
 
                         SqlDataReader rdr = await cmd.ExecuteReaderAsync();
 
-                        List<StockData> result = new List<StockData>();
+                        List<string> dates = new List<string>();
+                        List<int> closes = new List<int>();
+
                         while (rdr.Read())
                         {
-                            StockData data = new StockData
-                            {
-                                Dates = rdr["Dates"].ToString(),
-                                Closes = Convert.ToInt32(rdr["Closes"])
-                            };
-                            result.Add(data);
-                            _logger.LogInformation($"Date: {data.Dates}, Symbol: {symbol}, Closes: {data.Closes}");
+                            dates.Add(rdr["Dates"].ToString());
+                            closes.Add(Convert.ToInt32(rdr["Closes"]));
+                            _logger.LogInformation($"Date: {dates.Last()}, Symbol: {symbol}, Closes: {closes.Last()}");
                         }
 
-
-                        return result;
+                        return (IEnumerable<StockData>)Tuple.Create(dates, closes);
                     }
                 }
             }

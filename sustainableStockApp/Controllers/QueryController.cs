@@ -2,7 +2,9 @@
 using Microsoft.Extensions.Logging;
 using QueryDataClass;
 using stockAPI;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 
 namespace sustainableStockApp.Controllers
 {
@@ -18,22 +20,9 @@ namespace sustainableStockApp.Controllers
         public DateTime endDate { get; set; }
     }
 
-    public class SearchViewModel
+    public class DataContext : DbContext
     {
-        public string Symbol { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
-        public IEnumerable<StockData> QueriedData { get; set; }
-    }
-
-    public class CombinedViewModel
-    {
-        public QueryModel QueryModel { get; set; }
-        public SearchViewModel SearchViewModel { get; set; }
-        public IEnumerable<StockData> QueriedData { get; set; }
-        public string? symbol { get; set; }
-        public DateTime startDate { get; set; }
-        public DateTime endDate { get; set; }
+        public DbSet<QueryModel> QueriedData { get; set; }
     }
 
 
@@ -41,6 +30,7 @@ namespace sustainableStockApp.Controllers
     {
         private readonly ILogger<StockController> _logger;
         private readonly QueryDB _queryDB;
+        DataContext context = new DataContext();
 
         public QueryController(ILogger<StockController> logger, QueryDB queryDB)
         {
@@ -54,49 +44,36 @@ namespace sustainableStockApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Search(QueryModel model)
+        public async Task<IActionResult> callData(QueryModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View("Error");
-            }
+            var dataResult = await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
 
-            try
-            {
-                var data = await _queryDB.SelectDataInDatabase(model.symbol, model.startDate, model.endDate);
-                return RedirectToAction("Dashboard", "Home");
-            }
+            List<string> dates = dataResult.Item1;
+            List<int> closes = dataResult.Item2;
 
-            /*if (data == null)
+            for (int i = 0; i < dates.Count; i++)
             {
-                return View("Error");
-            }
-
-            var viewModel = new CombinedViewModel
-            {
-                QueryModel = model,
-                SearchViewModel = new SearchViewModel
+                QueryModel dataToSave = new QueryModel
                 {
-                    Symbol = model.symbol,
-                    StartDate = model.startDate,
-                    EndDate = model.endDate,
-                    QueriedData = data
-                },
-                QueriedData = data,
-                symbol = model.symbol,
-                startDate = model.startDate,
-                endDate = model.endDate
-            };
+                    symbol = model.symbol,
+                    startDate = DateTime.Parse(dates[i]),
+                    endDate = DateTime.Parse(dates[i]) // Assuming endDate should be of DateTime type
+                };
 
-            return View(viewModel);
-        }*/
-            catch (Exception ex)
-            {
-                _logger.LogError($"Error during search: {ex.Message}");
-                return View("Error");
+                context.QueriedData.Add(dataToSave);
             }
-        }
 
+            context.SaveChanges();
+
+            string message = "SUCCESS";
+            return Json(new { Message = message });
+        }
+        public JsonResult getData(string id)
+        {
+            List<QueryModel> data = new List<QueryModel>();
+            data = context.QueriedData.ToList();
+            return Json(data);
+        }
 
     }
 }

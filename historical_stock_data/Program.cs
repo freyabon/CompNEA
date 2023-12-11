@@ -25,10 +25,8 @@ namespace historical_stock_data
 
                 StockData stock = new StockData();
 
-                // Get historical data
                 var historicData = await stock.GetStockData(symbol, startDate, endDate);
 
-                // Store data in Azure SQL Database
                 await stock.StoreDataInDatabase(historicData, symbol);
 
                 Console.WriteLine();
@@ -44,7 +42,8 @@ namespace historical_stock_data
 
     class StockData
     {
-        private const string ConnectionString = "Server=tcp:sustainablestocks.database.windows.net,1433;Initial Catalog=TickerInfo;Persist Security Info=False;User ID=CloudSAceb07454;Password=Ozymandias1!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        
+        private const string ConnectionString = "Server=localhost\\SQLEXPRESS01;Database=master;Trusted_Connection=True;";
 
         public async Task<dynamic> GetStockData(string symbol, DateTime startDate, DateTime endDate)
         {

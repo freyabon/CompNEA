@@ -10,3 +10,5 @@ C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\Sto
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\StockData\obj\Debug\net6.0\refint\getStocksClass.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\StockData\obj\Debug\net6.0\getStocksClass.pdb
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\StockData\obj\Debug\net6.0\ref\getStocksClass.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\StockData\bin\Debug\net6.0\getStocksClass.runtimeconfig.json
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\StockData\obj\Debug\net6.0\getStocksClass.genruntimeconfig.cache

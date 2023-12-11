@@ -85,3 +85,6 @@ C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sus
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\obj\Debug\net6.0\sustainableStockApp.csproj.CopyComplete
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\QueryDataClass.dll
 C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\QueryDataClass.pdb
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\EntityFramework.SqlServer.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\EntityFramework.dll
+C:\Users\Freya\OneDrive\Documents\CRGS\Computing\Programming Project\CompNEA\sustainableStockApp\bin\Debug\net6.0\System.CodeDom.dll
