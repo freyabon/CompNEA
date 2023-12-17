@@ -1,77 +1,66 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="common.css">
-        <title>Ticker Info</title>
-        
-    </head>
-    <body>
-        <div class="board">
-            <div class="topnav">
-                <div class="search-container">
-                    <form action="/action_page.php">
-                      <input type="text" placeholder="Search for a ticker..." name="search">
-                      <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-            </div>
-    
-            <div class="icon-bar">
-                <a class="active" href="dashboard.html"><i class="fa fa-home"></i></a>
-                <a href="ticker_info.html"><i class="fa fa-search"></i></a>
-                <a href="saved_tickers.html"><i class="fa fa-heart" aria-hidden="true"></i></a>
-                <a href="view_region.html"><i class="fa fa-globe"></i></a>
-                <a href="index.html"><i class="fa fa-sign-out" aria-hidden="true"></i></a>
-            </div>
-        </div>
+<html lang="en">
 
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="common.css">
+    <title>Ticker Info</title>
+</head>
 
+<body>
+    <ul>
+        <li><a href="ticker_info.html" class="active">Home</a></li>
+        <li><a href="view_region.html">News</a></li>
+        <li><a href="saved_tickers.html">Saved</a></li>
+        <li><a href="index.html">Sign Out</a></li>
+    </ul>
+    <div id="divLogo" class="logo">
+        <img id="imgLogo" src="images/logo.png" class="logoImg">
+    </div>
+
+    <div class="container form-container">
         <h1 class="w3-text-green">Search for ticker</h1>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Please enter the details below.</h3>
+                    </div>
+                    <div class="panel-body">
+                        <form>
+                            <div class="form-group col-md-5">
+                                <label for="TickerSymbol">Ticker Symbol</label>
+                                <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter Ticker Symbol" required>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="StartDate">Start Date</label>
+                                <input type="date" name="StartDate" id="StartDate" class="form-control" placeholder="Enter start date" required>
+                            </div>
+                            <div class="form-group col-md-5">
+                                <label for="EndDate">End Date</label>
+                                <input type="date" name="EndDate" id="EndDate" class="form-control" placeholder="Enter end date" required>
+                            </div>
 
-        <div class="col-md-12">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h3 class="panel-title">Please enter the details below.</h3>
-                </div>
-                <div class="panel-body">
-                    <div class="form-group col-md-5">
-                        <label>Ticker Symbol</label>
-                        <input type="text" name="TickerSymbol" id="TickerSybmol" class="form-control" placeholder="Enter Ticker Symbol" required="" />
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label>Start Date</label>
-                        <input type="date" name="StartDate" id="StartDate" class="form-control" placeholder="Enter start date" required="" />
-                    </div>
-                    <div class="form-group col-md-5">
-                        <label>End Date</label>
-                        <input type="date" name="EndDate" id="EndDate" class="form-control" placeholder="Enter end date" required="" />
-                    </div>
-       
-                    <div class="form-group col-md-1">
-                        <div style="float: right;">
-                            <input class="btn btn-primary" name="submitButton" id="btnSave" value="Save" type="button">
-                        </div>
+                            <div class="form-group col-md-1">
+                                <div style="float: right;">
+                                    <input class="btn btn-primary" name="submitButton" id="btnSave" value="Save" type="button">
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div><hr />
-            <table id="tblTicker" class="table table-bordered table-striped table-responsive table-hover">
-                <thead>
-                    <tr>
-                        <th align="left" class="productth">Symbol</th>
-                        <th align="left" class="productth">Date</th>
-                        <th align="left" class="productth">Close</th>
-                    </tr>
-                </thead>
-                <tbody></tbody>
-            </table>
+            </div>
         </div>
-        
-        <script src="loginpage.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    </body>
+    </div>
+
+    <script src="loginpage.js"></script>
+</body>
+
 </html>

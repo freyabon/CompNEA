@@ -1,36 +1,40 @@
+ul {
+    list-style-type: none;
+    margin: 20px;
+    padding: 12px;
+    overflow: hidden;
+    background-color:#61b241;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: inline;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+li a:hover:not(.active) {
+    background-color:#5ca73e;
+}
+
+.active {
+    background-color: #5ca73e;
+}
+
+.logo{
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
 .board {
     position: relative;
     text-align: center;
-}
-
-.topnav {
-    overflow: hidden;
-    display: inline-block;
-}
-
-.topnav .search-container {
-    display: inline-block;
-    margin: auto;
-}
-
-.topnav input[type=text] {
-    padding: 25px 25px; 
-    font-size: 19px;
-    border: 2px solid #04AA6D;
-    box-sizing: border-box;
-    border-radius: 20px;
-}
-
-.topnav .search-container button {
-    padding: 28px 28px;
-    background:  #04AA6D;
-    border: 2px solid #04AA6D;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.topnav .search-container button:hover {
-    background: #037b4f;
 }
 
 
@@ -39,71 +43,12 @@
     color: #f00;
 }
 
-.icon-bar {
-    width: 90px;
-    background-color: #555;
-}
-  
-.icon-bar a {
-    display: block;
-    text-align: center;
-    padding: 16px;
-    transition: all 0.3s ease; 
-    color: white; 
-    font-size: 36px;
-}
-  
-.icon-bar a:hover {
-    background-color: #000; 
-}
-  
-.active {
-    background-color: #04AA6D; 
-}
-
 .dash{
     display: block;
     position: relative;
     width: 100%;
     text-align: center;
     margin-top: 10px;
-}
-
-.btnSearch, .btnSaved, .btnRegion{
-    display: inline-block;
-    margin-top: 90px;
-    min-width: 200px;
-    height: 100px;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    text-align: center;
-    text-decoration: none;
-    outline: none;
-    color: #fff;
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 9px #999;
-    }
-
-    .btnSearch:hover, .btnSaved:hover, .btnRegion:hover {background-color: #3e8e41}
-
-    .btnSearch:active, .btnSaved:active, .btnRegion:active {
-    background-color: #3e8e41;
-    box-shadow: 0 2px #666;
-    transform: translateY(4px);
-    }
-
-    .btnSearch i, .btnSaved i, .btnRegion i {
-        margin-top: 5px;
-        font-size: 30px;
-    }
-
-.logo{
-    display: block;
-    position: relative;
-    width: 100%;
 }
 
 .w3-card-4{
