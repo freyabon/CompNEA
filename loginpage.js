@@ -24,28 +24,6 @@ $(document).ready(function(){
         password=$('#inpPass')[0].value;
         console.log(username);
         console.log(password);
-
-        /*$("#outUsername").html(username);*/
-    })
-
-
-
-    $('#btnRegister').on('click', function(e){
-        username=$('#regUser')[0].value;
-        password=$('#regPass')[0].value;
-        password2=$('#regPass2')[0].value;
-        console.log(username);
-        console.log(password);
-        
-        if(password === password2){
-            $("#spPassError").hide();
-            console.log('Registered');
-            usernames.push(username);
-            passwords.push(password);
-        } else{
-            e.preventDefault();
-            $("#spPassError").show();
-        }
     })
 });
 

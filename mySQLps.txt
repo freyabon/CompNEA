@@ -1,0 +1,5 @@
+Ozymandias1!
+
+Windows Service Name: MySQL80
+
+Port: 3306

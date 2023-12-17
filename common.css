@@ -95,6 +95,11 @@
     transform: translateY(4px);
     }
 
+    .btnSearch i, .btnSaved i, .btnRegion i {
+        margin-top: 5px;
+        font-size: 30px;
+    }
+
 .logo{
     display: block;
     position: relative;

@@ -8,7 +8,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MVCDemoDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("MvcDemoConnectionString")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DataConnectionString")));
 builder.Services.AddSession();
 builder.Services.AddScoped<StockData>();
 builder.Services.AddScoped<QueryDB>();
