@@ -16,15 +16,48 @@ $(document).ready(function(){
         console.log('Register Clicked');
       });
 
-    $('#btnSubmit').on('click', function(e){
-        /*e.preventDefault();*/
-        console.log('clicked');
-        //$('#login_page').toggle();
-        username=$('#inpUser')[0].value;
-        password=$('#inpPass')[0].value;
-        console.log(username);
-        console.log(password);
-    })
+    $('#btnSubmit').on('click', function (e) {
+        //e.preventDefault();
+        var username = $('#inpUser').val();
+        var password = $('#inpPass').val();
+        
+        authenticateUser(username, password);
+    });
+    
+    function authenticateUser(username, password){
+        var found = false
+
+        fetch('http://localhost:2500/getUserDetails')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                data.forEach(item => {
+                    if (username === item.Username && password === item.Password) {
+                        console.log(item.Username);
+                        found = true;
+                    }
+                });
+                if (found) {
+                    $('#sumbitForm').submit();
+                } else {
+                    $("#userFoundError").show();
+                }
+            })
+            .catch(error => console.error('Error:', error));
+    }
+
+
+    $('#btnRetrieve').on('click', function () {
+        fetch('http://localhost:2500/getUserDetails')
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+    
+                data.forEach(item => console.log(item.Username));
+            })
+            .catch(error => console.error('Error:', error));
+           
+    });
 
     $('#btnRegister').on('click', function(e){
         username=$('#regUser')[0].value;
@@ -42,7 +75,7 @@ $(document).ready(function(){
               Password: password
           };
       
-          fetch('http://localhost:3000/registerUserDetails', {
+          fetch('http://localhost:2500/registerUserDetails', {
               method: 'POST',
               headers: {
                   'Content-Type': 'application/json',
@@ -62,17 +95,5 @@ $(document).ready(function(){
             $("#spPassError").show();
         }
     })
-
-    $('#btnRetrieve').on('click', function () {
-      fetch('http://localhost:3000/getUserDetails')
-          .then(response => response.json())
-          .then(data => {
-              console.log(data);
-  
-              data.forEach(item => console.log(item.Username));
-          })
-          .catch(error => console.error('Error:', error));
-         
-  });
 });
 

@@ -23,7 +23,7 @@
             <div class="w3-container w3-green">
               <h2>Sign In</h2>
             </div>
-            <form class="w3-container" action="ticker_info.html">
+            <form id="submitForm" class="w3-container" action="ticker_info.html">
               <p>      
               <label class="w3-text-green"><b>Username/Email</b></label>
               <input id="inpUser" class="w3-input w3-border w3-sand" name="first" type="text"></p>
@@ -32,6 +32,7 @@
               <input id="inpPass" class="w3-input w3-border w3-sand" name="last" type="password"></p>
               <p>
               <button id="btnSubmit" class="w3-btn w3-green">Sign In</button></p>
+              <span id=userFoundError" class="passError">User not found. Please try again.</span>
             </form>
         </div>
 

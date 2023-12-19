@@ -3,7 +3,7 @@ const {createPool} = require('mysql');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
-const port = 3000;
+const port = 2500;
 const pool = createPool({
     host: "localhost",
     user: "Freya",
@@ -27,8 +27,8 @@ app.get('/getUserDetails', (req, res) => {
 });
 
 app.post('/registerUserDetails', (req, res) => {
-    const { Username, Password } = req.user;
-    console.log(req.user);
+    const { Username, Password } = req.body;
+    console.log(req.body);
 
     if (!Username || !Password) {
         res.status(400).send('All fields must be completed');
