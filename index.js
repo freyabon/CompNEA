@@ -15,16 +15,41 @@ const pool = createPool({
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/getUserDetails', (req, res) => {
-    pool.query('SELECT * FROM sustainablestocks.userdetails', (err, results) => {
+/*app.get('/getUserDetails?Username=${Username}', (req, res) => {
+    const { Username, Password } = req.body;
+    const queryString = 'SELECT * FROM sustainablestocks.userdetails WHERE Username = ?';
+    pool.query(queryString, [Username], (err, results) => {
         if (err) {
             console.error(err, "server");
             res.status(500).send('Internal server error');
             return;
         }
-        res.json(results)
+        res.json(results);
+    });
+});*/
+
+app.get('/getUserDetails', (req, res) => {
+    const { Username } = req.query;
+    console.log(req.query)
+
+    if (!Username) {
+        res.status(400).send('Username must be provided');
+        return;
+    }
+
+    const SelectQuery = 'SELECT Password FROM sustainablestocks.userdetails WHERE Username = ?';
+    const SelectValues = [Username];
+
+    pool.query(SelectQuery , SelectValues, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results)   
     });
 });
+
 
 app.post('/registerUserDetails', (req, res) => {
     const { Username, Password } = req.body;

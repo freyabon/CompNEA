@@ -17,7 +17,7 @@ $(document).ready(function(){
       });
 
     $('#btnSubmit').on('click', function (e) {
-        //e.preventDefault();
+        $("#userFoundError").hide();
         var username = $('#inpUser').val();
         var password = $('#inpPass').val();
         
@@ -25,23 +25,26 @@ $(document).ready(function(){
     });
     
     function authenticateUser(username, password){
-        var found = false
 
-        fetch('http://localhost:2500/getUserDetails')
+        fetch(`http://localhost:2500/getUserDetails?Username=${username}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
             .then(response => response.json())
             .then(data => {
                 console.log(data);
                 data.forEach(item => {
-                    if (username === item.Username && password === item.Password) {
-                        console.log(item.Username);
-                        found = true;
+                    if (password === item.Password) {
+                        console.log(item.Password);
+                        window.location.href = "ticker_info.html";
+                        document.getElementById('userDiv').innerHTML = document.getElementById("inpUser").value;
+                    } else{
+                        $("#userFoundError").show();
+                        e.preventDefault();
                     }
                 });
-                if (found) {
-                    $('#sumbitForm').submit();
-                } else {
-                    $("#userFoundError").show();
-                }
             })
             .catch(error => console.error('Error:', error));
     }
