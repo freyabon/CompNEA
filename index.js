@@ -15,19 +15,6 @@ const pool = createPool({
 app.use(cors());
 app.use(bodyParser.json());
 
-/*app.get('/getUserDetails?Username=${Username}', (req, res) => {
-    const { Username, Password } = req.body;
-    const queryString = 'SELECT * FROM sustainablestocks.userdetails WHERE Username = ?';
-    pool.query(queryString, [Username], (err, results) => {
-        if (err) {
-            console.error(err, "server");
-            res.status(500).send('Internal server error');
-            return;
-        }
-        res.json(results);
-    });
-});*/
-
 app.get('/getUserDetails', (req, res) => {
     const { Username } = req.query;
     console.log(req.query)
@@ -41,6 +28,19 @@ app.get('/getUserDetails', (req, res) => {
     const SelectValues = [Username];
 
     pool.query(SelectQuery , SelectValues, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results)   
+    });
+});
+
+app.get('/getTickerList', (req, res) => {
+    const SelectQuery = 'SELECT * FROM sustainablestocks.tickerlist';
+
+    pool.query(SelectQuery, (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
@@ -70,6 +70,28 @@ app.post('/registerUserDetails', (req, res) => {
             return;
         }
         res.status(200).send('User data inserted successfully');   
+    });
+});
+
+app.post('/updateTickerTable', (req, res) => {
+    const { tickerid, date, open, high, low, close, volume } = req.body;
+    console.log(req.body);
+
+    if (!tickerid || !date || !open || !high || !low || !close || !volume) {
+        res.status(400).send('All fields must be completed');
+        return;
+    }
+
+    const insertQuery = 'INSERT INTO sustainablestocks.tickerdata (tickerid, date, open, high, low, close, volume) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const insertValues = [tickerid, date, open, high, low, close, volume];
+
+    pool.query(insertQuery , insertValues, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.status(200).send('Ticker data inserted successfully');   
     });
 });
 

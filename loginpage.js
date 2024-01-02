@@ -17,7 +17,6 @@ $(document).ready(function(){
       });
 
     $('#btnSubmit').on('click', function (e) {
-        $("#userFoundError").hide();
         var username = $('#inpUser').val();
         var password = $('#inpPass').val();
         
@@ -35,16 +34,20 @@ $(document).ready(function(){
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                let found = false;
                 data.forEach(item => {
                     if (password === item.Password) {
                         console.log(item.Password);
-                        window.location.href = "ticker_info.html";
-                        document.getElementById('userDiv').innerHTML = document.getElementById("inpUser").value;
-                    } else{
-                        $("#userFoundError").show();
-                        e.preventDefault();
+                        found = true;
                     }
                 });
+                if (found) {
+                    window.location.href = "ticker_info.html";
+                    document.getElementById('userDiv').innerHTML = username;
+                } else {
+                    e.preventDefault();
+                    $("#userFoundError").show();
+                }
             })
             .catch(error => console.error('Error:', error));
     }
