@@ -21,9 +21,17 @@
             <img id="imgLogo" src="images/logo.png" class="logoImg">
         </div>
 
-        <div style="position: absolute; top: 10px;">
-            <canvas width="1000px" height="800px" id="stockChart"></canvas>
+        <div id="blockCallStockAPI" class="w3-card-4">
+            <div class="w3-container w3-green">
+              <h2>Call API</h2>
+            </div class="w3-container">
+            <p>      
+            <label class="w3-text-green"><b>Enter TickerID</b></label>
+            <input id="inpTickerID" class="w3-input w3-border w3-sand" name="inp_ticker" type="text"></p>
+            <p>
+            <button id="btnTickerID" class="w3-btn w3-green">Call</button></p>
         </div>
+
 
         <script src="rapidAPI.js"></script>
     </body>

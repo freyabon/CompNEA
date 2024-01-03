@@ -1,5 +1,5 @@
-async function fetchData() {
-    const ticker = 'BEP';
+async function fetchData(ticker_id) {
+    const ticker = ticker_id;
     const url = 'https://alpha-vantage.p.rapidapi.com/query?function=TIME_SERIES_DAILY&symbol=' + ticker + '&outputsize=compact&datatype=json';
     const options = {
         method: 'GET',
@@ -52,4 +52,8 @@ async function fetchData() {
     }
 }
 
-fetchData();
+$('#btnTickerID').on('click', function () {
+    ticker_id=$('#inpTickerID')[0].value;
+    fetchData(ticker_id);
+});
+
