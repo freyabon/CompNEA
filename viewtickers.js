@@ -23,3 +23,4 @@ function showTickers(data){
     });  
     $("#tblTickers").append(tickeritemhtml);          
 }
+

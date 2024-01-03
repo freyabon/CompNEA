@@ -1,5 +1,6 @@
 .tickerDiv{
     display: block;
+    margin: auto;
     height: 100px;
     width: 100%;
 }
