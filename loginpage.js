@@ -43,7 +43,6 @@ $(document).ready(function(){
                 });
                 if (found) {
                     window.location.href = "ticker_info.html";
-                    document.getElementById('userDiv').innerHTML = username;
                 } else {
                     e.preventDefault();
                     $("#userFoundError").show();
@@ -51,19 +50,6 @@ $(document).ready(function(){
             })
             .catch(error => console.error('Error:', error));
     }
-
-
-    $('#btnRetrieve').on('click', function () {
-        fetch('http://localhost:2500/getUserDetails')
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-    
-                data.forEach(item => console.log(item.Username));
-            })
-            .catch(error => console.error('Error:', error));
-           
-    });
 
     $('#btnRegister').on('click', function(e){
         username=$('#regUser')[0].value;

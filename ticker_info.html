@@ -71,29 +71,18 @@
 
     <p><span id='userDiv' class="panel-title"></span></p>
 
-    <div class="container form-container">
-        <h1 class="w3-text-green">Search for ticker</h1>
+    <div class="container form-container" id="divTickerSearch">
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-primary">
                     <div class="panel-body">
                         <div class="form-group col-md-5">
-                            <label for="TickerSymbol">Ticker Symbol</label>
+                            <label for="TickerSymbol">Search for ticker:</label>
                             <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter Ticker Symbol" required>
                         </div>
-
-                        <!--<div class="form-group col-md-5">
-                            <label for="StartDate">Start Date</label>
-                            <input type="date" name="StartDate" id="StartDate" class="form-control" placeholder="Enter start date" required>
-                        </div>
-                        <div class="form-group col-md-5">
-                            <label for="EndDate">End Date</label>
-                            <input type="date" name="EndDate" id="EndDate" class="form-control" placeholder="Enter end date" required>
-                        </div>-->
-
                         <div class="form-group col-md-1">
                             <div style="float: right;">
-                                <input class="btn btn-primary" name="submitButton" id="btnSave" value="Save" type="button">
+                                <input class="btn btn-primary" name="submitButton" id="btnSearch" value="Search" type="button">
                             </div>
                         </div>
                     </div>
@@ -102,15 +91,13 @@
         </div>
     </div>
 
-    <p><button id="btnTickers" class="w3-btn w3-green">View all tickers</button></p>
-
     <div id="divTickerInfo" class="tickerDiv">
-        <table id="tblTickers" class="tickerTable">
-
-        </table>
+        <table id="tblTickers" class="tickerTable"></table>
     </div>
 
-    <div id="myChart" style="display: block; max-width:700px; height:400px; margin: auto;"></div>
+    <h1 id="tickerName"></h1>
+
+    <div id="myChart" style="display: block; position: relative; max-width:700px; height:400px; margin: auto;"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="viewtickers.js"></script>
