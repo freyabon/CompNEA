@@ -2,6 +2,15 @@
     margin: auto;
     display: block;
     position: relative;
+    border-radius: 7px;
+}
+
+.saveButton{
+    margin: auto;
+    display: block;
+    position: relative;
+    border-radius: 7px;
+    background-color: #4CAF50;
 }
 
 .form-group col-md-5{
@@ -20,6 +29,36 @@
     margin-top: 20px;
 }
 
+.signinBlock {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 40%;
+    padding: 10px;
+    border: 3px solid;
+    border-radius: 7px;
+    border-color: #5ca73e;
+    box-shadow: 10px 10px 5px #3e8e41;
+    width: 50%;
+    display: block;
+    position: relative;
+    margin-top: 3%;
+}
+
+.registerBlock {
+    margin: auto;
+    margin-bottom: 50px;
+    width: 40%;
+    padding: 10px;
+    border: 3px solid;
+    border-radius: 7px;
+    border-color: teal;
+    box-shadow: 10px 10px 5px teal;
+    width: 50%;
+    display: block;
+    position: relative;
+    margin-top: 3%;
+}
+
 #divTickerSearch {
     margin-bottom: 50px;
     width: 40%;
@@ -27,6 +66,7 @@
     border: 3px solid;
     border-radius: 7px;
     border-color: #5ca73e;
+    box-shadow: 10px 10px 5px #3e8e41;
 }
 
 #TickerSymbol{
@@ -55,7 +95,7 @@ table, th, td {
     border: 2.25px solid;
     border-radius: 7px;
     border-color: #5ca73e;
-  }
+}
 
 .tickerTable {
     display: block;
@@ -92,10 +132,11 @@ table, th, td {
 
 ul {
     list-style-type: none;
-    margin: 20px;
+    margin-bottom: 10px;
     padding: 12px;
     overflow: hidden;
     background-color:#61b241;
+    border-radius: 7px;
 }
 
 li {
@@ -112,10 +153,12 @@ li a {
 
 li a:hover:not(.active) {
     background-color:#5ca73e;
+    border-radius: 7px;
 }
 
 .active {
     background-color: #5ca73e;
+    border-radius: 7px;
 }
 
 .logo{
@@ -143,13 +186,6 @@ li a:hover:not(.active) {
     margin-top: 10px;
 }
 
-.w3-card-4{
-    width: 50%;
-    display: block;
-    position: relative;
-    margin: auto;
-    margin-top: 5%;
-}
 
 .toggle{
     display: block;
@@ -165,6 +201,7 @@ li a:hover:not(.active) {
 
 .sbtnTogLogin, .sbtnTogRegister{
     display: inline-block;
+    margin: 15px;
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
@@ -175,7 +212,7 @@ li a:hover:not(.active) {
     background-color: #4CAF50;
     border: none;
     border-radius: 15px;
-    box-shadow: 0 9px #999;
+    box-shadow: 5px 5px 5px #4caf4f8a;
   }
   
   .sbtnTogLogin:hover, .sbtnTogRegister:hover {background-color: #3e8e41}
@@ -189,8 +226,18 @@ li a:hover:not(.active) {
 .logoImg{
     display: block;
     position: relative;
-    width: 40%;
+    width: 20%;
     margin-left: auto;
+    text-align: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 7px;
+}
+
+.logoImgv1{
+    display: block;
+    position: relative;
+    width: 40%;
     margin-right: auto;
+    margin-left: auto;
     text-align: center;
 }

@@ -1,7 +1,5 @@
-console.log('Loaded');
-
 $(document).ready(function(){
-
+    //login page code
     $("#blockRegister").hide();
 
     $("#toggleSignIn").click(function(){
@@ -42,7 +40,8 @@ $(document).ready(function(){
                     }
                 });
                 if (found) {
-                    window.location.href = "ticker_info.html";
+                    const queryString = `?username=${username}`;
+                    window.location.href = `ticker_info.html${queryString}`;
                 } else {
                     e.preventDefault();
                     $("#userFoundError").show();
@@ -87,5 +86,6 @@ $(document).ready(function(){
             $("#spPassError").show();
         }
     })
+
 });
 

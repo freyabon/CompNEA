@@ -1,1 +1,0 @@
-SELECT continent FROM sustainablestocks.region, sustainablestocks.tickerlist WHERE tickerid = ? AND sustainablestocks.tickerlist.regionid = sustainablestocks.tickerlist;
