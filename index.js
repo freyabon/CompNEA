@@ -37,6 +37,28 @@ app.get('/getUserDetails', (req, res) => {
     });
 });
 
+app.get('/getSavedTickers', (req, res) => {
+    const { Username } = req.query;
+    console.log(req.query)
+
+    if (!Username) {
+        res.status(400).send('Username must be provided');
+        return;
+    }
+
+    const SelectSavedQuery = 'SELECT tickerid FROM sustainablestocks.savedtickers WHERE Username = ?';
+    const SelectSavedValues = [Username];
+
+    pool.query(SelectSavedQuery , SelectSavedValues, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results)   
+    });
+});
+
 app.get('/getTickerData', (req, res) => {
     const { tickerid } = req.query;
     console.log(req.query)
@@ -92,6 +114,50 @@ app.post('/registerUserDetails', (req, res) => {
             return;
         }
         res.status(200).send('User data inserted successfully');   
+    });
+});
+
+app.post('/saveTicker', (req, res) => {
+    const { Username, tickerid } = req.body;
+    console.log(req.body);
+
+    if (!Username || !tickerid) {
+        res.status(400).send('All fields must be completed');
+        return;
+    }
+
+    const SaveTickerQuery = 'INSERT INTO sustainablestocks.savedtickers (Username, tickerid) VALUES (?, ?)';
+    const SaveTickerValues = [Username, tickerid];
+
+    pool.query(SaveTickerQuery , SaveTickerValues, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.status(200).send('Saved ticker inserted successfully');   
+    });
+});
+
+app.delete('/unsaveTicker', (req, res) => {
+    const { Username, tickerid } = req.body;
+    console.log(req.body);
+
+    if (!Username || !tickerid) {
+        res.status(400).send('All fields must be completed');
+        return;
+    }
+
+    const UnsaveTickerQuery = 'DELETE FROM sustainablestocks.savedtickers WHERE tickerid = ?';
+    const UnsaveTickerValues = [tickerid];
+
+    pool.query(UnsaveTickerQuery , UnsaveTickerValues, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.status(200).send('Unsaved ticker successfully');   
     });
 });
 

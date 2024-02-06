@@ -9,6 +9,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
     <link rel="stylesheet" href="common.css">
     <title>Ticker Info</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -26,7 +28,7 @@
         <img id="imgLogo" src="images/logo.png" class="logoImg">
     </div>
 
-    <p><span id='userDiv' class="panel-title"></span></p>
+    <p><span id='userDiv' class="welcomeName"></span></p>
 
     <div class="container form-container" id="divTickerSearch">
         <div class="row">
@@ -52,9 +54,12 @@
         <table id="tblTickers" class="tickerTable"></table>
     </div>
 
-    <h1 id="tickerName"></h1>
-
-    <div id="myChart" style="display: block; position: relative; max-width:700px; height:400px; margin: auto;"></div>
+    <div id="tickerContainerDiv" class="tickerContainerClass">
+        <h1 id="tickerName" class="tickerNameClass"></h1>
+        <!--<div id="myChart" style="display: inline; position: relative; max-width:700px; height:400px; margin: auto;"></div>-->
+        <div id="demo"></div>
+    
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="viewtickers.js"></script>
