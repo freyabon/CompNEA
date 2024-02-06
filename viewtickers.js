@@ -1,6 +1,5 @@
 $(document).ready(function(){
-    $('#myChart').hide();
-    $('#demo').hide();
+    $('#historicalDataGraph').hide();
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');
     
@@ -136,50 +135,28 @@ function showTickers(data, username){
 }         
 
 function showTickerData(data, tickerid){
-    console.log(data);
+    const dates = data.map(item => new Date(item.date));
+    const closePrices = data.map(item => parseFloat(item.close));
+
     $('#divTickerSearch').hide();
     $("#tblTickers").hide();
     $('#userDiv').hide();
-    //$('#myChart').show();
-    $('#demo').show();
-    const surface = document.getElementById('demo');
+    $('#historicalDataGraph').show(); 
+    const surface = document.getElementById('historicalDataGraph');
 
-    let values = [
-        {x: 1, y: 20},
-        {x: 2, y: 30},
-        {x: 3, y: 15},
-        {x: 4, y: 12}
-    ];
+    const values = dates.map((date, index) => ({ x: date, y: closePrices[index] }));
 
-    tfvis.render.linechart(surface, {values});
-
-    $("#tickerName").append(tickerid);
-
-    //google.charts.load('current', {'packages':['line']});
-    //google.charts.setOnLoadCallback(drawChart(data, tickerid));
-}
-
-function drawChart(chartData, tickerid) {
-    var dataTable = new google.visualization.DataTable();
-    dataTable.addColumn('date', 'Date');
-    dataTable.addColumn('number', 'Close price');
-    dataTable.addColumn('number', 'Prediction');
-
-    chartData.forEach(item => {
-        console.log(item);
-        dataTable.addRows([item.date, item.close]);
-    });
-
-    var options = {
-    chart: {
-        title: 'Close prices for ticker: ' + tickerid,
-        subtitle: 'in dollars (USD)'
-    },
-    width: 900,
-    height: 500
+    const options = {
+        xLabel: 'Date',
+        yLabel: 'Close Price (USD)',
+        title: `Historical Data for ${tickerid}`,
+        seriesColors: ['green'],
+        seriesLabel: ['Close Price'],
+        xAxisDomain: dates,
+        yAxisDomain: [Math.min(...closePrices), Math.max(...closePrices)]
     };
 
-    var chart = new google.charts.Line(document.getElementById('myChart'));
+    tfvis.render.linechart(surface, { values }, options);
 
-    chart.draw(dataTable, google.charts.Line.convertOptions(options));
+    $("#tickerName").append(tickerid);
 }
