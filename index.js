@@ -83,8 +83,29 @@ app.get('/getTickerData', (req, res) => {
 
 app.get('/getTickerList', (req, res) => {
     const SelectQuery = 'SELECT tickerid, tickername, continent FROM sustainablestocks.tickerlist JOIN sustainablestocks.region ON sustainablestocks.tickerlist.regionid = sustainablestocks.region.regionid';
-
+    
     pool.query(SelectQuery, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results) 
+    });
+});
+
+app.get('/getTickerInfo', (req, res) => {
+    const { tickerid } = req.query;
+    console.log(req.query)
+
+    if (!tickerid) {
+        res.status(400).send('TickerID must be provided');
+        return;
+    }
+    const SelectQuery = 'SELECT tickername, energysource, continent FROM sustainablestocks.tickerlist JOIN sustainablestocks.energytickertbl ON tickerlist.tickerid = energytickertbl.tickerid JOIN sustainablestocks.energylist ON energytickertbl.energyid = energylist.energyid JOIN sustainablestocks.region ON tickerlist.regionid = region.regionid WHERE sustainablestocks.tickerlist.tickerid = ?';
+    const SelectValues = [tickerid];
+
+    pool.query(SelectQuery, SelectValues, (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');

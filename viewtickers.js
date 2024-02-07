@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('#historicalDataGraph').hide();
+    $('#tickerInfo').hide();
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');
     
@@ -135,28 +136,94 @@ function showTickers(data, username){
 }         
 
 function showTickerData(data, tickerid){
-    const dates = data.map(item => new Date(item.date));
-    const closePrices = data.map(item => parseFloat(item.close));
-
     $('#divTickerSearch').hide();
     $("#tblTickers").hide();
     $('#userDiv').hide();
-    $('#historicalDataGraph').show(); 
-    const surface = document.getElementById('historicalDataGraph');
+    $('#historicalDataGraph').show();
+    $('#tickerInfo').show();
 
-    const values = dates.map((date, index) => ({ x: date, y: closePrices[index] }));
+    function tfPlot(values, surface) {
+        tfvis.render.linechart(surface,
+            { values: values, series: ['Original', 'Predicted'] },
+            { xLabel: 'Date', yLabel: 'Close Price' }
+        );
+    }
 
-    const options = {
-        xLabel: 'Date',
-        yLabel: 'Close Price (USD)',
-        title: `Historical Data for ${tickerid}`,
-        seriesColors: ['green'],
-        seriesLabel: ['Close Price'],
-        xAxisDomain: dates,
-        yAxisDomain: [Math.min(...closePrices), Math.max(...closePrices)]
-    };
+    async function runTF(data) {
+        const dates = data.map(item => new Date(item.date));
+        const closePrices = data.map(item => parseFloat(item.close));
+        const values = dates.map((date, index) => ({ x: date, y: closePrices[index] }));
 
-    tfvis.render.linechart(surface, { values }, options);
+        // Plot historical data
+        const surface1 = document.getElementById("historicalDataGraph");
+        tfvis.render.linechart(surface1,
+            { values: values, series: ['Original'] },
+            { xLabel: 'Date', yLabel: 'Close Price' }
+        );
+
+        tf.util.shuffle(values);
+
+        // Create Tensors using the inputs and normalise data
+        const inputs = dates.map(date => date.getTime()); // converted time to milliseconds in order to fit model
+        const labels = closePrices;
+        const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
+        const labelTensor = tf.tensor2d(labels, [labels.length, 1]);
+        const inputMin = inputTensor.min();
+        const inputMax = inputTensor.max();
+        const labelMin = labelTensor.min();
+        const labelMax = labelTensor.max();
+        const normInputs = inputTensor.sub(inputMin).div(inputMax.sub(inputMin));
+        const normLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
+
+        //TensorFlow model
+        const model = tf.sequential();
+        model.add(tf.layers.dense({ inputShape: [1], units: 1, useBias: true }));
+        model.add(tf.layers.dense({ units: 1, useBias: true }));
+        model.compile({ loss: 'meanSquaredError', optimizer: 'sgd' });
+
+        // Start training
+        const surface2 = document.getElementById("epochGraph");
+        await trainModel(model, normInputs, normLabels, surface2);
+
+        // Un-normalising and predicting
+        const unNormInputs = tf.linspace(inputMin, inputMax, 100);
+        const unNormOutputs = model.predict(unNormInputs.reshape([100, 1]));
+        const unNormInputValues = unNormInputs.dataSync();
+        const unNormOutputValues = unNormOutputs.dataSync();
+        const predicted = Array.from(unNormInputValues).map((value, index) => ({ x: new Date(value), y: unNormOutputValues[index] }));
+
+        tfPlot([values, predicted], surface1);
+    }
+
+    async function trainModel(model, inputs, labels, surface) {
+        const batchSize = 10;
+        const epochs = 50;
+        const callbacks = tfvis.show.fitCallbacks(surface, ['loss'], { callbacks: ['onEpochEnd'] });
+        return await model.fit(inputs, labels, { batchSize, epochs, shuffle: true, callbacks: callbacks });
+    }
+
+    runTF(data);
 
     $("#tickerName").append(tickerid);
+    tickerinfohtml = '';
+
+    fetch(`http://localhost:2500/getTickerInfo?tickerid=${tickerid}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                info = data[0];
+                tickerinfohtml += `<div>Company Name: ${info.tickername}</div><div>Where: ${info.continent}</div><div>Energy Source(s): `;
+                data.forEach(item => {
+                    tickerinfohtml += `<div>- ${item.energysource}</div></div>`;
+                });
+                $('#tickerInfoStats').append(tickerinfohtml);
+            })
+            .catch(error => console.error('Error:', error));
+    
+
 }
