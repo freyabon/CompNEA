@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    //login page code
     $("#blockRegister").hide();
 
     $("#toggleSignIn").click(function(){

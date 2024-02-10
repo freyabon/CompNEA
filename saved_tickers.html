@@ -12,28 +12,20 @@
     </head>
     <body>
         <ul>
-            <li><a href="ticker_info.html">Home</a></li>
-            <li><a href="view_region.html">Regions</a></li>
-            <li><a href="ticker_news.html">News</a></li>
-            <li><a href="saved_tickers.html" class="active">Saved</a></li>
-            <li><a href="index.html">Sign Out</a></li>
+            <li><input id="HomePage" type="button" value="Home" class="menu"></li>
+            <li><input id="RegionPage" type="button" value="Regions" class="menu"></li>
+            <li><input id="NewsPage" type="button" value="News" class="menu"></li>
+            <li><input id="SavedPage" type="button" value="Saved" class="menu"></li>
+            <li><input id="SignOut" type="button" value="Sign Out" class="menu"></li>
         </ul>
         <div id="divLogo" class="logo">
             <img id="imgLogo" src="images/logo.png" class="logoImg">
         </div>
 
-        <div id="blockCallStockAPI" class="w3-card-4">
-            <div class="w3-container w3-green">
-              <h2>Call API</h2>
-            </div class="w3-container">
-            <p>      
-            <label class="w3-text-green"><b>Enter TickerID</b></label>
-            <input id="inpTickerID" class="w3-input w3-border w3-sand" name="inp_ticker" type="text"></p>
-            <p>
-            <button id="btnTickerID" class="w3-btn w3-green">Call</button></p>
+        <div id="divTickerInfo" class="tickerDiv">
+            <table id="tblTickers" class="tickerTable"></table>
         </div>
 
-
-        <script src="rapidAPI.js"></script>
+        <script src="savedtickers.js"></script>
     </body>
 </html>

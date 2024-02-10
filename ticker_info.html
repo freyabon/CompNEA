@@ -18,17 +18,16 @@
 
 <body>
     <ul>
-        <li><a href="ticker_info.html" class="active">Home</a></li>
-        <li><a href="view_region.html">Regions</a></li>
-        <li><a href="ticker_news.html">News</a></li>
-        <li><a href="saved_tickers.html">Saved</a></li>
-        <li><a href="index.html">Sign Out</a></li>
+        <li><input id="HomePage" type="button" value="Home" class="menu"></li>
+        <li><input id="RegionPage" type="button" value="Regions" class="menu"></li>
+        <li><input id="NewsPage" type="button" value="News" class="menu"></li>
+        <li><input id="SavedPage" type="button" value="Saved" class="menu"></li>
+        <li><input id="SignOut" type="button" value="Sign Out" class="menu"></li>
     </ul>
     <div id="divLogo" class="logo">
         <img id="imgLogo" src="images/logo.png" class="logoImg">
     </div>
 
-    <p><span id='userDiv' class="welcomeName"></span></p>
 
     <div class="container form-container" id="divTickerSearch">
         <div class="row">
@@ -50,18 +49,23 @@
         </div>
     </div>
 
-    <div id="divTickerInfo" class="tickerDiv">
-        <table id="tblTickers" class="tickerTable"></table>
+    <div class="spanHome">
+        <i><span id='userDiv' class="welcomeName"></span></i>
+        <div id="divBackImg" class="backImg">
+            <img src="images/uiDesign.png">
+        </div>
     </div>
+
 
     <div id="tickerContainerDiv" class="tickerContainerClass">
         <h1 id="tickerName" class="tickerNameClass"></h1>
         <div id="tickerInfo" class="tickerInfoClass">
-            <label style="text-decoration: underline; font-size: 20px;">Ticker Information:</label>
+            <label style="text-decoration: underline; text-decoration-color: green; font-size: 20px;">Ticker Information:</label>
             <div id="tickerInfoStats"></div>
         </div>
         <div id="historicalDataGraph" class="hDataGraph"></div>
     </div>
+    <div id="tickerNews"></div>
     <div id="epochGraph"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

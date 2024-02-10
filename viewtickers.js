@@ -1,9 +1,12 @@
 $(document).ready(function(){
     $('#historicalDataGraph').hide();
     $('#tickerInfo').hide();
+    $('#tickerContainerDiv').hide();
+    $('#refreshBtn').hide();
     const urlParams = new URLSearchParams(window.location.search);
-    const usernameParam = urlParams.get('username');
-    
+    const usernameParam = urlParams.get('username');       
+
+
     if (usernameParam) {
         displayUsername(usernameParam);
     }
@@ -100,11 +103,35 @@ $(document).ready(function(){
 
         saved.append('<button id = "btnSave" class = "saveButton">Save</button>');
     });
+
+    $(document).on('click', '#HomePage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `ticker_info.html${queryString}`;
+    });
+
+    $(document).on('click', '#RegionPage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `view_region.html${queryString}`;
+    });
+
+    $(document).on('click', '#NewsPage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `ticker_news.html${queryString}`;
+    });
+
+    $(document).on('click', '#SavedPage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `saved_tickers.html${queryString}`;
+    });
+
+    $(document).on('click', '#SignOut', function (e) {
+        window.location.href = `index.html`;
+    });
 });
 
 function displayUsername(username) {
     console.log(username);
-    welcome = 'Welcome to SustainableStocks ' + username + '!';
+    welcome = 'Welcome to SustainableStocks ' + username;
     $('#userDiv').append(welcome);
 }
 
@@ -134,6 +161,92 @@ function showTickers(data, username){
     })
     .catch(error => console.error('Error:', error));
 }         
+async function fetchData(ticker_id) {
+    const ticker = ticker_id;
+    const url = 'https://alpha-vantage.p.rapidapi.com/query?function=TIME_SERIES_DAILY&symbol=' + ticker + '&outputsize=compact&datatype=json';
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '07ac67f9bamsh510090a4ca23fb7p1590b4jsn5d3e7dd81289',
+            'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+
+        for (const date in result["Time Series (Daily)"]) {
+            const openValue = result["Time Series (Daily)"][date]["1. open"];
+            const highValue = result["Time Series (Daily)"][date]["2. high"];
+            const lowValue = result["Time Series (Daily)"][date]["3. low"];
+            const closeValue = result["Time Series (Daily)"][date]["4. close"];
+            const volumeValue = result["Time Series (Daily)"][date]["5. volume"];
+            console.log('Date: ' + date + ', Open: ' + openValue + ', High: ' + highValue + ', Low: ' + lowValue + ', Close: ' + closeValue + ', Volume: ' + volumeValue);
+        
+            const tickerData = {
+                tickerid: ticker,
+                date: date,
+                open: openValue,
+                high: highValue,
+                low: lowValue,
+                close: closeValue,
+                volume: volumeValue
+            };
+
+            fetch('http://localhost:2500/updateTickerTable', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(tickerData),
+             
+          })
+
+          .then(response => response.text())
+          .then(data => {
+              console.log(data);
+          })
+          .catch(error => console.error('Database error:', error));
+
+        }
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function fetchNews(ticker_id) {
+    const ticker = ticker_id;
+    const url = 'https://alpha-vantage.p.rapidapi.com/query?function=NEWS_SENTIMENT&symbols=' + ticker + '&limit=5&sort=RELEVANCE';
+    //add filter for topics and limit once heard back from support
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': '07ac67f9bamsh510090a4ca23fb7p1590b4jsn5d3e7dd81289',
+            'X-RapidAPI-Host': 'alpha-vantage.p.rapidapi.com'
+        }
+    };
+
+    try {
+        const response = await fetch(url, options);
+        const result = await response.json();
+        tickerNewsHTML = "";
+
+        for (const newsFeed of result["feed"]) {
+            const title = newsFeed["title"];
+            const url = newsFeed["url"];
+            const summary = newsFeed["summary"];
+            const bannerImage = newsFeed["banner_image"];
+            const source = newsFeed["source"];
+            //console.log('Title: ' + title + ', url: ' + url + ', Summary: ' + summary + ', Banner: ' + bannerImage + ', Source: ' + source);
+
+            tickerNewsHTML += `<div class="storyBlock"><div class="imgContainer"><img src="${bannerImage}" alt="News story banner" class="bannerImg"></div><div class="textContainer"><div style="text-decoration: underline; text-decoration-color: green;">News Title: ${title}</div><div>Summary: ${summary}</div><a href="${url}" target="_blank">Read more...</a></div></div>`
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    $("#tickerNews").append(tickerNewsHTML);
+}
 
 function showTickerData(data, tickerid){
     $('#divTickerSearch').hide();
@@ -141,6 +254,14 @@ function showTickerData(data, tickerid){
     $('#userDiv').hide();
     $('#historicalDataGraph').show();
     $('#tickerInfo').show();
+    $('#tickerContainerDiv').show();
+    $('#refreshBtn').show();
+    $('#divBackImg').hide();
+    
+    fetchData(tickerid);
+    console.log('data fetched hopefully');
+
+    fetchNews(tickerid);
 
     function tfPlot(values, surface) {
         tfvis.render.linechart(surface,

@@ -1,3 +1,36 @@
+.storyBlock{
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    display: flex;
+    margin-bottom: 30px;
+    padding: 1.15%;
+    border: 3px solid;
+    border-radius: 7px;
+    border-color: #5ca73e;
+    box-shadow: 6px 6px 4px #3e8e41;
+}
+
+.imgContainer{
+    flex: 0 0 auto;
+    margin-right: 10px;
+}
+
+.bannerImg{
+    width: 100px;
+    height: auto;
+}
+
+.textContainer{
+    flex: 1 1 auto;
+}
+
+.refreshBtnClass{
+   display: flex;
+   justify-content: right;
+   align-items: right;
+   margin-left: 80%;
+}
 
 .tickerContainerClass {
     display: flex;
@@ -16,6 +49,11 @@
     font-size: 15px;
     margin-right: 100px;
     margin-top: 60px;
+    padding: 1.15%;
+    border: 3px solid;
+    border-radius: 7px;
+    border-color: #5ca73e;
+    box-shadow: 10px 10px 5px #3e8e41;
 }
 
 .hDataGraph {
@@ -23,12 +61,19 @@
     height: 400px;
 }
 
+.spanHome{
+    display: flex;
+    align-items: flex-end
+}
+
 .welcomeName{
-    font-size: 26px;
-    font-weight: bold;
+    font-size: 24px;
     font-family: Arial, Helvetica, sans-serif;
-    text-decoration:underline;
-    text-decoration-color: #4CAF50;
+    color: #c8bfbf;
+}
+
+.backImg{
+    margin-left: 750px;
 }
 
 .w3-btn w3-green{
@@ -93,7 +138,7 @@
 }
 
 #divTickerSearch {
-    margin-bottom: 50px;
+    margin-top: 100px;
     width: 40%;
     padding: 10px;
     border: 3px solid;
@@ -166,7 +211,7 @@ table, th, td {
 ul {
     list-style-type: none;
     margin-bottom: 10px;
-    padding: 12px;
+    padding: 4px;
     overflow: hidden;
     background-color:#61b241;
     border-radius: 7px;
@@ -176,7 +221,11 @@ li {
     float: left;
 }
 
-li a {
+li .menu {
+    background-color: #61b241;
+    border: 0cap;
+    width: 97.7px;
+    height: 46.4px;
     display: inline;
     color: white;
     text-align: center;
@@ -184,7 +233,7 @@ li a {
     text-decoration: none;
 }
 
-li a:hover:not(.active) {
+li .menu:hover:not(.active) {
     background-color:#5ca73e;
     border-radius: 7px;
 }

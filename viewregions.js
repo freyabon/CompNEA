@@ -1,8 +1,35 @@
 $(document).ready(function(){
+    const urlParams = new URLSearchParams(window.location.search);
+    const usernameParam = urlParams.get('username');
+
     google.charts.load('current', {
         'packages': ['geochart'],
     });
     google.charts.setOnLoadCallback(drawRegionsMap);
+
+    $(document).on('click', '#HomePage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `ticker_info.html${queryString}`;
+    });
+
+    $(document).on('click', '#RegionPage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `view_region.html${queryString}`;
+    });
+
+    $(document).on('click', '#NewsPage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `ticker_news.html${queryString}`;
+    });
+
+    $(document).on('click', '#SavedPage', function (e) {
+        const queryString = `?username=${usernameParam}`;
+        window.location.href = `saved_tickers.html${queryString}`;
+    });
+
+    $(document).on('click', '#SignOut', function (e) {
+        window.location.href = `index.html`;
+    });
 });
 
 function drawRegionsMap() {
