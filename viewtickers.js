@@ -176,11 +176,13 @@ function showTickerData(data, tickerid){
                     borderColor: 'blue',
                     borderWidth: 2,
                     fill: true,
-                    pointRadius: 0
+                    pointRadius: 0,
+                    pointHoverRadius: 25
                 }
             ]
         },
         options: {
+            maintainAspectRatio: false,
             responsive: true,
             plugins: {
                 title: {
@@ -223,6 +225,12 @@ function showTickerData(data, tickerid){
             }
         }
     });
+
+    const containerBody = document.querySelector('.containerBody');
+    if(myChart.data.labels.length > 15){
+        containerBody.style.width = '800px';
+    }
+
 
     /*function tfPlot(values, surface) {
         tfvis.render.linechart(surface,

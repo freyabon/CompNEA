@@ -13,6 +13,13 @@
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/luxon/2.0.2/luxon.min.js"></script>
+
+    <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" rel="stylesheet" type="text/css">
+    <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" rel="stylesheet" type="text/css">  
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
+    <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
+
     <link rel="stylesheet" href="common.css">
     <title>Ticker Info</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -66,10 +73,15 @@
             <div id="tickerInfoStats"></div>
         </div>
         <!--<div id="historicalDataGraph" class="hDataGraph"></div>-->
-        <div>
-            <canvas id="myChart" class="hDataGraph"></canvas>
+        <div class="containerBlock">
+            <div class="containerBody">
+                <div class="chartContainer">
+                    <canvas id="myChart"></canvas>
+                </div>
+            </div>
         </div>
     </div>
+    <!--<div id="container"></div>-->
     <div id="tickerNews"></div>
 
     <div id="epochGraph"></div>
