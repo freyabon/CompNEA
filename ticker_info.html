@@ -11,6 +11,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="common.css">
     <title>Ticker Info</title>
     <script src="https://www.gstatic.com/charts/loader.js"></script>
@@ -63,9 +64,13 @@
             <label style="text-decoration: underline; text-decoration-color: green; font-size: 20px;">Ticker Information:</label>
             <div id="tickerInfoStats"></div>
         </div>
-        <div id="historicalDataGraph" class="hDataGraph"></div>
+        <!--<div id="historicalDataGraph" class="hDataGraph"></div>-->
+        <div>
+            <canvas id="myChart" class="hDataGraph"></canvas>
+        </div>
     </div>
     <div id="tickerNews"></div>
+
     <div id="epochGraph"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>

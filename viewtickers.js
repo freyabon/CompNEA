@@ -6,23 +6,9 @@ $(document).ready(function(){
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');       
 
-
     if (usernameParam) {
         displayUsername(usernameParam);
     }
-
-    fetch(`http://localhost:2500/getTickerList`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                showTickers(data, usernameParam);
-            })
-            .catch(error => console.error('Error:', error));
-
 
     $('#btnSearch').on('click', function (e) {
         var tickerid = $('#TickerSymbol').val();
@@ -40,69 +26,6 @@ $(document).ready(function(){
             .catch(error => console.error('Error:', error));
     });
 
-    $(document).on('click', '.saveButton', function (e) {
-        const row = $(this).closest('tr');
-        const tickerid = row.find('td:first').text();
-        const continent = row.find('td:nth-child(3)').text();
-        const saved = $(this).closest('td');
-        console.log(`Saved TickerID: ${tickerid}, Continent: ${continent}`);
-        
-        $(this).hide();
-
-        const savedTicker = {
-            Username: usernameParam,
-            tickerid: tickerid
-        };
-    
-        fetch('http://localhost:2500/saveTicker', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(savedTicker),
-           
-        })
-       
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.error('Database error:', error));
-
-        saved.append('<button id = "btnUnsave" class = "unsaveButton">Unsave</button>');
-    });
-
-    $(document).on('click', '.unsaveButton', function (e) {
-        const row = $(this).closest('tr');
-        const tickerid = row.find('td:first').text();
-        const continent = row.find('td:nth-child(3)').text();
-        const saved = $(this).closest('td');
-        console.log(`Unsaved TickerID: ${tickerid}, Continent: ${continent}`);
-        
-        $(this).hide();
-
-        const unsaveTicker = {
-            Username: usernameParam,
-            tickerid: tickerid
-        };
-    
-        fetch('http://localhost:2500/unsaveTicker', {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(unsaveTicker),
-           
-        })
-       
-        .then(response => response.text())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => console.error('Database error:', error));
-
-        saved.append('<button id = "btnSave" class = "saveButton">Save</button>');
-    });
 
     $(document).on('click', '#HomePage', function (e) {
         const queryString = `?username=${usernameParam}`;
@@ -134,33 +57,7 @@ function displayUsername(username) {
     welcome = 'Welcome to SustainableStocks ' + username;
     $('#userDiv').append(welcome);
 }
-
-function showTickers(data, username){
-    $("#tblTickers").show();
-    console.log(data);
-    tickeritemhtml = "<tr><th>TickerID</th><th>Ticker Name</th><th>Continent</th><th>Save Ticker</th></tr>";
-
-    fetch(`http://localhost:2500/getSavedTickers?Username=${username}`, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    .then(response => response.json())
-    .then(savedData => {
-        const savedTickerList = savedData.map(ticker => ticker.tickerid);
-
-        data.forEach(item => {
-            console.log(item);
-            const isSaved = savedTickerList.includes(item.tickerid);
-
-            tickeritemhtml += `<tr><td>${item.tickerid}</td><td>${item.tickername}</td><td>${item.continent}</td><td>${isSaved ? '<button class="unsaveButton">Unsave</button>' : '<button class="saveButton">Save</button>'}</td></tr>`;
-        });
-
-        $("#tblTickers").append(tickeritemhtml);
-    })
-    .catch(error => console.error('Error:', error));
-}         
+         
 async function fetchData(ticker_id) {
     const ticker = ticker_id;
     const url = 'https://alpha-vantage.p.rapidapi.com/query?function=TIME_SERIES_DAILY&symbol=' + ticker + '&outputsize=compact&datatype=json';
@@ -263,7 +160,77 @@ function showTickerData(data, tickerid){
 
     fetchNews(tickerid);
 
-    function tfPlot(values, surface) {
+    let labels = ['January', 'February', 'March', 'April', 'May'];
+    let dataset1Data = [10, 25, 13, 18, 30]; 
+    let dataset2Data = [20, 15, 28, 22, 10];
+    let ctx = document.getElementById('myChart').getContext('2d');
+    
+    let myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Solid Line',
+                    data: dataset1Data,
+                    borderColor: 'blue',
+                    borderWidth: 2,
+                    fill: false,
+                },
+                {
+                    label: 'Solid Line',
+                    data: dataset2Data,
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    fill: false,
+                },
+                {
+                    label: 'Solid Line',
+                    data: [15, 10, 20, 25, 12],
+                    borderColor: 'green',
+                    borderWidth: 2,
+                    fill: true,
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Months',
+                        font: {
+                            padding: 4,
+                            size: 20,
+                            weight: 'bold',
+                            family: 'Arial'
+                        },
+                        color: 'darkblue'
+                    }
+                },
+                y: {
+                    title: {
+                        display: true,
+                        text: 'Values',
+                        font: {
+                            size: 20,
+                            weight: 'bold',
+                            family: 'Arial'
+                        },
+                        color: 'darkblue'
+                    },
+                    beginAtZero: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: 'Values',
+                    }
+                }
+            }
+        }
+    });
+
+    /*function tfPlot(values, surface) {
         tfvis.render.linechart(surface,
             { values: values, series: ['Original', 'Predicted'] },
             { xLabel: 'Date', yLabel: 'Close Price' }
@@ -323,7 +290,7 @@ function showTickerData(data, tickerid){
         return await model.fit(inputs, labels, { batchSize, epochs, shuffle: true, callbacks: callbacks });
     }
 
-    runTF(data);
+    runTF(data);*/
 
     $("#tickerName").append(tickerid);
     tickerinfohtml = '';
