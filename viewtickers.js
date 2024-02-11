@@ -160,65 +160,59 @@ function showTickerData(data, tickerid){
 
     fetchNews(tickerid);
 
-    let labels = ['January', 'February', 'March', 'April', 'May'];
-    let dataset1Data = [10, 25, 13, 18, 30]; 
-    let dataset2Data = [20, 15, 28, 22, 10];
+
     let ctx = document.getElementById('myChart').getContext('2d');
+    const dates = data.map(item => luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy'));
+    const closePrices = data.map(item => parseFloat(item.close));
     
     let myChart = new Chart(ctx, {
         type: 'line',
         data: {
-            labels: labels,
+            labels: dates,
             datasets: [
                 {
-                    label: 'Solid Line',
-                    data: dataset1Data,
+                    label: 'Close prices',
+                    data: closePrices,
                     borderColor: 'blue',
                     borderWidth: 2,
-                    fill: false,
-                },
-                {
-                    label: 'Solid Line',
-                    data: dataset2Data,
-                    borderColor: 'red',
-                    borderWidth: 2,
-                    fill: false,
-                },
-                {
-                    label: 'Solid Line',
-                    data: [15, 10, 20, 25, 12],
-                    borderColor: 'green',
-                    borderWidth: 2,
                     fill: true,
+                    pointRadius: 0
                 }
             ]
         },
         options: {
             responsive: true,
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Historical Stock Data For Close Prices',
+                    font: {
+                        size: 15
+                    }
+                }
+            },
             scales: {
                 x: {
                     title: {
                         display: true,
-                        text: 'Months',
+                        text: 'Date',
                         font: {
                             padding: 4,
-                            size: 20,
-                            weight: 'bold',
+                            size: 13,
                             family: 'Arial'
                         },
-                        color: 'darkblue'
+                        color: 'green'
                     }
                 },
                 y: {
                     title: {
                         display: true,
-                        text: 'Values',
+                        text: 'Close Prices (USD)',
                         font: {
-                            size: 20,
-                            weight: 'bold',
+                            size: 13,
                             family: 'Arial'
                         },
-                        color: 'darkblue'
+                        color: 'green'
                     },
                     beginAtZero: true,
                     scaleLabel: {
@@ -293,8 +287,8 @@ function showTickerData(data, tickerid){
     runTF(data);*/
 
     $("#tickerName").append(tickerid);
+    
     tickerinfohtml = '';
-
     fetch(`http://localhost:2500/getTickerInfo?tickerid=${tickerid}`, {
             method: 'GET',
             headers: {
