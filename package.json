@@ -8,6 +8,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@tensorflow/tfjs": "^4.17.0",
     "axios": "^1.6.3",
     "chart.js": "^4.4.1",
     "cors": "^2.8.5"

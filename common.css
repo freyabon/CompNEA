@@ -1,3 +1,8 @@
+.predictChart{
+    width: 800px;
+    height: 540px;
+}
+
 .containerBlock{
     width: 740px;
     padding: 20px;
@@ -5,7 +10,7 @@
     /*border: solid 3px rgba(255, 26, 104, 1);*/
     border: solid 3px #5ca73e;
     background: white;
-    height: 530px;
+    height: 540px;
     margin-bottom: 40px;
 }
 
