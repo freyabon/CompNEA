@@ -21,32 +21,32 @@ $(document).ready(function(){
     });
     
     function authenticateUser(username, password){
+        reset = '';
+        $('#userError').append(reset);
 
-        fetch(`http://localhost:2500/getUserDetails?Username=${username}`, {
+        fetch(`http://localhost:2500/getUserDetails?Username=${username}&Password=${password}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
             },
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                let found = false;
-                data.forEach(item => {
-                    if (password === item.Password) {
-                        console.log(item.Password);
-                        found = true;
-                    }
-                });
-                if (found) {
-                    const queryString = `?username=${username}`;
-                    window.location.href = `ticker_info.html${queryString}`;
+            .then(response => {
+                if (response.ok) {
+                    return response.json();
                 } else {
-                    e.preventDefault();
-                    $("#userFoundError").show();
+                    error = 'User was not found...';
+                    $('#userError').append(error);
+                    throw new Error('User was not found...');
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .then(data => {
+                console.log(data);
+                const queryString = `?username=${username}`;
+                window.location.href = `ticker_info.html${queryString}`;
+            })
+            .catch(error => {
+                console.error('Error:', error)
+            });
     }
 
     $('#btnRegister').on('click', function(e){
@@ -88,3 +88,11 @@ $(document).ready(function(){
 
 });
 
+function showPasswordSignIn(){
+    var passInput = $("#inpPass").val(0);
+    if (passInput.attr("type") === "password") {
+        passInput.attr("type", "text");
+    } else {
+        passInput.attr("type", "password");
+    }
+}

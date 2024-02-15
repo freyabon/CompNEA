@@ -147,13 +147,10 @@ async function fetchNews(ticker_id) {
 
 async function showTickerData(data, tickerid){
     $('#divTickerSearch').hide();
-    $("#tblTickers").hide();
-    $('#userDiv').hide();
     $('#historicalDataGraph').show();
     $('#tickerInfo').show();
     $('#tickerContainerDiv').show();
-    $('#refreshBtn').show();
-    $('#divBackImg').hide();
+    $('.spanHome').hide();
     
     fetchData(tickerid);
     console.log('data fetched hopefully');

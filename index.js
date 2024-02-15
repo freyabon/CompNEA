@@ -15,8 +15,67 @@ const pool = createPool({
 app.use(cors());
 app.use(bodyParser.json());
 
+'use strict';
+let crypto = require('crypto');
+let logger = func => {
+    console.log(func);
+};
+
+let generateSalt = rounds => {
+    if (rounds >= 15){
+        throw new Error('${rounds} is greater than 15, must be less than 15');
+    }
+    if (typeof rounds !== 'number') {
+        throw new Error('rounds para, must be a number');
+    }
+    if (rounds == null) {
+        rounds = 12;
+    }
+    return crypto.randomBytes(Math.ceil(rounds/2)).toString('hex').slice(0, rounds);
+};
+
+let hasher = (password, salt) => {
+    let hash = crypto.createHmac('sha512', salt);
+    hash.update(password);
+    let value =  hash.digest('hex');
+    return {
+        salt: salt,
+        hashedpassword: value
+    };
+};
+
+let hash = (password, salt) => {
+    if (password == null || salt == null) {
+        throw new Error('Provide Password and salt values');
+    }
+    if (typeof password !== 'string' || typeof salt !== 'string') {
+        throw new Error('password must be a string and salt must either be a salt string or a number of rounds');
+    }
+    return hasher(password, salt);
+};
+
+let compare = (password, retrievedPassword) => {
+    if (password == null || retrievedPassword == null) {
+        throw new Error('password and hash is required to compare');
+    }
+    if (typeof password !== 'string' || typeof retrievedPassword !== 'object') {
+        throw new Error('password must be a String and hash must be an Object');
+    }
+    let passwordData = hasher(password, retrievedPassword.salt);
+    if (passwordData.hashedpassword === retrievedPassword.hashedpassword) {
+        return true;
+    }
+    return false
+};
+
+ module.exports = {
+    generateSalt,
+    hash,
+    compare
+ }
+
 app.get('/getUserDetails', (req, res) => {
-    const { Username } = req.query;
+    const { Username, Password } = req.query;
     console.log(req.query)
 
     if (!Username) {
@@ -24,7 +83,7 @@ app.get('/getUserDetails', (req, res) => {
         return;
     }
 
-    const SelectQuery = 'SELECT Password FROM sustainablestocks.userdetails WHERE Username = ?';
+    const SelectQuery = 'SELECT salt, hashedPassword FROM sustainablestocks.hasheduserdetails WHERE Username = ?';
     const SelectValues = [Username];
 
     pool.query(SelectQuery , SelectValues, (err, results) => {
@@ -33,7 +92,18 @@ app.get('/getUserDetails', (req, res) => {
             res.status(500).send('Internal Server Error');
             return;
         }
-        res.json(results)   
+        if (results.length === 0){
+            res.status(404).send('User was not found');
+            return;
+        }
+        const {salt, hashedPassword} = results[0];
+        const match = compare(Password, {salt, hashedpassword: hashedPassword});
+
+        if (match) {
+            res.json(results);
+        } else {
+            res.status(401).send('Incorrect password');
+        }
     });
 });
 
@@ -125,8 +195,11 @@ app.post('/registerUserDetails', (req, res) => {
         return;
     }
 
-    const RegisterQuery = 'INSERT INTO sustainablestocks.userdetails (Username, Password) VALUES (?, ?)';
-    const RegisterValues = [Username, Password];
+    let salt = generateSalt(10);
+    let hashedPassword = hash(Password, salt);
+
+    const RegisterQuery = 'INSERT INTO sustainablestocks.hasheduserdetails (Username, salt, hashedPassword) VALUES (?, ?, ?)';
+    const RegisterValues = [Username, hashedPassword.salt, hashedPassword.hashedpassword];
 
     pool.query(RegisterQuery , RegisterValues, (err, results) => {
         if (err) {

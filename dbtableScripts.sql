@@ -56,3 +56,25 @@ CREATE TABLE `sustainablestocks`.`tickerdata` (
     ON DELETE NO ACTION
     ON UPDATE NO ACTION
 );
+
+CREATE TABLE `sustainablestocks`.`hasheduserdetails` (
+  `Username` VARCHAR(20) NOT NULL,
+  `salt` VARCHAR(225) NULL,
+  `hashedPassword` VARCHAR(225) NULL,
+  PRIMARY KEY (`Username`));
+
+  CREATE TABLE IF NOT EXISTS `sustainablestocks`.`savedtickers` (
+  `Username` VARCHAR(20) NOT NULL,
+  `tickerid` VARCHAR(10) NOT NULL,
+  PRIMARY KEY (`Username`, `tickerid`),
+  INDEX `tickerid_idx` (`tickerid` ASC) VISIBLE,
+  CONSTRAINT `Username`
+    FOREIGN KEY (`Username`)
+    REFERENCES `sustainablestocks`.`hasheduserdetails` (`Username`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk savedtickers_tickerid`
+    FOREIGN KEY (`tickerid`)
+    REFERENCES `sustainablestocks`.`tickerlist` (`tickerid`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)

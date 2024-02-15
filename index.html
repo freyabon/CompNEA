@@ -30,9 +30,10 @@
             <p>      
             <label class="w3-text-green"><b>Password</b></label>
             <input id="inpPass" class="w3-input w3-border w3-sand" name="last" type="password"></p>
+            <input type="checkbox" onclick="showPasswordSignIn()">Show Password
             <p>
             <button id="btnSubmit" class="w3-btn w3-green">Sign In</button></p>
-            <span id=userFoundError" class="passError">User not found. Please try again.</span>
+            <div id="userError" style="color: red; font-style: italic;"></div>
           </div>    
         </div>
 
