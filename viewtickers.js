@@ -10,6 +10,30 @@ $(document).ready(function(){
         displayUsername(usernameParam);
     }
 
+    fetch(`http://localhost:2500/getRegionList`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                showRegions(data);
+            })
+            .catch(error => console.error('Error:', error));
+
+        fetch(`http://localhost:2500/getEnergyList`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                showEnergySources(data);
+            })
+            .catch(error => console.error('Error:', error));
+
     $('#btnSearch').on('click', function (e) {
         var tickerid = $('#TickerSymbol').val();
 
@@ -56,6 +80,28 @@ function displayUsername(username) {
     console.log(username);
     welcome = 'Welcome to SustainableStocks ' + username;
     $('#userDiv').append(welcome);
+}
+
+function showRegions(data){
+    console.log(data);
+    regionitemhtml = "<tr><th>Regions:</th></tr>";
+
+    data.forEach(item => {
+        regionitemhtml += `<tr><td>${item.continent}</td></tr>`;
+    });
+
+    $("#tblRegions").append(regionitemhtml);
+}
+
+function showEnergySources(data){
+    console.log(data);
+    energyitemhtml = "<tr><th>Energy Sources:</th></tr>";
+
+    data.forEach(item => {
+        energyitemhtml += `<tr><td>${item.energysource}</td></tr>`;
+    });
+
+    $("#tblEnergies").append(energyitemhtml);
 }
          
 async function fetchData(ticker_id) {

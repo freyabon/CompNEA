@@ -1,3 +1,7 @@
+.filterTable{
+    display: flex;
+}
+
 .predictChart{
     width: 800px;
     height: 540px;

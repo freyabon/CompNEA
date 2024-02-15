@@ -68,11 +68,6 @@ let compare = (password, retrievedPassword) => {
     return false
 };
 
- module.exports = {
-    generateSalt,
-    hash,
-    compare
- }
 
 app.get('/getUserDetails', (req, res) => {
     const { Username, Password } = req.query;
@@ -153,6 +148,32 @@ app.get('/getTickerData', (req, res) => {
 
 app.get('/getTickerList', (req, res) => {
     const SelectQuery = 'SELECT tickerid, tickername, continent FROM sustainablestocks.tickerlist JOIN sustainablestocks.region ON sustainablestocks.tickerlist.regionid = sustainablestocks.region.regionid';
+    
+    pool.query(SelectQuery, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results) 
+    });
+});
+
+app.get('/getRegionList', (req, res) => {
+    const SelectQuery = 'SELECT continent FROM sustainablestocks.region';
+    
+    pool.query(SelectQuery, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results) 
+    });
+});
+
+app.get('/getEnergyList', (req, res) => {
+    const SelectQuery = 'SELECT energysource FROM sustainablestocks.energylist';
     
     pool.query(SelectQuery, (err, results) => {
         if (err) {
