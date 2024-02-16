@@ -83,14 +83,51 @@ function displayUsername(username) {
 }
 
 function showRegions(data){
-    console.log(data);
-    regionitemhtml = "<tr><th>Regions:</th></tr>";
-
-    data.forEach(item => {
-        regionitemhtml += `<tr><td>${item.continent}</td></tr>`;
+    google.charts.load('current', {
+        'packages': ['map'],
+        'mapsApiKey': 'AIzaSyCfy_-gK8A2PfWCJgkLdi4Ph2intaJ8S7c'
     });
+    
+    google.charts.setOnLoadCallback(drawMap);
 
-    $("#tblRegions").append(regionitemhtml);
+    function drawMap() {
+        var mapData = new google.visualization.DataTable();
+        mapData.addColumn('string', 'Continent');
+        mapData.addColumn('string', 'Available Tickers');
+
+        fetch(`http://localhost:2500/getRegionTicker`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(dataRegion => {
+                var continentTickers = {};
+
+                dataRegion.forEach(item => {
+                    if (!continentTickers[item.continent]) {
+                        continentTickers[item.continent] = [];
+                    }
+                    continentTickers[item.continent].push(item.tickerid);
+                });
+
+                Object.keys(continentTickers).forEach(continent => {
+                    var tickers = continentTickers[continent].join(', ');
+                    mapData.addRow([continent, tickers]);
+                });
+                })
+            .catch(error => console.error('Error:', error));
+
+        var options = {
+            showTooltip: true,
+            showInfoWindow: true
+        };
+
+        var map = new google.visualization.Map(document.getElementById('chart_div'));
+
+        map.draw(mapData, options);
+    };
 }
 
 function showEnergySources(data){
@@ -101,7 +138,87 @@ function showEnergySources(data){
         energyitemhtml += `<tr><td>${item.energysource}</td></tr>`;
     });
 
-    $("#tblEnergies").append(energyitemhtml);
+    //$("#tblEnergies").append(energyitemhtml);
+
+    fetch(`http://localhost:2500/getEnergyTicker`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(dataEnergy => {
+                var energyTickers = {};
+                var tickerCount = {};
+
+                dataEnergy.forEach(item => {
+                    if (!energyTickers[item.energysource]) {
+                        energyTickers[item.energysource] = [];
+                    }
+                    energyTickers[item.energysource].push(item.tickerid);
+                });
+
+                Object.keys(energyTickers).forEach(energysource => {
+                    tickerCount[energysource] = energyTickers[energysource].length;
+                });
+
+                const ctx = document.getElementById('energyChart');
+
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Solar', 'Biomass', 'Hydroelectric', 'Wind', 'Natural Gas', 'Nuclear'],
+                        datasets: [{
+                            label: 'Available Tickers',
+                            data: Object.values(tickerCount),
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        plugins: {
+                            datalabels: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: 'Energy sources',
+                                    font: {
+                                        padding: 4,
+                                        size: 13, 
+                                        family: 'Arial'
+                                    },
+                                    color: 'green'
+                                }
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: 'Number of tickers available',
+                                    font: {
+                                        size: 13,
+                                        family: 'Arial'
+                                    },
+                                    color: 'green'
+                                },
+                                beginAtZero: true
+                            }
+                        },
+                        tooltips: {
+                            callbacks: {
+                                label: function(context) {
+                                    var energySource = context.xLabel;
+                                    var tickerIds = energyTickers[energySource].join(', ');
+                                    return 'Tickers: ' + tickerIds;
+                                }
+                            }
+                        }                        
+                    }
+                });
+            })
+            .catch(error => console.error('Error:', error));
 }
          
 async function fetchData(ticker_id) {
@@ -197,6 +314,7 @@ async function showTickerData(data, tickerid){
     $('#tickerInfo').show();
     $('#tickerContainerDiv').show();
     $('.spanHome').hide();
+    $('.blockAvailableTickers').hide();
     
     fetchData(tickerid);
     console.log('data fetched hopefully');
@@ -260,7 +378,7 @@ async function showTickerData(data, tickerid){
                         },
                         color: 'green'
                     },
-                    beginAtZero: true,
+                    beginAtZero: false,
                     scaleLabel: {
                         display: true,
                         labelString: 'Values',
@@ -419,7 +537,7 @@ async function showTickerData(data, tickerid){
                             },
                             color: 'green'
                         },
-                        beginAtZero: true,
+                        beginAtZero: false,
                         scaleLabel: {
                             display: true,
                             labelString: 'Values',

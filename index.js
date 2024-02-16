@@ -159,6 +159,32 @@ app.get('/getTickerList', (req, res) => {
     });
 });
 
+app.get('/getRegionTicker', (req, res) => {
+    const SelectQuery = 'SELECT tickerid,  continent FROM sustainablestocks.tickerlist JOIN sustainablestocks.region ON sustainablestocks.tickerlist.regionid = sustainablestocks.region.regionid';
+    
+    pool.query(SelectQuery, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results) 
+    });
+});
+
+app.get('/getEnergyTicker', (req, res) => {
+    const SelectQuery = 'SELECT tickerid,  energysource FROM sustainablestocks.energytickertbl JOIN sustainablestocks.energylist ON sustainablestocks.energytickertbl.energyid = sustainablestocks.energylist.energyid';
+    
+    pool.query(SelectQuery, (err, results) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.json(results) 
+    });
+});
+
 app.get('/getRegionList', (req, res) => {
     const SelectQuery = 'SELECT continent FROM sustainablestocks.region';
     

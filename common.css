@@ -1,6 +1,44 @@
+.blockAvailableTickers {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.containerHover {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.left-container {
+    flex: 1;
+    padding: 10px;
+}
+
+.right-container {
+    flex: 1;
+    border-left: 1px solid #ccc;
+    padding: 10px;
+}
+
+#chart_div {
+    margin-bottom: 10px;
+}
+
+.energyTable {
+    height: auto;
+}
+
+.energyChart {
+    width: 100%;
+}
+
 .filterTable{
     display: flex;
 }
+
 
 .predictChart{
     width: 800px;
@@ -56,13 +94,6 @@
     flex: 1 1 auto;
 }
 
-.refreshBtnClass{
-   display: flex;
-   justify-content: right;
-   align-items: right;
-   margin-left: 80%;
-}
-
 .tickerContainerClass {
     display: flex;
     justify-content: center;
@@ -89,16 +120,16 @@
 
 .spanHome{
     display: flex;
-    margin-top: 100px;
+    margin-top: 25px;
     align-items: flex-end
 }
 
 .euLogo{
-    width: 100px;
+    width: 30px;
 }
 
 .welcomeDiv{
-    margin-left: 315px;
+    margin-left: 380px;
     width: auto;
 }
 
@@ -110,7 +141,7 @@
 }
 
 .backImg{
-    margin-left: 360px;
+    margin-left: 300px;
 }
 
 .w3-btn w3-green{

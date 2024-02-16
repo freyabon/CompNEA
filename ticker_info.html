@@ -19,6 +19,7 @@
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-data-adapter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0-beta.1"></script>
 
     <link rel="stylesheet" href="common.css">
     <title>Ticker Info</title>
@@ -55,12 +56,19 @@
         </div>
     </div>
 
-    <div class="filterTable">
-        <div id="divRegionTbl" class="regionDiv">
-            <table id="tblRegions" class="regionTable"></table>
-        </div>
-        <div id="divEnergyTbl" class="energyDiv">
-            <table id="tblEnergies" class="energyTable"></table>
+    <div class="blockAvailableTickers">
+        <div class="containerHover">
+            <div class="filterTable">
+                <div class="left-container">
+                    Hover over a pin to view the available tickers for that region:
+                    <div id="chart_div"></div>
+                </div>
+                <div class="right-container">
+                    <div class="energyTable">
+                        <canvas id="energyChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
