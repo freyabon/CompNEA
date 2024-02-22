@@ -432,7 +432,7 @@ async function showTickerData(data, tickerid){
         const nmInputs = inputTensor.sub(inputMin).div(inputMax.sub(inputMin));
         const nmLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
 
-        // Create a Tensorflow Model
+        // Create the Tensorflow Model
         const model = tf.sequential(); 
         model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
         model.add(tf.layers.dense({units: 1, useBias: true}));
@@ -441,7 +441,7 @@ async function showTickerData(data, tickerid){
         // Start Training
         await trainModel(model, nmInputs, nmLabels, surface2);
 
-        // Un-Normalize Data
+        // Un-Normalise Data
         let unX = tf.linspace(0, 1, 100);      
         let unY = model.predict(unX.reshape([100, 1]));      
         const unNormunX = unX
