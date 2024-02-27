@@ -35,9 +35,10 @@
     width: 100%;
 }
 
-.filterTable{
+.filterTable {
     display: flex;
 }
+
 
 
 .predictChart{
