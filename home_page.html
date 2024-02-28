@@ -34,33 +34,58 @@
         <li><input id="SignOut" type="button" value="Sign Out" class="menu"></li>
     </ul>
 
-    <div id="tickerContainerDiv" class="tickerContainerClass">
-        <h1 id="tickerName" class="tickerNameClass"></h1>
-        <div id="tickerInfo" class="tickerInfoClass">
-            <label style="text-decoration: underline; text-decoration-color: green; font-size: 20px;">Ticker Information:</label>
-            <div id="tickerInfoStats"></div>
-            <div id="saveBtn"></div>
-        </div>
-        <!--<div id="historicalDataGraph" class="hDataGraph"></div>-->
-        <div class="containerBlock">
-            <div class="containerBody">
-                <div class="chartContainer">
-                    <canvas id="myChart"></canvas>
+    <div class="alignTop">
+        <div class="container form-container" id="divTickerSearch">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel panel-primary">
+                        <div class="panel-body">
+                            <div class="form-group col-md-5">
+                                <label for="TickerSymbol">Search for ticker:</label>
+                                <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter Ticker Symbol" required>
+                            </div>
+                            <div class="form-group col-md-1">
+                                <div style="float: right;">
+                                    <input class="btn btn-primary" name="submitButton" id="btnSearch" value="Search" type="button">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!--<canvas id="plot1" class="predictChart"></canvas>-->
-    <div id="plot1"></div>
-    <div id="plot2"></div>
+    <div class="blockAvailableTickers">
+        <div class="containerHover">
+            <div class="filterTable">
+                <div class="left-container">
+                    Hover over a pin to view the available tickers for that region:
+                    <div id="chart_div"></div>
+                </div>
+                <div class="right-container">
+                    <div class="energyTable">
+                        <canvas id="energyChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="tickerNews"></div>
-
-    <div id="epochGraph"></div>
+    <div class="spanHome">
+        <div class="euLogo">
+            <img src="images/logo-european-commission.png">
+        </div>
+        <div class="welcomeDiv">
+            <i><span id='userDiv' class="welcomeName"></span></i>
+        </div>
+        <div id="divBackImg" class="backImg">
+            <img src="images/uiDesign.png">
+        </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="tickerinfo.js"></script>
+    <script src="homepage.js"></script>
 </body>
 
 </html>

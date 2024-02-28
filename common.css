@@ -54,6 +54,10 @@
     background: white;
     height: 540px;
     margin-bottom: 40px;
+
+    align-items: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .chartContainer{
@@ -93,6 +97,11 @@
 
 .textContainer{
     flex: 1 1 auto;
+}
+
+.containerBody {
+    display: flex;
+    flex-direction: row;
 }
 
 .tickerContainerClass {
@@ -259,7 +268,7 @@ table, th, td {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 488px;
+    width: 397.43px;
     margin: auto;
     margin-bottom: 100px;
 }

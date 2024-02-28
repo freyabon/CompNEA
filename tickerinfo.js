@@ -1,16 +1,9 @@
 $(document).ready(function(){
-    $('#historicalDataGraph').hide();
-    $('#tickerInfo').hide();
-    $('#tickerContainerDiv').hide();
-    $('#refreshBtn').hide();
     const urlParams = new URLSearchParams(window.location.search);
-    const usernameParam = urlParams.get('username');       
-
-    if (usernameParam) {
-        displayUsername(usernameParam);
-    }
-
-    fetch(`http://localhost:2500/getRegionList`, {
+    const usernameParam = urlParams.get('username');
+    const tickerParam = urlParams.get('tickerid');   
+    
+    fetch(`http://localhost:2500/getTickerData?tickerid=${tickerParam}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -18,42 +11,91 @@ $(document).ready(function(){
         })
             .then(response => response.json())
             .then(data => {
-                showRegions(data);
+                showTickerData(data, tickerParam);
             })
             .catch(error => console.error('Error:', error));
 
-        fetch(`http://localhost:2500/getEnergyList`, {
-            method: 'GET',
+    
+    
+    fetch(`http://localhost:2500/getSavedTickers?Username=${usernameParam}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+    .then(response => response.json())
+    .then(savedData => {
+        const savedTickerList = savedData.map(ticker => ticker.tickerid);
+
+        const isSaved = savedTickerList.includes(tickerParam);
+
+        if(isSaved){
+            tickeritemhtml = `<button id = "btnUnsave" class = "unsaveButton">Remove ticker</button>`;
+        } else {
+            tickeritemhtml = `<button id = "btnSave" class = "saveButton">Save ticker</button>`;
+        }
+
+        $("#saveBtn").append(tickeritemhtml);
+    })
+    .catch(error => console.error('Error:', error));
+
+
+
+    $(document).on('click', '.saveButton', function (e) {
+        $(this).hide();
+
+        const savedTicker = {
+            Username: usernameParam,
+            tickerid: tickerParam
+        };
+    
+        fetch('http://localhost:2500/saveTicker', {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },
+            body: JSON.stringify(savedTicker),
+            
         })
-            .then(response => response.json())
-            .then(data => {
-                showEnergySources(data);
-            })
-            .catch(error => console.error('Error:', error));
-
-    $('#btnSearch').on('click', function (e) {
-        var tickerid = $('#TickerSymbol').val();
-
-        fetch(`http://localhost:2500/getTickerData?tickerid=${tickerid}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
+        
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
         })
-            .then(response => response.json())
-            .then(data => {
-                showTickerData(data, tickerid);
-            })
-            .catch(error => console.error('Error:', error));
+        .catch(error => console.error('Database error:', error));
+
+        $('#saveBtn').append('<button id = "btnUnsave" class = "unsaveButton">Remove ticker</button>');
     });
 
+    $(document).on('click', '.unsaveButton', function (e) {
+        $(this).hide();
+
+        const unsaveTicker = {
+            Username: usernameParam,
+            tickerid: tickerParam
+        };
+    
+        fetch('http://localhost:2500/unsaveTicker', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(unsaveTicker),
+           
+        })
+       
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => console.error('Database error:', error));
+
+        $('#saveBtn').append('<button id = "btnSave" class = "saveButton">Save ticker</button>');
+    });
 
     $(document).on('click', '#HomePage', function (e) {
         const queryString = `?username=${usernameParam}`;
-        window.location.href = `ticker_info.html${queryString}`;
+        window.location.href = `home_page.html${queryString}`;
     });
 
     $(document).on('click', '#RegionPage', function (e) {
@@ -75,151 +117,6 @@ $(document).ready(function(){
         window.location.href = `index.html`;
     });
 });
-
-function displayUsername(username) {
-    console.log(username);
-    welcome = 'Welcome to SustainableStocks ' + username;
-    $('#userDiv').append(welcome);
-}
-
-function showRegions(data){
-    google.charts.load('current', {
-        'packages': ['map'],
-        'mapsApiKey': 'AIzaSyCfy_-gK8A2PfWCJgkLdi4Ph2intaJ8S7c'
-    });
-    
-    google.charts.setOnLoadCallback(drawMap);
-
-    function drawMap() {
-        var mapData = new google.visualization.DataTable();
-        mapData.addColumn('string', 'Continent');
-        mapData.addColumn('string', 'Available Tickers');
-
-        fetch(`http://localhost:2500/getRegionTicker`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(dataRegion => {
-                var continentTickers = {};
-
-                dataRegion.forEach(item => {
-                    if (!continentTickers[item.continent]) {
-                        continentTickers[item.continent] = [];
-                    }
-                    continentTickers[item.continent].push(item.tickerid);
-                });
-
-                Object.keys(continentTickers).forEach(continent => {
-                    var tickers = continentTickers[continent].join(', ');
-                    mapData.addRow([continent, tickers]);
-                });
-                })
-            .catch(error => console.error('Error:', error));
-
-        var options = {
-            showTooltip: true,
-            showInfoWindow: true
-        };
-
-        var map = new google.visualization.Map(document.getElementById('chart_div'));
-
-        map.draw(mapData, options);
-    };
-}
-
-function showEnergySources(data){
-    console.log(data);
-    energyitemhtml = "<tr><th>Energy Sources:</th></tr>";
-
-    data.forEach(item => {
-        energyitemhtml += `<tr><td>${item.energysource}</td></tr>`;
-    });
-
-    //$("#tblEnergies").append(energyitemhtml);
-
-    fetch(`http://localhost:2500/getEnergyTicker`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(dataEnergy => {
-                var energyTickers = {};
-                var tickerCount = {};
-
-                dataEnergy.forEach(item => {
-                    if (!energyTickers[item.energysource]) {
-                        energyTickers[item.energysource] = [];
-                    }
-                    energyTickers[item.energysource].push(item.tickerid);
-                });
-
-                Object.keys(energyTickers).forEach(energysource => {
-                    tickerCount[energysource] = energyTickers[energysource].length;
-                });
-
-                const ctx = document.getElementById('energyChart');
-
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ['Solar', 'Biomass', 'Hydroelectric', 'Wind', 'Natural Gas', 'Nuclear'],
-                        datasets: [{
-                            label: 'Available Tickers',
-                            data: Object.values(tickerCount),
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        plugins: {
-                            datalabels: {
-                                display: false
-                            }
-                        },
-                        scales: {
-                            x: {
-                                title: {
-                                    display: true,
-                                    text: 'Energy sources',
-                                    font: {
-                                        padding: 4,
-                                        size: 13, 
-                                        family: 'Arial'
-                                    },
-                                    color: 'green'
-                                }
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: 'Number of tickers available',
-                                    font: {
-                                        size: 13,
-                                        family: 'Arial'
-                                    },
-                                    color: 'green'
-                                },
-                                beginAtZero: true
-                            }
-                        },
-                        tooltips: {
-                            callbacks: {
-                                label: function(context) {
-                                    var energySource = context.xLabel;
-                                    var tickerIds = energyTickers[energySource].join(', ');
-                                    return 'Tickers: ' + tickerIds;
-                                }
-                            }
-                        }                        
-                    }
-                });
-            })
-            .catch(error => console.error('Error:', error));
-}
          
 async function fetchData(ticker_id) {
     const ticker = ticker_id;
@@ -309,13 +206,6 @@ async function fetchNews(ticker_id) {
 }
 
 async function showTickerData(data, tickerid){
-    $('#divTickerSearch').hide();
-    $('#historicalDataGraph').show();
-    $('#tickerInfo').show();
-    $('#tickerContainerDiv').show();
-    $('.spanHome').hide();
-    $('.blockAvailableTickers').hide();
-    
     fetchData(tickerid);
     console.log('data fetched hopefully');
 

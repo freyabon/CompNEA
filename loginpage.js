@@ -42,7 +42,7 @@ $(document).ready(function(){
             .then(data => {
                 console.log(data);
                 const queryString = `?username=${username}`;
-                window.location.href = `ticker_info.html${queryString}`;
+                window.location.href = `home_page.html${queryString}`;
             })
             .catch(error => {
                 console.error('Error:', error)
