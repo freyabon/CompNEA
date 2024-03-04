@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    $('.map-ontainer').hide();
+    $('.energy-container').hide();
+    $('.tickerOptionsClass').hide();
+
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');       
 
@@ -6,7 +10,28 @@ $(document).ready(function(){
         displayUsername(usernameParam);
     }
 
-    fetch(`http://localhost:2500/getRegionList`, {
+    $("#tickerMenu").click(function() {
+        $('.tickerOptionsClass').show();
+        $('.map-container').hide();
+        $('.energy-container').hide();
+        fetch(`http://localhost:2500/getTickerList`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                showTickers(data, usernameParam);
+            })
+            .catch(error => console.error('Error:', error));
+    })
+
+    $("#regionMenu").click(function() {
+        $('.tickerOptionsClass').hide();
+        $('.map-container').show();
+        $('.energy-container').hide();
+        fetch(`http://localhost:2500/getRegionList`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -17,7 +42,12 @@ $(document).ready(function(){
                 showRegions(data);
             })
             .catch(error => console.error('Error:', error));
+    })
 
+    $("#energyMenu").click(function() {
+        $('.tickerOptionsClass').hide();
+        $('.map-container').hide();
+        $('.energy-container').show();
         fetch(`http://localhost:2500/getEnergyList`, {
             method: 'GET',
             headers: {
@@ -29,6 +59,8 @@ $(document).ready(function(){
                 showEnergySources(data);
             })
             .catch(error => console.error('Error:', error));
+    })
+
 
     $('#btnSearch').on('click', function (e) {
         var search = $('#TickerSymbol').val();
@@ -124,6 +156,15 @@ $(document).ready(function(){
     });
 });
 
+function showTickers(data, username){
+    $("#tblTickers").empty();
+    tickeritemhtml = "<tr><th>TickerID</th><th>Ticker Name</th><th>Continent</th></tr>";
+    data.forEach(item => {
+        tickeritemhtml += `<tr><td><a href="ticker_info.html?tickerid=${item.tickerid}&username=${username}">${item.tickerid}</a></td><td>${item.tickername}</td><td>${item.continent}</td></tr>`;
+    });
+    $("#tblTickers").append(tickeritemhtml);
+}
+
 function capitaliseWords(input){
     str = input.toLowerCase().split(' ').map(function(word){
         return word[0].toUpperCase() + word.substr(1);
@@ -181,6 +222,7 @@ function showRegions(data){
 
         var map = new google.visualization.Map(document.getElementById('chart_div'));
 
+        $('#mapInfo').append("Hover over a pin to view the available tickers for that region:");
         map.draw(mapData, options);
     };
 }

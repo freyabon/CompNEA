@@ -42,13 +42,15 @@
                         <div class="panel-body">
                             <div class="form-group col-md-5">
                                 <label for="TickerSymbol">Search for ticker/continent/energysource:</label>
-                                <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter ticker/continent/energysource" required>
-                                <div class="dropdown">
-                                    <button class="dropbtn">Options</button>
-                                    <div class="dropdown-content">
-                                      <a href="#">All tickers</a>
-                                      <a href="#">All regions</a>
-                                      <a href="#">All energy sources</a>
+                                <div class="input-group">
+                                    <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter ticker/continent/energysource" required>
+                                    <div class="dropdown">
+                                        <button class="dropbtn">Options</button>
+                                        <div class="dropdown-content">
+                                          <a id="tickerMenu">All tickers</a>
+                                          <a id="regionMenu">All regions</a>
+                                          <a id="energyMenu">All energy sources</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -64,22 +66,18 @@
         </div>
     </div>
 
-    <div id="searchRegion"></div>
-    <div id="searchEnergy"></div>
+    <div id="divTickerInfo" class="tickerOptionsClass">
+        <table id="tblTickers" class="tickerTable"></table>
+    </div>
 
-    <div class="blockAvailableTickers">
-        <div class="containerHover">
-            <div class="filterTable">
-                <div class="left-container">
-                    Hover over a pin to view the available tickers for that region:
-                    <div id="chart_div"></div>
-                </div>
-                <div class="right-container">
-                    <div class="energyTable">
-                        <canvas id="energyChart"></canvas>
-                    </div>
-                </div>
-            </div>
+    <div class="map-container">
+        <div id="mapInfo"></div>
+        <div id="chart_div"></div>
+    </div>
+
+    <div class="energy-container">
+        <div class="energyTable">
+            <canvas id="energyChart"></canvas>
         </div>
     </div>
 

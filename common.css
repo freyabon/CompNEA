@@ -1,9 +1,25 @@
+.tickerOptionsClass{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    height: auto;
+}
+
+.input-group {
+    position: relative;
+    display: flex;
+    margin-bottom: 5px;
+}
+
 .dropbtn {
-    background-color: #04AA6D;
+    background-color: #5ca73e;
     color: white;
-    padding: 16px;
+    padding: 7px;
     font-size: 16px;
     border: none;
+    height: 35.75px;
+    border-radius: 2.5px;
   }
   
 .dropdown {
@@ -70,30 +86,6 @@ display: block;
     left: -35px;
 }
 
-.blockAvailableTickers {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-}
-
-.containerHover {
-    display: flex;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    overflow: hidden;
-    margin-bottom: 10px;
-}
-
-.left-container {
-    flex: 1;
-    padding: 10px;
-}
-
-.right-container {
-    flex: 1;
-    border-left: 1px solid #ccc;
-    padding: 10px;
-}
 
 #chart_div {
     margin-bottom: 10px;
@@ -105,10 +97,6 @@ display: block;
 
 .energyChart {
     width: 100%;
-}
-
-.filterTable {
-    display: flex;
 }
 
 
@@ -184,7 +172,7 @@ display: block;
 }
 
 .tickerNameClass {
-    font-size: 150px;
+    font-size: 120px;
     margin-right: 30px;
     margin-bottom: 300px;
 }
@@ -202,7 +190,7 @@ display: block;
 
 .spanHome{
     display: flex;
-    margin-top: 25px;
+    margin-top: auto;
     align-items: flex-end
 }
 
