@@ -34,9 +34,9 @@ $(document).ready(function(){
                 if (response.ok) {
                     return response.json();
                 } else {
-                    error = 'User was not found...';
+                    error = 'User was not found or incorrect password...';
                     $('#userError').append(error);
-                    throw new Error('User was not found...');
+                    throw new Error('User was not found');
                 }
             })
             .then(data => {
@@ -89,10 +89,12 @@ $(document).ready(function(){
 });
 
 function showPasswordSignIn(){
-    var passInput = $("#inpPass").val(0);
+    var passInput = $("#inpPass");
+    var passValue = passInput.val();
     if (passInput.attr("type") === "password") {
         passInput.attr("type", "text");
     } else {
         passInput.attr("type", "password");
     }
+    passInput.val(passValue);
 }

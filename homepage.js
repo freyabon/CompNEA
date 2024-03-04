@@ -31,11 +31,71 @@ $(document).ready(function(){
             .catch(error => console.error('Error:', error));
 
     $('#btnSearch').on('click', function (e) {
-        var tickerid = $('#TickerSymbol').val();
+        var search = $('#TickerSymbol').val();
 
-        const queryTicker = `?tickerid=${tickerid}&username=${usernameParam}`;
-        window.location.href = `ticker_info.html${queryTicker}`;
-        showTickerData(data, tickerid);
+        fetch(`http://localhost:2500/getRegionList`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(regionData => {
+                var regionList = [];
+                regionData.forEach(item => {
+                    regionList.push(item.continent);
+                });
+
+                capitalisedSearch = capitaliseWords(search);
+
+                if (regionList.includes(capitalisedSearch)){
+                    $('#searchRegion').append(search + " found in regionList")
+                } else{
+                    fetch(`http://localhost:2500/getEnergyList`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then(response => response.json())
+                        .then(energyData => {
+                            var energyList = [];
+                            energyData.forEach(item => {
+                                energyList.push(item.energysource);
+                            });
+
+                            if (energyList.includes(capitalisedSearch)){
+                                $('#searchEnergy').append(search + " found in energyList")
+                            } else {
+                                fetch(`http://localhost:2500/getTickerList`, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                })
+                                    .then(response => response.json())
+                                    .then(tickerData => {
+                                        var tickerList = [];
+                                        tickerData.forEach(item => {
+                                            tickerList.push(item.tickerid);
+                                        });
+
+                                        tickerid = search.toUpperCase();
+
+                                        if (tickerList.includes(tickerid)){
+                                            const queryTicker = `?tickerid=${tickerid}&username=${usernameParam}`;
+                                            window.location.href = `ticker_info.html${queryTicker}`;
+                                        } else {
+                                            alert("That ticker was not found in the database...")
+                                        }
+                                    })
+                                    .catch(error => console.error('Error:', error));
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                }
+            })
+            .catch(error => console.error('Error:', error));
     });
 
 
@@ -63,6 +123,13 @@ $(document).ready(function(){
         window.location.href = `index.html`;
     });
 });
+
+function capitaliseWords(input){
+    str = input.toLowerCase().split(' ').map(function(word){
+        return word[0].toUpperCase() + word.substr(1);
+    }).join(' ');
+    return str;
+}
 
 function displayUsername(username) {
     console.log(username);

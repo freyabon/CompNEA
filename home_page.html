@@ -41,8 +41,16 @@
                     <div class="panel panel-primary">
                         <div class="panel-body">
                             <div class="form-group col-md-5">
-                                <label for="TickerSymbol">Search for ticker:</label>
-                                <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter Ticker Symbol" required>
+                                <label for="TickerSymbol">Search for ticker/continent/energysource:</label>
+                                <input type="text" name="TickerSymbol" id="TickerSymbol" class="form-control" placeholder="Enter ticker/continent/energysource" required>
+                                <div class="dropdown">
+                                    <button class="dropbtn">Options</button>
+                                    <div class="dropdown-content">
+                                      <a href="#">All tickers</a>
+                                      <a href="#">All regions</a>
+                                      <a href="#">All energy sources</a>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group col-md-1">
                                 <div style="float: right;">
@@ -55,6 +63,9 @@
             </div>
         </div>
     </div>
+
+    <div id="searchRegion"></div>
+    <div id="searchEnergy"></div>
 
     <div class="blockAvailableTickers">
         <div class="containerHover">

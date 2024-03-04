@@ -17,6 +17,7 @@ app.use(bodyParser.json());
 
 'use strict';
 let crypto = require('crypto');
+const { log } = require('console');
 let logger = func => {
     console.log(func);
 };
@@ -133,8 +134,11 @@ app.get('/getTickerData', (req, res) => {
         return;
     }
 
+    const trimmedTicker = tickerid.trim();
+    const sanitisedTicker = removeSpecialCharacters(trimmedTicker);
+
     const SelectQuery = 'SELECT * FROM sustainablestocks.tickerdata WHERE tickerid = ?';
-    const SelectValues = [tickerid];
+    const SelectValues = [sanitisedTicker];
 
     pool.query(SelectQuery , SelectValues, (err, results) => {
         if (err) {
@@ -235,28 +239,55 @@ app.get('/getTickerInfo', (req, res) => {
 
 app.post('/registerUserDetails', (req, res) => {
     const { Username, Password } = req.body;
-    console.log(req.body);
 
     if (!Username || !Password) {
         res.status(400).send('All fields must be completed');
         return;
     }
 
-    let salt = generateSalt(10);
-    let hashedPassword = hash(Password, salt);
+    const trimmedUsername = Username.trim();
+    const trimmedPassword = Password.trim();
 
-    const RegisterQuery = 'INSERT INTO sustainablestocks.hasheduserdetails (Username, salt, hashedPassword) VALUES (?, ?, ?)';
-    const RegisterValues = [Username, hashedPassword.salt, hashedPassword.hashedpassword];
+    const sanitisedUsername = removeSpecialCharacters(trimmedUsername);
+    const sanitisedPassword = removeSpecialCharacters(trimmedPassword);
 
-    pool.query(RegisterQuery , RegisterValues, (err, results) => {
+    const checkExistQuery = 'SELECT COUNT(*) AS count FROM sustainablestocks.hasheduserdetails WHERE Username = ?';
+    const checkExistValues = [sanitisedUsername];
+
+    pool.query(checkExistQuery, checkExistValues, (err, results) => {
         if (err) {
             console.error(err);
             res.status(500).send('Internal Server Error');
             return;
         }
-        res.status(200).send('User data inserted successfully');   
+
+        const count = results[0].count;
+        if (count === 0) {
+            let salt = generateSalt(10);
+            let hashedPassword = hash(sanitisedPassword, salt);
+
+            const RegisterQuery = 'INSERT INTO sustainablestocks.hasheduserdetails (Username, salt, hashedPassword) VALUES (?, ?, ?)';
+            const RegisterValues = [sanitisedUsername, salt, hashedPassword];
+
+            pool.query(RegisterQuery, RegisterValues, (err, results) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send('Internal Server Error');
+                    return;
+                }
+                res.status(200).send('User data inserted successfully');
+            });
+        } else {
+            res.status(401).send('User already exists');
+        }
     });
 });
+
+
+function removeSpecialCharacters(input){
+    const removedInput = input.replace(/'/g, "''");
+    return removedInput;
+}
 
 app.post('/saveTicker', (req, res) => {
     const { Username, tickerid } = req.body;
@@ -311,8 +342,9 @@ app.post('/updateTickerTable', (req, res) => {
         return;
     }
 
-    const insertQuery = 'INSERT INTO sustainablestocks.tickerdata (tickerid, date, open, high, low, close, volume) VALUES (?, ?, ?, ?, ?, ?, ?)';
-    const insertValues = [tickerid, date, open, high, low, close, volume];
+    const insertQuery = 'INSERT INTO sustainablestocks.tickerdata (tickerid, date, open, high, low, close, volume) SELECT ?, ?, ?, ?, ?, ?, ? FROM dual WHERE NOT EXISTS (SELECT 1 FROM sustainablestocks.tickerdata WHERE tickerid = ? AND date = ?)';
+    const insertValues = [tickerid, date, open, high, low, close, volume, tickerid, date];
+
 
     pool.query(insertQuery , insertValues, (err, results) => {
         if (err) {
