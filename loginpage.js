@@ -4,13 +4,11 @@ $(document).ready(function(){
     $("#toggleSignIn").click(function(){
       $("#blockSignIn").show();
       $("#blockRegister").hide();
-      console.log('Sign in Clicked');
     });
 
     $("#toggleRegister").click(function(){
         $("#blockSignIn").hide();
         $("#blockRegister").show();
-        console.log('Register Clicked');
       });
 
     $('#btnSubmit').on('click', function (e) {

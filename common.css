@@ -1,3 +1,96 @@
+#divTickerData {
+    margin-left: 40px;
+    display: block;
+    width: calc(40% - 40px);
+    overflow-x: auto;
+    max-height: 300px;
+    overflow-y: auto;
+    border: 3px solid;
+    border-color: #5ca73e;
+    border-radius: 7px;
+    float: left;
+}
+
+.tickerTable {
+    table-layout: auto;
+    width: 100%;
+}
+
+.tickerTable th,
+.tickerTable td {
+    width: 100px;
+}
+
+#divTickerData::-webkit-scrollbar {
+    width: 15px;
+}
+
+#divTickerData::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+#divTickerData::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
+.displayTickbox {
+    margin-left: 20px;
+    margin-right: 20px;
+    border: 3px solid;
+    border-color: #3e8e41;
+    border-radius: 7px;
+    width: 550px;
+    height: 250px;
+}
+
+.saveGraphContainer {
+    width: 800px;
+    float: right;
+}
+
+.saveGraphBtn {
+    border-radius: 7px;
+    background-color: #4CAF50;
+    font-size: 14px;
+    width: 150px;
+}
+
+.tickBox {
+    padding: 10px;
+}
+
+.customiseGraph {
+    display: inline-flex;
+    margin-bottom: 100px;
+    margin-left: 20px;
+}
+
+.inlineTickbox {
+    display: inline-flex;
+}
+
+
+.map-container{
+    border: 3px solid;
+    border-color: #3e8e41;
+    border-radius: 7px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 50%;
+}
+
+.energy-container{
+    border: 3px solid;
+    border-color: #3e8e41;
+    border-radius: 7px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    width: 50%;
+}
+
 .tickerOptionsClass{
     display: block;
     margin-left: auto;
@@ -107,24 +200,36 @@ display: block;
 }
 
 .containerBlock{
-    width: 740px;
     padding: 20px;
     border-radius: 20px;
     border: solid 3px #5ca73e;
     background: white;
     height: 540px;
     margin-bottom: 40px;
+    max-width: 700px;
+    overflow-x: auto;
 
     align-items: center;
     justify-content: center;
     align-items: center;
 }
 
+.containerBlock::-webkit-scrollbar {
+    width: 15px;
+}
+
+.containerBlock::-webkit-scrollbar-thumb {
+    background-color: #888;
+    border-radius: 5px;
+}
+
+.containerBlock::-webkit-scrollbar-track {
+    background-color: #f1f1f1;
+}
+
 .chartContainer{
-    width: 700px;
-    max-width: 700px;
-    overflow-x: scroll;
-    height: 500px;
+    width: 900px;
+    height: 475px;
 }
 
 #container {
@@ -229,6 +334,14 @@ display: block;
     background-color: #4CAF50;
 }
 
+.saveButton :hover {
+    background-color: #6fe373;
+}
+
+.unsaveButton :hover {
+    background-color: #6fe373;
+}
+
 .form-group col-md-5{
     display: inline-block;
     position: relative;
@@ -328,7 +441,7 @@ table, th, td {
     display: block;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: 397.43px;
+    width: auto;
     margin: auto;
     margin-bottom: 100px;
 }

@@ -51,6 +51,37 @@
         </div>
     </div>
 
+    <div class="customiseGraph">
+        <div id="divTickerData" class="tickerDataClass">
+            <table id="tblTickerData" class="tickerTable"></table>
+        </div>
+        <div class="displayTickbox">
+            <div class="inlineTickbox">
+                <div class="tickBox">
+                    <label style="text-decoration: underline; text-decoration-color: green; font-size: 15px;">Customise display:</label>
+                </div>
+                <div class="tickBox">
+                    <p><input id="tabularBox" type="checkbox" onclick="displayTabular()">Tabular format</p>
+                </div>
+                <div class="tickBox">
+                    <label style="text-decoration: underline; text-decoration-color: green; font-size: 15px;">Customise data:</label>
+                </div>
+                <div class="tickBox">
+                    <p><input id="predictionBox" type="checkbox" onclick="displayPrediction()" checked>Stock prediction</p>
+                    <p><input id="openBox" type="checkbox" onclick="displayPrediction()">Open price</p>
+                    <p><input id="highBox" type="checkbox" onclick="displayPrediction()">High price</p>
+                    <p><input id="lowBox" type="checkbox" onclick="displayPrediction()">Low price</p>
+                    <p><input id="closeBox" type="checkbox" onclick="displayPrediction()" checked>Close price</p>
+                    <input id="volumeBox" type="checkbox" onclick="displayPrediction()">Volume
+                </div>
+            </div>
+        </div>
+        <div class="saveGraphContainer">
+            <button id="saveGraph" class="saveGraphBtn">Export data as .csv</button>
+        </div>
+    </div>
+
+
     <!--<canvas id="plot1" class="predictChart"></canvas>-->
     <div id="plot1"></div>
     <div id="plot2"></div>

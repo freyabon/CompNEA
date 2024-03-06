@@ -1,4 +1,6 @@
 $(document).ready(function(){
+    $('#divTickerData').hide();
+
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');
     const tickerParam = urlParams.get('tickerid');   
@@ -15,7 +17,6 @@ $(document).ready(function(){
             })
             .catch(error => console.error('Error:', error));
 
-    
     
     fetch(`http://localhost:2500/getSavedTickers?Username=${usernameParam}`, {
         method: 'GET',
@@ -117,6 +118,35 @@ $(document).ready(function(){
         window.location.href = `index.html`;
     });
 });
+
+function displayTabular() {
+    const isChecked = $('#tabularBox').prop('checked');
+    
+    if (isChecked) {
+        $('#divTickerData').show();
+        const urlParams = new URLSearchParams(window.location.search);
+        const tickerParam = urlParams.get('tickerid');
+        $("#tblTickerData").empty();
+
+        fetch(`http://localhost:2500/getTickerData?tickerid=${tickerParam}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        .then(response => response.json())
+        .then(data => {
+            let tickeritemhtml = "<tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>";
+            data.forEach(item => {
+                tickeritemhtml += `<tr><td>${item.date}</td><td>${item.open}</td><td>${item.high}</td><td>${item.low}</td><td>${item.close}</td><td>${item.volume}</td></tr>`;
+            });
+            $("#tblTickerData").append(tickeritemhtml);
+        })
+        .catch(error => console.error('Error:', error));
+    } else {
+        $('#divTickerData').hide();
+    }
+}
          
 async function fetchData(ticker_id) {
     const ticker = ticker_id;
@@ -278,14 +308,6 @@ async function showTickerData(data, tickerid){
         }
     });
 
-    const containerBody = document.querySelector('.containerBody');
-    if(myChart.data.labels.length > 15){
-        containerBody.style.width = '800px';
-    }
-
-    const dataLength = data.length;
-    const containerWidth = 30 * dataLength + 'px';
-    $('.chartContainer').css('width', containerWidth);
 
     // tensorflow =====================================================================================================
     function extractData(obj) {
