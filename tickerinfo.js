@@ -40,7 +40,9 @@ $(document).ready(function(){
     })
     .catch(error => console.error('Error:', error));
 
-
+    /*$(document).on('click', '#saveGraph', function (e) {
+        get();
+    })*/
 
     $(document).on('click', '.saveButton', function (e) {
         $(this).hide();
@@ -237,14 +239,51 @@ async function fetchNews(ticker_id) {
 
 async function showTickerData(data, tickerid){
     fetchData(tickerid);
-    console.log('data fetched hopefully');
-
     fetchNews(tickerid);
-
 
     let ctx = document.getElementById('myChart').getContext('2d');
     const dates = data.map(item => luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy'));
     const closePrices = data.map(item => parseFloat(item.close));
+    const lastDate = luxon.DateTime.fromISO(data[data.length - 1].date);
+
+    const futureDates = [];
+    for (let i = 1; i <= 30; i++) {
+        const futureDate = lastDate.plus({days: i}).toFormat('dd/MM/yyyy');
+        futureDates.push(futureDate);
+    }
+
+    const combinedDates = [...dates, ...futureDates];
+    const objData = combinedDates.map((date, index) => ({
+        date: date,
+        close: index < dates.length ? closePrices[index] : null //for historical data, close is set to the corresponding close price but for future dates, close is set to null
+    }));
+
+    const csvData = convertToCSV({ dates, closePrices });
+
+    function convertToCSV(data) {
+        let csvContent = "Date,Close Price\n";
+        for (let i = 0; i < data.dates.length; i++) {
+            csvContent += `${data.dates[i]},${data.closePrices[i]}\n`;
+        }
+        return csvContent;
+    }
+
+    const download = function (data, tickerid) { 
+        const blob = new Blob([data], { type: 'text/csv' }); 
+        const url = window.URL.createObjectURL(blob); 
+        const a = document.createElement('a') ;
+        a.setAttribute('href', url) ;
+        a.setAttribute('download', `${tickerid}_data.csv`);
+        a.click();
+    } 
+
+    const downloadBtn = document.getElementById('saveGraph');
+    downloadBtn.addEventListener('click', () => {
+        download(csvData, tickerid);
+    });
+
+    let predictedValues = [];
+    predictedValues = await runTF(objData);
     
     let myChart = new Chart(ctx, {
         type: 'line',
@@ -252,11 +291,21 @@ async function showTickerData(data, tickerid){
             labels: dates,
             datasets: [
                 {
-                    label: 'Close prices',
+                    label: 'Close price',
                     data: closePrices,
                     borderColor: 'blue',
                     borderWidth: 2,
                     fill: true,
+                    pointRadius: 0,
+                    pointHoverRadius: 25,
+                    spanGaps: true
+                },
+                {
+                    label: 'Predicted price',
+                    data: predictedValues,
+                    borderColor: 'orange',
+                    borderWidth: 2,
+                    fill: false,
                     pointRadius: 0,
                     pointHoverRadius: 25,
                     spanGaps: true
@@ -269,7 +318,7 @@ async function showTickerData(data, tickerid){
             plugins: {
                 title: {
                     display: true,
-                    text: 'Historical Stock Data For Close Prices',
+                    text: 'Historical and Predicted Stock Data For Close Prices',
                     font: {
                         size: 15
                     }
@@ -327,12 +376,10 @@ async function showTickerData(data, tickerid){
     async function runTF(data) {
         let values = data.map(extractData).filter(removeErrors);
         
-        // Plot the Data
         const surface1 = document.getElementById("plot1");
         const surface2 = document.getElementById("plot2");
         tfPlot(values, surface1);
 
-        // Convert Input to Tensors
         const inputs = values.map(obj => obj.x);
         const labels = values.map(obj => obj.y);
         const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
@@ -344,16 +391,13 @@ async function showTickerData(data, tickerid){
         const nmInputs = inputTensor.sub(inputMin).div(inputMax.sub(inputMin));
         const nmLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
 
-        // Create the Tensorflow Model
         const model = tf.sequential(); 
         model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
         model.add(tf.layers.dense({units: 1, useBias: true}));
         model.compile({loss:'meanSquaredError', optimizer:'sgd'});
 
-        // Start Training
         await trainModel(model, nmInputs, nmLabels, surface2);
 
-        // Un-Normalise Data
         let unX = tf.linspace(0, 1, 100);      
         let unY = model.predict(unX.reshape([100, 1]));      
         const unNormunX = unX
@@ -365,11 +409,12 @@ async function showTickerData(data, tickerid){
         unX = unNormunX.dataSync();
         unY = unNormunY.dataSync();
 
-        // Test the Model
         const predicted = Array.from(unX).map((val, i) => {
         return {x: val, y: unY[i]}
         });
+        predictedValues = predicted.map(item => item.y);
         tfPlot([values,predicted], surface1)
+        return predictedValues;
     }
 
     function tfPlot(values, surface) {
@@ -377,88 +422,6 @@ async function showTickerData(data, tickerid){
           {values:values, series:['Original','Predicted']},
           {xLabel:'Dates', yLabel:'Close Prices',});
     }
-
-    /*function tfPlot(values, surface, data) {
-        const predictedData = values.map(item => ({ x: item.x, y: item.y }));
-        const originalDates = predictedData.map(item => plotDateFormat(item.x));
-        const predictedValues = predictedData.map(item => item.y);
-
-        let ctx2 = document.getElementById('plot1').getContext('2d');
-        //const dates = data.map(item => luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy'));
-        const closePrices = data.map(item => parseFloat(item.close));
-        
-        let myChart2 = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: originalDates,
-                datasets: [
-                    {
-                        label: 'Close prices',
-                        data: closePrices,
-                        borderColor: 'blue',
-                        borderWidth: 2,
-                        fill: true,
-                        pointRadius: 0,
-                        pointHoverRadius: 25,
-                        spanGaps: true
-                    },
-                    {
-                        label: 'Predicted prices',
-                        data: predictedValues,
-                        borderColor: 'orange',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 0,
-                        pointHoverRadius: 25,
-                        spanGaps: true
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Historical/Prediction Stock Data For Close Prices',
-                        font: {
-                            size: 15
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date',
-                            font: {
-                                padding: 4,
-                                size: 13, 
-                                family: 'Arial'
-                            },
-                            color: 'green'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Close Prices (USD)',
-                            font: {
-                                size: 13,
-                                family: 'Arial'
-                            },
-                            color: 'green'
-                        },
-                        beginAtZero: false,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Values',
-                        }
-                    }
-                }
-            }
-        });
-    }*/
 
     async function trainModel(model, inputs, labels, surface) {
         const batchSize = 25;
@@ -468,196 +431,6 @@ async function showTickerData(data, tickerid){
           {batchSize, epochs, shuffle:true, callbacks:callbacks}
         );
     }
-
-    function plotDateFormat(timestamp) {
-        const date = new Date(timestamp);
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        return `${year}-${month}-${day}`;
-    }
-
-    runTF(data);
-
-
-    //const dates = data.map(item => new Date(item.date));
-    //const dates = data.map(item => luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy'));
-    //const closePrices = data.map(item => parseFloat(item.close));
-
-    /*function createModel() {
-        // Create a sequential model
-        const model = tf.sequential();
-        // Add a single input layer
-        model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));   
-        // Add an output layer
-        model.add(tf.layers.dense({units: 1, useBias: true}));
-        return model;
-    }
-
-    const model = createModel();
-    tfvis.show.modelSummary({name: 'Model Summary'}, model);
-
-    // Convert the data to a form we can use for training.
-    const tensorData = convertToTensor(data);
-    const {inputs, labels} = tensorData;
-
-    // Train the model
-    await trainModel(model, inputs, labels);
-    console.log('Done Training');
-
-    testModel(model, data, tensorData);
-
-    function convertToTensor(data) {
-        // Wrapping these calculations in a tidy will dispose any
-        // intermediate tensors.
-      
-        return tf.tidy(() => {
-          // Step 1. Shuffle the data
-          tf.util.shuffle(data);
-      
-          // Step 2. Convert data to Tensor
-          const inputs = data.map(d => d.horsepower)
-          const labels = data.map(d => d.mpg);
-      
-          const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
-          const labelTensor = tf.tensor2d(labels, [labels.length, 1]);
-      
-          //Step 3. Normalize the data to the range 0 - 1 using min-max scaling
-          const inputMax = inputTensor.max();
-          const inputMin = inputTensor.min();
-          const labelMax = labelTensor.max();
-          const labelMin = labelTensor.min();
-      
-          const normalizedInputs = inputTensor.sub(inputMin).div(inputMax.sub(inputMin));
-          const normalizedLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
-      
-          return {
-            inputs: normalizedInputs,
-            labels: normalizedLabels,
-            // Return the min/max bounds so we can use them later.
-            inputMax,
-            inputMin,
-            labelMax,
-            labelMin,
-          }
-        });
-    }
-
-    async function trainModel(model, inputs, labels) {
-        model.compile({
-          optimizer: tf.train.adam(),
-          loss: tf.losses.meanSquaredError,
-          metrics: ['mse'],
-        });
-      
-        const batchSize = 32;
-        const epochs = 50;
-      
-        return await model.fit(inputs, labels, {
-          batchSize,
-          epochs,
-          shuffle: true,
-          callbacks: tfvis.show.fitCallbacks(
-            { name: 'Training Performance' },
-            ['loss', 'mse'],
-            { height: 200, callbacks: ['onEpochEnd'] }
-          )
-        });
-    }
-
-    function testModel(model, inputData, normalizationData) {
-        const {inputMax, inputMin, labelMin, labelMax} = normalizationData;
-
-        const [inputs, labels] = tf.tidy(() => {
-            const xs = tf.linspace(0, 1, inputData.length);
-            const preds = model.predict(xs.reshape([inputData.length, 1]));
-    
-            const unNormInputs = xs.mul(inputMax.sub(inputMin)).add(inputMin);
-            const unNormLabels = preds.mul(labelMax.sub(labelMin)).add(labelMin);
-    
-            return [unNormInputs.dataSync(), unNormLabels.dataSync()];
-        });
-    
-        const predictedPoints = Array.from(inputs).map((val, i) => {
-            return {x: val, y: labels[i]}
-        });
-    
-        const ctx2 = document.getElementById('myChart2').getContext('2d');
-    
-        let myChart2 = new Chart(ctx2, {
-            type: 'line',
-            data: {
-                labels: inputData.map(d => d.date),
-                datasets: [
-                    {
-                        label: 'Close prices',
-                        data: inputData.map(d => d.close),
-                        borderColor: 'blue',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 0,
-                        pointHoverRadius: 5,
-                        spanGaps: true
-                    },
-                    {
-                        label: 'Predicted Close Prices',
-                        data: predictedPoints,
-                        borderColor: 'orange',
-                        borderWidth: 2,
-                        fill: false,
-                        pointRadius: 0,
-                        pointHoverRadius: 5,
-                        spanGaps: true
-                    }
-                ]
-            },
-            options: {
-                maintainAspectRatio: false,
-                responsive: true,
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Historical Stock Data For Close Prices',
-                        font: {
-                            size: 15
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Date',
-                            font: {
-                                padding: 4,
-                                size: 13,
-                                family: 'Arial'
-                            },
-                            color: 'green'
-                        }
-                    },
-                    y: {
-                        title: {
-                            display: true,
-                            text: 'Close Prices (USD)',
-                            font: {
-                                size: 13,
-                                family: 'Arial'
-                            },
-                            color: 'green'
-                        },
-                        beginAtZero: true,
-                        scaleLabel: {
-                            display: true,
-                            labelString: 'Values',
-                        }
-                    }
-                }
-            }
-        });
-    }*/
-    
-
 
     $("#tickerName").append(tickerid);
     

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.map-ontainer').hide();
+    $('.map-container').hide();
     $('.energy-container').hide();
     $('.tickerOptionsClass').hide();
 

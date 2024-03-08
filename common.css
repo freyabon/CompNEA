@@ -11,13 +11,13 @@
     float: left;
 }
 
-.tickerTable {
+.dataTable {
     table-layout: auto;
     width: 100%;
 }
 
-.tickerTable th,
-.tickerTable td {
+.dataTable th,
+.dataTable td {
     width: 100px;
 }
 
@@ -91,13 +91,8 @@
     width: 50%;
 }
 
-.tickerOptionsClass{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
-    height: auto;
-}
+
+
 
 .input-group {
     position: relative;
@@ -432,23 +427,34 @@ display: block;
 }
 
 table, th, td {
-    border: 2.25px solid;
     border-radius: 7px;
-    border-color: #5ca73e;
+}
+
+.tickerOptionsClass{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    height: auto;
 }
 
 .tickerTable {
-    display: block;
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
     width: auto;
-    margin: auto;
+    margin: 0 auto;
+}
+
+.tblTickers{
+    display: block;
+    width: 100%;
     margin-bottom: 100px;
+    margin-top: 40px;
 }
   
 .tblTickers td, .tblTickers th {
     border: 1px solid #ddd;
-    padding: 8px;
+    padding: 5px;
 }
   
 .tblTickers tr:nth-child(even){background-color: #f2f2f2;}
@@ -459,15 +465,8 @@ table, th, td {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #04AA6D;
+    background-color: #5ca73e;
     color: white;
-}
-
-.tickerDiv{
-    display: block;
-    margin: auto;
-    height: 100px;
-    width: 100%;
 }
 
 ul {
