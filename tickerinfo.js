@@ -251,19 +251,16 @@ async function showTickerData(data, tickerid){
         const futureDate = lastDate.plus({days: i}).toFormat('dd/MM/yyyy');
         futureDates.push(futureDate);
     }
-
     const combinedDates = [...dates, ...futureDates];
     const objData = combinedDates.map((date, index) => ({
         date: date,
         close: index < dates.length ? closePrices[index] : null //for historical data, close is set to the corresponding close price but for future dates, close is set to null
     }));
 
-    const csvData = convertToCSV({ dates, closePrices });
-
     function convertToCSV(data) {
-        let csvContent = "Date,Close Price\n";
+        let csvContent = "Date,Close Price,Predicted Price\n";
         for (let i = 0; i < data.dates.length; i++) {
-            csvContent += `${data.dates[i]},${data.closePrices[i]}\n`;
+            csvContent += `${data.dates[i]},${data.closePrices[i]},${data.predictedValues[i]}\n`;
         }
         return csvContent;
     }
@@ -277,13 +274,17 @@ async function showTickerData(data, tickerid){
         a.click();
     } 
 
+    const windowSize = 10; //number of data points used to calculate the average
+    const smaValues = computeSMA(data, windowSize); //replace with objData
+
+    let predictedValues = [];
+    predictedValues = await runTF(smaValues);
+
+    const csvData = convertToCSV({ dates, closePrices, predictedValues });
     const downloadBtn = document.getElementById('saveGraph');
     downloadBtn.addEventListener('click', () => {
         download(csvData, tickerid);
     });
-
-    let predictedValues = [];
-    predictedValues = await runTF(objData);
     
     let myChart = new Chart(ctx, {
         type: 'line',
@@ -296,6 +297,16 @@ async function showTickerData(data, tickerid){
                     borderColor: 'blue',
                     borderWidth: 2,
                     fill: true,
+                    pointRadius: 0,
+                    pointHoverRadius: 25,
+                    spanGaps: true
+                },
+                {
+                    label: 'SMA',
+                    data: smaValues.map(item => item.close),
+                    borderColor: 'red',
+                    borderWidth: 2,
+                    fill: false,
                     pointRadius: 0,
                     pointHoverRadius: 25,
                     spanGaps: true
@@ -360,10 +371,10 @@ async function showTickerData(data, tickerid){
 
     // tensorflow =====================================================================================================
     function extractData(obj) {
-        const dateParts = obj.date.split('-');
-        const year = parseInt(dateParts[0]);
+        const dateParts = obj.date.split('/');
+        const day = parseInt(dateParts[0]);
         const month = parseInt(dateParts[1]);
-        const day = parseInt(dateParts[2]);
+        const year = parseInt(dateParts[2]);
         const timestamp = new Date(year, month - 1, day).getTime()
 
         return { x: timestamp, y: parseFloat(obj.close) };
@@ -376,9 +387,7 @@ async function showTickerData(data, tickerid){
     async function runTF(data) {
         let values = data.map(extractData).filter(removeErrors);
         
-        const surface1 = document.getElementById("plot1");
         const surface2 = document.getElementById("plot2");
-        tfPlot(values, surface1);
 
         const inputs = values.map(obj => obj.x);
         const labels = values.map(obj => obj.y);
@@ -391,10 +400,16 @@ async function showTickerData(data, tickerid){
         const nmInputs = inputTensor.sub(inputMin).div(inputMax.sub(inputMin));
         const nmLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
 
+        $("#displayRMSE").empty();
+        const mseTensor = tf.metrics.meanSquaredError(nmInputs, nmLabels);
+        const mseValue = mseTensor.dataSync()[0];
+        let htmlrmse = ('Root Mean Squared Error:', Math.sqrt(mseValue).toFixed(4));
+        $('#displayRMSE').append(htmlrmse);
+
         const model = tf.sequential(); 
-        model.add(tf.layers.dense({inputShape: [1], units: 1, useBias: true}));
-        model.add(tf.layers.dense({units: 1, useBias: true}));
-        model.compile({loss:'meanSquaredError', optimizer:'sgd'});
+        model.add(tf.layers.dense({inputShape: [1], units: 64, activation: 'relu'}));
+        model.add(tf.layers.dense({units: 1, activation: 'linear'}));
+        model.compile({loss:'meanSquaredError', optimizer: tf.train.adam(0.1)});
 
         await trainModel(model, nmInputs, nmLabels, surface2);
 
@@ -413,19 +428,12 @@ async function showTickerData(data, tickerid){
         return {x: val, y: unY[i]}
         });
         predictedValues = predicted.map(item => item.y);
-        tfPlot([values,predicted], surface1)
         return predictedValues;
     }
 
-    function tfPlot(values, surface) {
-        tfvis.render.scatterplot(surface,
-          {values:values, series:['Original','Predicted']},
-          {xLabel:'Dates', yLabel:'Close Prices',});
-    }
-
     async function trainModel(model, inputs, labels, surface) {
-        const batchSize = 25;
-        const epochs = 50;
+        const batchSize = 35;
+        const epochs = 100;
         const callbacks = tfvis.show.fitCallbacks(surface, ['loss'], {callbacks:['onEpochEnd']})
         return await model.fit(inputs, labels,
           {batchSize, epochs, shuffle:true, callbacks:callbacks}
@@ -452,6 +460,17 @@ async function showTickerData(data, tickerid){
                 $('#tickerInfoStats').append(tickerinfohtml);
             })
             .catch(error => console.error('Error:', error));
-    
+}
 
+function computeSMA(data, windowSize){
+    const smaValues = [];
+    for (let i = windowSize - 1; i < data.length; i++){
+        let sum = 0;
+        for(let j = i - windowSize + 1; j <= i; j++){
+            sum += parseFloat(data[j].close);
+        }
+        const average = sum / windowSize;
+        smaValues.push({date: luxon.DateTime.fromISO(data[i].date).toFormat('dd/MM/yyyy'), close: average});
+    }
+    return smaValues;
 }
