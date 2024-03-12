@@ -41,7 +41,6 @@
             <div id="tickerInfoStats"></div>
             <div id="saveBtn"></div>
         </div>
-        <!--<div id="historicalDataGraph" class="hDataGraph"></div>-->
         <div class="containerBlock">
             <div class="containerBody">
                 <div class="chartContainer">
@@ -51,21 +50,22 @@
         </div>
     </div>
 
+    <div id="displayRMSE" class="displayAccuracy"></div>
+
     <div class="customiseGraph">
         <div id="divTickerData" class="tickerDataClass">
             <table id="tblTickerData" class="tblTickers"></table>
         </div>
-        <div id="displayRMSE"></div>
         <div class="displayTickbox">
             <div class="inlineTickbox">
                 <div class="tickBox">
-                    <label style="text-decoration: underline; text-decoration-color: green; font-size: 15px;">Customise display:</label>
+                    <label style="text-decoration: underline; text-decoration-color: green; font-size: 18px; font-weight: bold;">Customise display:</label>
                 </div>
                 <div class="tickBox">
                     <p><input id="tabularBox" type="checkbox" onclick="displayTabular()">Tabular format</p>
                 </div>
                 <div class="tickBox">
-                    <label style="text-decoration: underline; text-decoration-color: green; font-size: 15px;">Customise data:</label>
+                    <label style="text-decoration: underline; text-decoration-color: rgb(51, 128, 51); font-size: 18px; font-weight: bold;">Customise data:</label>
                 </div>
                 <div class="tickBox">
                     <p><input id="predictionBox" type="checkbox" onclick="displayPrediction()" checked>Stock prediction</p>
@@ -82,14 +82,10 @@
         </div>
     </div>
 
-
-    <!--<canvas id="plot1" class="predictChart"></canvas>-->
     <div id="plot1"></div>
     <div id="plot2"></div>
 
     <div id="tickerNews"></div>
-
-    <div id="epochGraph"></div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="tickerinfo.js"></script>

@@ -1,14 +1,27 @@
+.displayAccuracy{
+    display: block;
+    margin-left: auto;
+    margin-right: 120px;
+    margin-bottom: 20px;
+    padding: 5px;
+    border-radius: 7px;
+    border: solid 3px #5ca73e;
+    box-shadow: 5px 5px 5px #4caf4f8a;
+    width: 275px;
+}
+
 #divTickerData {
     margin-left: 40px;
     display: block;
-    width: calc(40% - 40px);
+    width: auto;
     overflow-x: auto;
-    max-height: 300px;
+    max-height: 340px;
     overflow-y: auto;
     border: 3px solid;
-    border-color: #5ca73e;
-    border-radius: 7px;
+    border-color: #4CAF50;
     float: left;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
 
 .dataTable {
@@ -37,11 +50,19 @@
 .displayTickbox {
     margin-left: 20px;
     margin-right: 20px;
-    border: 3px solid;
-    border-color: #3e8e41;
-    border-radius: 7px;
     width: 550px;
-    height: 250px;
+    height: 340px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
 
 .saveGraphContainer {
@@ -50,10 +71,26 @@
 }
 
 .saveGraphBtn {
-    border-radius: 7px;
+    margin: 15px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    outline: none;
+    color: #fff;
     background-color: #4CAF50;
-    font-size: 14px;
-    width: 150px;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
+}
+
+.saveGraphBtn:hover {background-color: #3e8e41}
+  
+.saveGraphBtn:active {
+    background-color: #3e8e41;
+    box-shadow: 0 2px #666;
+    transform: translateY(4px);
 }
 
 .tickBox {
@@ -73,8 +110,10 @@
 
 .map-container{
     border: 3px solid;
-    border-color: #3e8e41;
-    border-radius: 7px;
+    border-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
@@ -83,8 +122,10 @@
 
 .energy-container{
     border: 3px solid;
-    border-color: #3e8e41;
-    border-radius: 7px;
+    border-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
     margin-left: auto;
     margin-right: auto;
     margin-top: 30px;
@@ -100,8 +141,9 @@
     margin-bottom: 5px;
 }
 
+
 .dropbtn {
-    background-color: #5ca73e;
+    background-color: #4CAF50;
     color: white;
     padding: 7px;
     font-size: 16px;
@@ -111,27 +153,27 @@
   }
   
 .dropdown {
-position: relative;
-display: inline-block;
+    position: relative;
+    display: inline-block;
 }
 
 .dropdown-content {
-display: none;
-position: absolute;
-background-color: #f1f1f1;
-min-width: 160px;
-box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-z-index: 1;
+    display: none;
+    position: absolute;
+    background-color: #4caf4fe9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
 }
 
 .dropdown-content a {
-color: black;
-padding: 6px 8px;
-text-decoration: none;
-display: block;
+    color: black;
+    padding: 6px 8px;
+    text-decoration: none;
+    display: block;
 }
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #439a46f2;}
 
 .dropdown:hover .dropdown-content {display: block;}
 
@@ -190,18 +232,21 @@ display: block;
 
 
 .predictChart{
-    width: 800px;
+    width: 850px;
     height: 540px;
 }
 
+
 .containerBlock{
+    margin-left: 40px;
     padding: 20px;
-    border-radius: 20px;
-    border: solid 3px #5ca73e;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
+    border: solid 3px #4CAF50;
     background: white;
     height: 540px;
     margin-bottom: 40px;
-    max-width: 700px;
+    max-width: 600px;
     overflow-x: auto;
 
     align-items: center;
@@ -240,10 +285,12 @@ display: block;
     margin-bottom: 30px;
     padding: 1.15%;
     border: 3px solid;
-    border-radius: 7px;
-    border-color: #5ca73e;
-    box-shadow: 6px 6px 4px #3e8e41;
+    border-color: #4CAF50;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
+
+
 
 .imgContainer{
     flex: 0 0 auto;
@@ -283,14 +330,15 @@ display: block;
     margin-top: 60px;
     padding: 1.15%;
     border: 3px solid;
-    border-radius: 7px;
-    border-color: #5ca73e;
-    box-shadow: 10px 10px 5px #3e8e41;
+    border-color: #4CAF50;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
+
 
 .spanHome{
     display: flex;
-    margin-top: auto;
+    margin-top: 20px;
     align-items: flex-end
 }
 
@@ -318,15 +366,19 @@ display: block;
     margin: auto;
     display: block;
     position: relative;
-    border-radius: 7px;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
 
 .saveButton, .unsaveButton{
     margin: auto;
     display: block;
     position: relative;
-    border-radius: 7px;
+    color: white;
     background-color: #4CAF50;
+    border: none;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
 
 .saveButton :hover {
@@ -359,9 +411,9 @@ display: block;
     width: 40%;
     padding: 10px;
     border: 3px solid;
-    border-radius: 7px;
-    border-color: #5ca73e;
-    box-shadow: 10px 10px 5px #3e8e41;
+    border-color: #4CAF50;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
     width: 50%;
     display: block;
     position: relative;
@@ -390,9 +442,10 @@ display: block;
     width: 40%;
     padding: 10px;
     border: 3px solid;
-    border-radius: 7px;
-    border-color: #5ca73e;
-    box-shadow: 10px 10px 5px #3e8e41;
+    color: white;
+    border-color: #4CAF50;
+    border-radius: 15px;
+    box-shadow: 5px 5px 5px #4caf4f8a;
 }
 
 .alignTop{
@@ -426,6 +479,7 @@ display: block;
     margin-bottom: 20%;
 }
 
+
 table, th, td {
     border-radius: 7px;
 }
@@ -441,19 +495,19 @@ table, th, td {
 .tickerTable {
     font-family: Arial, Helvetica, sans-serif;
     border-collapse: collapse;
-    width: auto;
-    margin: 0 auto;
+    width: 100%;
 }
 
 .tblTickers{
+    margin-top: 30px;
     display: block;
-    width: 100%;
-    margin-bottom: 100px;
-    margin-top: 40px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
 }
   
 .tblTickers td, .tblTickers th {
-    border: 1px solid #ddd;
+    border-collapse: collapse;
     padding: 5px;
 }
   
@@ -465,16 +519,17 @@ table, th, td {
     padding-top: 12px;
     padding-bottom: 12px;
     text-align: left;
-    background-color: #5ca73e;
+    background-color: #4CAF50;
     color: white;
 }
+
 
 ul {
     list-style-type: none;
     margin-bottom: 10px;
     padding: 4px;
     overflow: hidden;
-    background-color:#61b241;
+    background-color:#4CAF50;
     border-radius: 7px;
 }
 
@@ -483,7 +538,7 @@ li {
 }
 
 li .menu {
-    background-color: #61b241;
+    background-color: #4CAF50;
     border: 0cap;
     width: 97.7px;
     height: 46.4px;
@@ -495,14 +550,15 @@ li .menu {
 }
 
 li .menu:hover:not(.active) {
-    background-color:#5ca73e;
+    background-color: #449a46;
     border-radius: 7px;
 }
 
 .active {
-    background-color: #5ca73e;
+    background-color: #449a46;
     border-radius: 7px;
 }
+
 
 .logo{
     display: block;

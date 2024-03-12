@@ -1,5 +1,6 @@
 $(document).ready(function(){
     $('#divTickerData').hide();
+    $("#displayRMSE").empty();
 
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');
@@ -140,7 +141,7 @@ function displayTabular() {
         .then(data => {
             let tickeritemhtml = "<tr><th>Date</th><th>Open</th><th>High</th><th>Low</th><th>Close</th><th>Volume</th></tr>";
             data.forEach(item => {
-                tickeritemhtml += `<tr><td>${item.date}</td><td>${item.open}</td><td>${item.high}</td><td>${item.low}</td><td>${item.close}</td><td>${item.volume}</td></tr>`;
+                tickeritemhtml += `<tr><td>${luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy')}</td><td>${item.open}</td><td>${item.high}</td><td>${item.low}</td><td>${item.close}</td><td>${item.volume}</td></tr>`;
             });
             $("#tblTickerData").append(tickeritemhtml);
         })
@@ -400,10 +401,9 @@ async function showTickerData(data, tickerid){
         const nmInputs = inputTensor.sub(inputMin).div(inputMax.sub(inputMin));
         const nmLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
 
-        $("#displayRMSE").empty();
         const mseTensor = tf.metrics.meanSquaredError(nmInputs, nmLabels);
         const mseValue = mseTensor.dataSync()[0];
-        let htmlrmse = ('Root Mean Squared Error:', Math.sqrt(mseValue).toFixed(4));
+        const htmlrmse = 'Root Mean Squared Error: ' + Math.sqrt(mseValue).toFixed(4);
         $('#displayRMSE').append(htmlrmse);
 
         const model = tf.sequential(); 

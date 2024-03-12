@@ -1,7 +1,7 @@
 $(document).ready(function(){
     $('.map-container').hide();
     $('.energy-container').hide();
-    $('.tickerOptionsClass').hide();
+    $('.divTickerInfo').hide();
 
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');       
@@ -11,7 +11,7 @@ $(document).ready(function(){
     }
 
     $("#tickerMenu").click(function() {
-        $('.tickerOptionsClass').show();
+        $('.divTickerInfo').show();
         $('.map-container').hide();
         $('.energy-container').hide();
         fetch(`http://localhost:2500/getTickerList`, {
@@ -28,7 +28,8 @@ $(document).ready(function(){
     })
 
     $("#regionMenu").click(function() {
-        $('.tickerOptionsClass').hide();
+        $('.divTickerInfo').hide();
+        $("#tblTickers").empty();
         $('.map-container').show();
         $('.energy-container').hide();
         fetch(`http://localhost:2500/getRegionList`, {
@@ -45,7 +46,8 @@ $(document).ready(function(){
     })
 
     $("#energyMenu").click(function() {
-        $('.tickerOptionsClass').hide();
+        $('.divTickerInfo').hide();
+        $("#tblTickers").empty();
         $('.map-container').hide();
         $('.energy-container').show();
         fetch(`http://localhost:2500/getEnergyList`, {
