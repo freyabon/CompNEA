@@ -83,7 +83,22 @@ $(document).ready(function(){
                 capitalisedSearch = capitaliseWords(search);
 
                 if (regionList.includes(capitalisedSearch)){
-                    $('#searchRegion').append(search + " found in regionList")
+                    fetch(`http://localhost:2500/getTickerContinent?continent=${capitalisedSearch}`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                    })
+                        .then(response => response.json())
+                        .then(regionTicker => {
+                            $('#searchRegion').empty();
+                            let regionhtml = "<tr><th>TickerID</th></tr>";
+                            regionTicker.forEach(item => {
+                                regionhtml += `<tr><td>${item.tickerid}</td></tr>`;
+                            });
+                            $('#searchRegion').append(regionhtml);
+                        })
+                        .catch(error => console.error('Error:', error));
                 } else{
                     fetch(`http://localhost:2500/getEnergyList`, {
                         method: 'GET',
@@ -99,7 +114,22 @@ $(document).ready(function(){
                             });
 
                             if (energyList.includes(capitalisedSearch)){
-                                $('#searchEnergy').append(search + " found in energyList")
+                                fetch(`http://localhost:2500/getTickerEnergy?energysource=${capitalisedSearch}`, {
+                                    method: 'GET',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                    },
+                                })
+                                    .then(response => response.json())
+                                    .then(energyTicker => {
+                                        $('#searchEnergy').empty();
+                                        let energyhtml = "<tr><th>TickerID</th></tr>";
+                                        energyTicker.forEach(item => {
+                                           energyhtml += `<tr><td>${item.tickerid}</td></tr>`;
+                                        });
+                                        $('#searchEnergy').append(energyhtml);
+                                    })
+                                    .catch(error => console.error('Error:', error));
                             } else {
                                 fetch(`http://localhost:2500/getTickerList`, {
                                     method: 'GET',

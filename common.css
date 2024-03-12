@@ -1,3 +1,13 @@
+#selectDataDiv{
+    margin-left:150px;
+    font-size: 20px;
+    border-radius: 7px;
+    border: solid 3px #5ca73e;
+    box-shadow: 5px 5px 5px #4caf4f8a;
+    width: 250px;
+    padding: 3px;
+}
+
 .displayAccuracy{
     display: block;
     margin-left: auto;

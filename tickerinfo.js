@@ -1,12 +1,33 @@
 $(document).ready(function(){
     $('#divTickerData').hide();
-    $("#displayRMSE").empty();
+    $("#displayRMSE").hide();
 
     const urlParams = new URLSearchParams(window.location.search);
     const usernameParam = urlParams.get('username');
     const tickerParam = urlParams.get('tickerid');   
+    
+    $("#tickerName").append(tickerParam);
+    tickerinfohtml = '';
+    fetch(`http://localhost:2500/getTickerInfo?tickerid=${tickerParam}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                info = data[0];
+                tickerinfohtml += `<div>Company Name: ${info.tickername}</div><div>Where: ${info.continent}</div><div>Energy Source(s): `;
+                data.forEach(item => {
+                    tickerinfohtml += `<div>- ${item.energysource}</div></div>`;
+                });
+                $('#tickerInfoStats').append(tickerinfohtml);
+            })
+            .catch(error => console.error('Error:', error)); 
 
-    $(document).on('change', '#openBox, #highBox, #lowBox, #closeBox, #volumeBox, #predictionBox, #SMABox', function() {
+    $(document).on('change', '#openBox, #highBox, #lowBox, #closeBox, #volumeBox', function() {
+        $("#selectDataDiv").hide();
 
         if ($(this).prop('checked')) {
             $('#openBox, #highBox, #lowBox, #closeBox, #volumeBox').not(this).prop('checked', false);
@@ -24,9 +45,11 @@ $(document).ready(function(){
             })
             .catch(error => console.error('Error:', error));
     });
-    
-    
-    fetch(`http://localhost:2500/getTickerData?tickerid=${tickerParam}`, {
+
+    $(document).on('change', '#predictionBox, #SMABox', function() {
+        $("#selectDataDiv").hide();
+
+        fetch(`http://localhost:2500/getTickerData?tickerid=${tickerParam}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -37,6 +60,7 @@ $(document).ready(function(){
                 showTickerData(data, tickerParam);
             })
             .catch(error => console.error('Error:', error));
+    });
 
     
     fetch(`http://localhost:2500/getSavedTickers?Username=${usernameParam}`, {
@@ -488,7 +512,7 @@ async function showTickerData(data, tickerid){
         volumeDatasets.push({
             label: 'Volume (units)',
             data: volume,
-            borderColor: 'yellow',
+            borderColor: 'black',
             borderWidth: 2,
             fill: true,
             pointRadius: 0,
@@ -608,6 +632,7 @@ async function showTickerData(data, tickerid){
         const nmLabels = labelTensor.sub(labelMin).div(labelMax.sub(labelMin));
 
         $('#displayRMSE').empty();
+        $("#displayRMSE").show();
         const mseTensor = tf.metrics.meanSquaredError(nmInputs, nmLabels);
         const mseValue = mseTensor.dataSync()[0];
         const htmlrmse = 'Root Mean Squared Error: ' + Math.sqrt(mseValue).toFixed(4);
@@ -648,27 +673,6 @@ async function showTickerData(data, tickerid){
             shuffle: true
         });
     }
-
-    $("#tickerName").append(tickerid);
-    
-    tickerinfohtml = '';
-    fetch(`http://localhost:2500/getTickerInfo?tickerid=${tickerid}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-                info = data[0];
-                tickerinfohtml += `<div>Company Name: ${info.tickername}</div><div>Where: ${info.continent}</div><div>Energy Source(s): `;
-                data.forEach(item => {
-                    tickerinfohtml += `<div>- ${item.energysource}</div></div>`;
-                });
-                $('#tickerInfoStats').append(tickerinfohtml);
-            })
-            .catch(error => console.error('Error:', error)); 
 }
 
 function computeSMA(dates, stockData, windowSize){
