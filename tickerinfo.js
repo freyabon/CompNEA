@@ -435,9 +435,11 @@ async function showTickerData(data, tickerid){
         const batchSize = 35;
         const epochs = 100;
         const callbacks = tfvis.show.fitCallbacks(surface, ['loss'], {callbacks:['onEpochEnd']})
-        return await model.fit(inputs, labels,
-          {batchSize, epochs, shuffle:true, callbacks:callbacks}
-        );
+        return await model.fit(inputs, labels, {
+            batchSize,
+            epochs,
+            shuffle: true
+        });
     }
 
     $("#tickerName").append(tickerid);
