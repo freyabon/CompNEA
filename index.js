@@ -164,7 +164,7 @@ app.get('/getTickerList', (req, res) => {
 });
 
 app.get('/getRegionTicker', (req, res) => {
-    const SelectQuery = 'SELECT tickerid,  continent FROM sustainablestocks.tickerlist JOIN sustainablestocks.region ON sustainablestocks.tickerlist.regionid = sustainablestocks.region.regionid';
+    const SelectQuery = 'SELECT tickerid,  continent, coordinates FROM sustainablestocks.tickerlist JOIN sustainablestocks.region ON sustainablestocks.tickerlist.regionid = sustainablestocks.region.regionid';
     
     pool.query(SelectQuery, (err, results) => {
         if (err) {
@@ -302,13 +302,13 @@ app.post('/registerUserDetails', (req, res) => {
             return;
         }
 
-        const count = results[0].count;
-        if (count === 0) {
+        const countUsername = results[0].count;
+        if (countUsername === 0) {
             let salt = generateSalt(10);
             let hashedPassword = hash(sanitisedPassword, salt);
 
             const RegisterQuery = 'INSERT INTO sustainablestocks.hasheduserdetails (Username, salt, hashedPassword) VALUES (?, ?, ?)';
-            const RegisterValues = [sanitisedUsername, salt, hashedPassword];
+            const RegisterValues = [sanitisedUsername, hashedPassword.salt, hashedPassword.hashedpassword];
 
             pool.query(RegisterQuery, RegisterValues, (err, results) => {
                 if (err) {
@@ -316,7 +316,7 @@ app.post('/registerUserDetails', (req, res) => {
                     res.status(500).send('Internal Server Error');
                     return;
                 }
-                res.status(200).send('User data inserted successfully');
+                res.status(200).send('User registered successfully');
             });
         } else {
             res.status(401).send('User already exists');

@@ -51,12 +51,10 @@ $(document).ready(function(){
         username=$('#regUser')[0].value;
         password=$('#regPass')[0].value;
         password2=$('#regPass2')[0].value;
-        console.log(username);
-        console.log(password);
         
         if(password === password2){
             $("#spPassError").hide();
-            console.log('Registered');
+            $("#userError").hide();
 
             const userData = {
               Username: username,
@@ -72,14 +70,18 @@ $(document).ready(function(){
              
           })
          
-          .then(response => response.text())
-          .then(data => {
-              console.log(data);
-          })
-          .catch(error => console.error('Database error:', error));
+          .then(response => {
+            if (response.ok) {
+                const queryString = `?username=${username}`;
+                window.location.href = `home_page.html${queryString}`;
+            } else{
+                $("#userRegisteredError").show();
+                throw new Error('User already registered');
+            }
+           })
+           .catch(error => console.error('Database error:', error));
 
         } else{
-            e.preventDefault();
             $("#spPassError").show();
         }
     })

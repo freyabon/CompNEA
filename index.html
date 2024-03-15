@@ -41,7 +41,7 @@
             <div class="w3-container w3-teal">
               <h2>Register</h2>
             </div>
-            <form class="w3-container" action="index.html">
+            <div class="w3-container">
               <p>      
                 <label class="w3-text-teal"><b>Username/Email</b></label>
                 <input id="regUser" class="w3-input w3-border w3-sand" name="first" type="text">
@@ -64,9 +64,9 @@
               <p>
                 <button id="btnRegister" class="w3-btn w3-teal">Register</button>
                 <span id="spPassError" class="passError">Passwords do not match. Please try again.</span>
+                <span id="userRegisteredError" class="passError">User already exists. Use a different username.</span>
               </p>
-              
-            </form>
+            </div>
         </div>
         
         <script src="loginpage.js"></script>

@@ -92,9 +92,10 @@ $(document).ready(function(){
                         .then(response => response.json())
                         .then(regionTicker => {
                             $('#searchRegion').empty();
-                            let regionhtml = "<tr><th>TickerID</th></tr>";
+                            $('#searchEnergy').empty();
+                            let regionhtml = `<tr><th>Tickers available for ${capitalisedSearch}</th></tr>`;
                             regionTicker.forEach(item => {
-                                regionhtml += `<tr><td>${item.tickerid}</td></tr>`;
+                                regionhtml += `<tr><td><a href="ticker_info.html?tickerid=${item.tickerid}&username=${usernameParam}">${item.tickerid}</a></td></tr>`;
                             });
                             $('#searchRegion').append(regionhtml);
                         })
@@ -123,9 +124,10 @@ $(document).ready(function(){
                                     .then(response => response.json())
                                     .then(energyTicker => {
                                         $('#searchEnergy').empty();
-                                        let energyhtml = "<tr><th>TickerID</th></tr>";
+                                        $('#searchRegion').empty();
+                                        let energyhtml = `<tr><th>Tickers available for ${capitalisedSearch}</th></tr>`;
                                         energyTicker.forEach(item => {
-                                           energyhtml += `<tr><td>${item.tickerid}</td></tr>`;
+                                           energyhtml += `<tr><td><a href="ticker_info.html?tickerid=${item.tickerid}&username=${usernameParam}">${item.tickerid}</a></td></tr>`;
                                         });
                                         $('#searchEnergy').append(energyhtml);
                                     })
@@ -220,7 +222,7 @@ function showRegions(data){
 
     function drawMap() {
         var mapData = new google.visualization.DataTable();
-        mapData.addColumn('string', 'Continent');
+        mapData.addColumn('string', 'Location');
         mapData.addColumn('string', 'Available Tickers');
 
         fetch(`http://localhost:2500/getRegionTicker`, {
@@ -231,18 +233,8 @@ function showRegions(data){
         })
             .then(response => response.json())
             .then(dataRegion => {
-                var continentTickers = {};
-
                 dataRegion.forEach(item => {
-                    if (!continentTickers[item.continent]) {
-                        continentTickers[item.continent] = [];
-                    }
-                    continentTickers[item.continent].push(item.tickerid);
-                });
-
-                Object.keys(continentTickers).forEach(continent => {
-                    var tickers = continentTickers[continent].join(', ');
-                    mapData.addRow([continent, tickers]);
+                    mapData.addRow([item.coordinates, 'TickerID: ' + item.tickerid + ', Coords: ' + item.coordinates])
                 });
                 })
             .catch(error => console.error('Error:', error));
@@ -254,7 +246,8 @@ function showRegions(data){
 
         var map = new google.visualization.Map(document.getElementById('chart_div'));
 
-        $('#mapInfo').append("Hover over a pin to view the available tickers for that region:");
+        //$('#mapInfo').append("Hover over a pin to view the available tickers for that region:");
+        $('#mapInfo').append("Hover over a pin to view location of available tickers:");
         map.draw(mapData, options);
     };
 }

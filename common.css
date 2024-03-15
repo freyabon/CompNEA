@@ -348,7 +348,7 @@
 
 .spanHome{
     display: flex;
-    margin-top: 20px;
+    margin-top: 175px;
     align-items: flex-end
 }
 
@@ -357,7 +357,7 @@
 }
 
 .welcomeDiv{
-    margin-left: 380px;
+    margin-left: 390px;
     width: auto;
 }
 
@@ -369,7 +369,7 @@
 }
 
 .backImg{
-    margin-left: 300px;
+    margin-left: 350px;
 }
 
 .w3-btn w3-green{
