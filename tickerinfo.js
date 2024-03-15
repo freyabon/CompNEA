@@ -24,27 +24,18 @@ $(document).ready(function(){
                 });
                 $('#tickerInfoStats').append(tickerinfohtml);
             })
-            .catch(error => console.error('Error:', error)); 
+            .catch(error => console.error('Error:', error));
+            
+    fetchAndShowData(tickerParam);
 
     $(document).on('change', '#openBox, #highBox, #lowBox, #closeBox, #volumeBox', function() {
-        $("#selectDataDiv").hide();
-
         if ($(this).prop('checked')) {
             $('#openBox, #highBox, #lowBox, #closeBox, #volumeBox').not(this).prop('checked', false);
         }
-
-        fetch(`http://localhost:2500/getTickerData?tickerid=${tickerParam}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-            .then(response => response.json())
-            .then(data => {
-                showTickerData(data, tickerParam);
-            })
-            .catch(error => console.error('Error:', error));
+        fetchAndShowData(tickerParam);
+        console.log('function called')
     });
+
 
     $(document).on('change', '#predictionBox, #SMABox', function() {
         $("#selectDataDiv").hide();
@@ -281,6 +272,14 @@ async function fetchNews(ticker_id) {
     }
     $("#tickerNews").append(tickerNewsHTML);
 }
+
+async function fetchAndShowData(tickerParam) {
+    const response = await fetch(`http://localhost:2500/getTickerData?tickerid=${tickerParam}`);
+    const data = await response.json();
+    showTickerData(data, tickerParam);
+}
+
+let myChart;
 
 async function showTickerData(data, tickerid){
     fetchData(tickerid);
@@ -546,8 +545,11 @@ async function showTickerData(data, tickerid){
                 spanGaps: true
             });
         }
+        if (myChart instanceof Chart) {
+            myChart.destroy();
+        }
         let ctx = document.getElementById('myChart').getContext('2d');
-        let myChart = new Chart(ctx, {
+        myChart = new Chart(ctx, {
             type: 'line',
             data: {
                 labels: dates,
@@ -689,8 +691,11 @@ function computeSMA(dates, stockData, windowSize){
 }
 
 function updateChart(datasets, dates) {
+    if (myChart instanceof Chart) {
+        myChart.destroy();
+    }
     const ctx = document.getElementById('myChart').getContext('2d');
-    let myChart = new Chart(ctx, {
+    myChart = new Chart(ctx, {
         type: 'line',
         data: {
             labels: dates,
