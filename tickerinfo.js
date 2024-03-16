@@ -207,7 +207,7 @@ async function fetchData(ticker_id) {
             const lowValue = result["Time Series (Daily)"][date]["3. low"];
             const closeValue = result["Time Series (Daily)"][date]["4. close"];
             const volumeValue = result["Time Series (Daily)"][date]["5. volume"];
-            console.log('Date: ' + date + ', Open: ' + openValue + ', High: ' + highValue + ', Low: ' + lowValue + ', Close: ' + closeValue + ', Volume: ' + volumeValue);
+            //console.log('Date: ' + date + ', Open: ' + openValue + ', High: ' + highValue + ', Low: ' + lowValue + ', Close: ' + closeValue + ', Volume: ' + volumeValue);
         
             const tickerData = {
                 tickerid: ticker,
@@ -230,7 +230,6 @@ async function fetchData(ticker_id) {
 
           .then(response => response.text())
           .then(data => {
-              console.log(data);
           })
           .catch(error => console.error('Database error:', error));
 
@@ -263,8 +262,7 @@ async function fetchNews(ticker_id) {
             const summary = newsFeed["summary"];
             const bannerImage = newsFeed["banner_image"];
             const source = newsFeed["source"];
-            //console.log('Title: ' + title + ', url: ' + url + ', Summary: ' + summary + ', Banner: ' + bannerImage + ', Source: ' + source);
-
+            
             tickerNewsHTML += `<div class="storyBlock"><div class="imgContainer"><img src="${bannerImage}" alt="News story banner" class="bannerImg"></div><div class="textContainer"><div style="text-decoration: underline; text-decoration-color: green;">News Title: ${title}</div><div>Summary: ${summary}</div><a href="${url}" target="_blank">Read more...</a></div></div>`
         }
     } catch (error) {
@@ -296,16 +294,12 @@ async function showTickerData(data, tickerid){
     const dates = data.map(item => luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy'));
     const lastDate = luxon.DateTime.fromISO(data[data.length - 1].date);
 
-    /*const futureDates = [];
+    const futureDates = [];
     for (let i = 1; i <= 30; i++) {
         const futureDate = lastDate.plus({days: i}).toFormat('dd/MM/yyyy');
         futureDates.push(futureDate);
     }
     const combinedDates = [...dates, ...futureDates];
-    const objData = combinedDates.map((date, index) => ({
-        date: date,
-        label: index < dates.length ? labelData[index] : null //for historical data, close is set to the corresponding close price but for future dates, close is set to null
-    }));*/
 
     function convertToCSV(data) {
         const dates = data.map(item => luxon.DateTime.fromISO(item.date).toFormat('dd/MM/yyyy'));
@@ -504,7 +498,7 @@ async function showTickerData(data, tickerid){
     }
 
     if(!isVolumeChecked){
-        updateChart(datasets, dates);
+        updateChart(datasets, combinedDates);
     } else {
         const volume = data.map(item => parseFloat(item.volume));
         let volumeDatasets = [];
@@ -513,7 +507,7 @@ async function showTickerData(data, tickerid){
             data: volume,
             borderColor: 'black',
             borderWidth: 2,
-            fill: true,
+            fill: false,
             pointRadius: 0,
             pointHoverRadius: 25,
             spanGaps: true
@@ -522,7 +516,7 @@ async function showTickerData(data, tickerid){
         if (isPredChecked){
             let predictedValuesVolume = [];
             predictedValuesVolume = await runTF(smaValuesVolume);
-            datasets.push({
+            volumeDatasets.push({
                 label: 'Predicted Volume',
                 data: predictedValuesVolume,
                 borderColor: 'orange',
@@ -534,7 +528,7 @@ async function showTickerData(data, tickerid){
             });
         }
         if (isSMAChecked) {
-            datasets.push({
+            volumeDatasets.push({
                 label: 'SMA Volume',
                 data: smaValuesVolume.map(item => item.data),
                 borderColor: 'red',
@@ -552,7 +546,7 @@ async function showTickerData(data, tickerid){
         myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: dates,
+                labels: combinedDates,
                 datasets: volumeDatasets
             },
             options: {
@@ -612,20 +606,20 @@ async function showTickerData(data, tickerid){
 
         return { x: timestamp, y: parseFloat(obj.data) };
     }
+    
 
     function removeErrors(obj) {
-        return obj.x != null && obj.y != null;
-    }
+        return obj && typeof obj.x !== 'undefined' && obj.y !== null;
+    }    
 
     async function runTF(stockData) {
         let values = stockData.map(extractData).filter(removeErrors);
-        
         const surface2 = document.getElementById("plot2");
 
-        const inputs = values.map(obj => obj.x);
-        const labels = values.map(obj => obj.y);
-        const inputTensor = tf.tensor2d(inputs, [inputs.length, 1]);
-        const labelTensor = tf.tensor2d(labels, [labels.length, 1]);
+        const historicalInputs = values.map(obj => obj.x);
+        const historicalLabels = values.map(obj => obj.y);
+        const inputTensor = tf.tensor2d(historicalInputs, [historicalInputs.length, 1]);
+        const labelTensor = tf.tensor2d(historicalLabels, [historicalLabels.length, 1]);
         const inputMin = inputTensor.min();  
         const inputMax = inputTensor.max();
         const labelMin = labelTensor.min();
@@ -647,8 +641,20 @@ async function showTickerData(data, tickerid){
 
         await trainModel(model, nmInputs, nmLabels, surface2);
 
-        let unX = tf.linspace(0, 1, 100);      
-        let unY = model.predict(unX.reshape([100, 1]));      
+        const futureDates = [];
+        const lastTimestamp = historicalInputs[historicalInputs.length - 1];
+        for (let i = 1; i <= 30; i++){
+            const futureDate = lastTimestamp + (i*24*3600*1000)//timestamp is in milliseconds
+            futureDates.push(futureDate);
+        }
+        const combinedDates = [...historicalInputs, ...futureDates];
+        const combinedMin = Math.min(...combinedDates);  
+        const combinedMax = Math.max(...combinedDates);  
+        const nmcombinedDates = combinedDates.map(date => (date - combinedMin) / (combinedMax - combinedMin));
+        
+        let nmcombinedDatesTensor = tf.tensor2d(nmcombinedDates, [nmcombinedDates.length, 1]);
+        let unX = tf.concat([nmInputs, nmcombinedDatesTensor], 0);
+        let unY = model.predict(unX);   
         const unNormunX = unX
         .mul(inputMax.sub(inputMin))
         .add(inputMin);
