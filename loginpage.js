@@ -91,7 +91,6 @@ $(document).ready(function(){
         if ($("#letter").hasClass("invalid") || $("#capital").hasClass("invalid") || $("#number").hasClass("invalid") || $("#length").hasClass("invalid")) {
             $("#spPassError").hide();
             $("#validError").show();
-            //alert("Please ensure password meets all requirements.");
         }
     })
 
