@@ -207,7 +207,7 @@ async function fetchData(ticker_id) {
             const lowValue = result["Time Series (Daily)"][date]["3. low"];
             const closeValue = result["Time Series (Daily)"][date]["4. close"];
             const volumeValue = result["Time Series (Daily)"][date]["5. volume"];
-            //console.log('Date: ' + date + ', Open: ' + openValue + ', High: ' + highValue + ', Low: ' + lowValue + ', Close: ' + closeValue + ', Volume: ' + volumeValue);
+            console.log('Date: ' + date + ', Open: ' + openValue + ', High: ' + highValue + ', Low: ' + lowValue + ', Close: ' + closeValue + ', Volume: ' + volumeValue);
         
             const tickerData = {
                 tickerid: ticker,
@@ -637,7 +637,7 @@ async function showTickerData(data, tickerid){
         const model = tf.sequential(); 
         model.add(tf.layers.dense({inputShape: [1], units: 64, activation: 'relu'}));
         model.add(tf.layers.dense({units: 1, activation: 'linear'}));
-        model.compile({loss:'meanSquaredError', optimizer: tf.train.adam(0.1)});
+        model.compile({loss:'meanSquaredError', optimizer: tf.train.adam(0.01)});
 
         await trainModel(model, nmInputs, nmLabels, surface2);
 

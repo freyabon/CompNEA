@@ -55,34 +55,43 @@ $(document).ready(function(){
         if(password === password2){
             $("#spPassError").hide();
             $("#userError").hide();
+            $("#validError").hide();
 
-            const userData = {
-              Username: username,
-              Password: password
-          };
-      
-          fetch('http://localhost:2500/registerUserDetails', {
-              method: 'POST',
-              headers: {
-                  'Content-Type': 'application/json',
-              },
-              body: JSON.stringify(userData),
-             
-          })
-         
-          .then(response => {
-            if (response.ok) {
-                const queryString = `?username=${username}`;
-                window.location.href = `home_page.html${queryString}`;
-            } else{
-                $("#userRegisteredError").show();
-                throw new Error('User already registered');
+            if ($("#letter").hasClass("valid") && $("#capital").hasClass("valid") && $("#number").hasClass("valid") && $("#length").hasClass("valid")){
+                const userData = {
+                    Username: username,
+                    Password: password
+                };
+            
+                fetch('http://localhost:2500/registerUserDetails', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(userData),
+                   
+                })
+               
+                .then(response => {
+                  if (response.ok) {
+                      const queryString = `?username=${username}`;
+                      window.location.href = `home_page.html${queryString}`;
+                  } else{
+                      $("#userRegisteredError").show();
+                      throw new Error('User already registered');
+                  }
+                 })
+                 .catch(error => console.error('Database error:', error));
             }
-           })
-           .catch(error => console.error('Database error:', error));
-
-        } else{
+        } 
+        if (password !== password2){
             $("#spPassError").show();
+        }
+        
+        if ($("#letter").hasClass("invalid") || $("#capital").hasClass("invalid") || $("#number").hasClass("invalid") || $("#length").hasClass("invalid")) {
+            $("#spPassError").hide();
+            $("#validError").show();
+            //alert("Please ensure password meets all requirements.");
         }
     })
 

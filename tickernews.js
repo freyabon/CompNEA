@@ -51,8 +51,7 @@ async function fetchNews() {
             const summary = newsFeed["summary"];
             const bannerImage = newsFeed["banner_image"];
             const source = newsFeed["source"];
-            //console.log('Title: ' + title + ', url: ' + url + ', Summary: ' + summary + ', Banner: ' + bannerImage + ', Source: ' + source);
-
+            
             tickerNewsHTML += `<div class="storyBlock"><div class="imgContainer"><img src="${bannerImage}" alt="News story banner" class="bannerImg"></div><div class="textContainer"><div style="text-decoration: underline; text-decoration-color: green;">News Title: ${title}</div><div>Summary: ${summary}</div><a href="${url}" target="_blank">Read more...</a></div></div>`
         }
     } catch (error) {

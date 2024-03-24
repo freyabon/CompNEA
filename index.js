@@ -303,6 +303,7 @@ app.post('/registerUserDetails', (req, res) => {
         }
 
         const countUsername = results[0].count;
+        console.log(countUsername);
         if (countUsername === 0) {
             let salt = generateSalt(10);
             let hashedPassword = hash(sanitisedPassword, salt);
