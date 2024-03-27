@@ -644,7 +644,7 @@ async function showTickerData(data, tickerid){
         const futureDates = [];
         const lastTimestamp = historicalInputs[historicalInputs.length - 1];
         for (let i = 1; i <= 30; i++){
-            const futureDate = lastTimestamp + (i*24*3600*1000)//timestamp is in milliseconds
+            const futureDate = lastTimestamp + (i*24*3600*1000)
             futureDates.push(futureDate);
         }
         const combinedDates = [...historicalInputs, ...futureDates];
