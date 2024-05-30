@@ -1,0 +1,209 @@
+@import url("https://fonts.googleapis.com/css2?family=Bungee&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  border: 0;
+  -webkit-tap-highlight-color: transparent;
+  text-decoration: none;
+  color: inherit;
+  box-sizing: border-box;
+}
+
+* input::-webkit-outer-spin-button,
+* input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+* &:focus {
+  outline: 0;
+}
+
+span {
+  display: block;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f79d65;
+  font-family: "Bungee", cursive;
+  user-select: none;
+  position: relative;
+}
+
+.message {
+  width: 150px;
+  height: 150px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: transparent;
+  transition: all 0.4s ease;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.message.clicked {
+  background-color: #ff6b6b;
+  border-radius: 0;
+  width: 100%;
+  height: 100vh;
+  transition: all 1s ease;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.message.clicked:hover {
+  transform: none;
+  box-shadow: 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.message.clicked .message__btn {
+  display: none;
+}
+
+.message.clicked .message__text {
+  opacity: 1;
+  visibility: visible;
+  animation: text 0.6s 1s ease both;
+}
+
+@keyframes text {
+  0% {
+    opacity: 0;
+    transform: translateY(80px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+}
+
+.message__btn {
+  background-color: #ff6b6b;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transition: all 0.2s cubic-bezier(0.55, 0.41, 0.37, 1.41);
+  cursor: pointer;
+  font-family: "Bungee", cursive;
+  color: white;
+  letter-spacing: 2px;
+  z-index: 2;
+  border: 2px solid #cc444b;
+  box-shadow: 0px 8px 0px -2px #e63946, 0px 8px 0px 0px #cc444b;
+}
+
+.message__btn:hover {
+  transform: translateY(3px);
+  box-shadow: 0px 0px 0px -2px #e63946, 0px 0px 0px 0px #cc444b;
+}
+
+.message__text {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  display: flex;
+  z-index: 1;
+  top: 20px;
+  width: 100%;
+  justify-content: center;
+}
+
+.message__letters {
+  font-size: 80px;
+  padding: 10px;
+  margin: 0 -5px;
+  text-transform: uppercase;
+  position: relative;
+  -webkit-text-stroke: 2px #cc444b;
+  animation: letters 1s ease infinite alternate both;
+}
+
+@media screen and (max-width: 900px) {
+  .message__letters {
+    font-size: 40px;
+    padding: 5px;
+  }
+}
+
+@keyframes letters {
+  0% {
+    transform: translateY(20px);
+  }
+  100% {
+    transform: translateY(-20px);
+  }
+}
+
+.message__letters.stopped {
+  animation: none;
+}
+
+.message__letterMain {
+  position: relative;
+  user-select: none;
+  z-index: 1;
+  transition: all 0.4s ease, transform 2s 0.4s ease;
+}
+
+.message__letterShadow {
+  position: absolute;
+  left: 10px;
+  top: 20px;
+  color: #e63946;
+  transition: all 0.4s ease, transform 2s 0.4s ease;
+}
+
+@media screen and (max-width: 900px) {
+  .message__letterShadow {
+    top: 10px;
+  }
+}
+
+.reload {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  z-index: 1;
+  border-radius: 10px;
+  background-color: #ff6b6b;
+  color: white;
+  border: 2px solid #cc444b;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: none;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 100%);
+  width: 80%;
+  max-width: 600px;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  text-align: center;
+  padding: 20px;
+  transition: transform 1s ease;
+  opacity: 0;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 20px;
+}
+
+.card.show {
+  transform: translate(-50%, 0);
+  opacity: 1;
+}
